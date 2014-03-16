@@ -63,4 +63,3 @@
       rewrite ^ http://stage.beesbot.com/ubuntu-video/? permanent;
     }
 
-
