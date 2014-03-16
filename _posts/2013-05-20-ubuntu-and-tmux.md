@@ -1,0 +1,54 @@
+---
+layout: post
+title:  "Ubuntu & TMUX"
+date:   2013-05-20
+categories: ubuntu tmux
+summary: First off from the tmux website... "tmux is a terminal multiplexer. What is a terminal multiplexer? It lets you switch easily between several programs in one terminal..." 
+permalink: ubuntu-tmux/
+---
+First off, from the [tmux website](http://tmux.sourceforge.net/)... "tmux is a terminal multiplexer. What is a terminal multiplexer? It lets you switch easily between several programs in one terminal..." 
+
+## Easy to install on Ubuntu
+
+{% highlight bash %}
+sudo apt-get install tmux
+{% endhighlight %}
+
+Make it run every time you open a terminal
+
+{% highlight bash %}
+# add at the end of .bashrc
+if [[ ! $TERM =~ screen ]]; then
+    exec tmux
+fi
+{% endhighlight %}
+
+## Use it right away...
+Ctrl-b, % splits the screen vertically
+Ctrl-b, " splits the screen horizontally
+Ctrl-b, arrow to move between screens. arrow key in the direction you want to move
+
+## Remember commands
+You're always using tmux in the terminal, why not have your bash echo common commands every time you open a terminal.
+
+{% highlight bash %}
+# edit the bashrc
+nano ~/.bashrc
+
+# add the following
+echo "tmux commands"
+echo "--------------------------"
+echo "shift to highlight"
+echo "ctrl b + letter"
+echo "c           new window"
+echo "w           list windows"
+echo "&           kill window"
+{% endhighlight %}
+
+## Configuration
+I added this because I wanted my mouse wheel to scroll up; note, hit the escape key to get out of scroll mode
+echo "set-window-option -g mode-mouse on" >> ~/.tmux.conf
+
+
+## Cool Cheats 
+[Mohamed Alaa](https://gist.github.com/MohamedAlaa/2961058)

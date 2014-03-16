@@ -1,0 +1,17 @@
+---
+layout: post
+title:  "Ubuntu & H.264 Codec"
+date:   2012-11-15
+categories: ubuntu video
+summary: Encode amazing looking video with the H.264 codec on ubuntu
+permalink: ubuntu-video/
+---
+
+Want to encode amazing looking video with the H.264 codec on ubuntu?
+
+Here's why it's difficult and how to make it not difficult.  Ubuntu's ffmpeg utility supports X.264 which is the open source version of H.264, but is stripped out of the default Ubuntu repositories due to legal reasons. And here are the resources to get x.264 working with ffmpeg:
+
+Check out the [install process](http://askubuntu.com/questions/148554/installingffmpeg-libx264-and-libavfilter)
+
+Quickstart guide to using ffmpeg x264:
+http://rob.opendot.cl/index.php/useful-stuff/ffmpeg-x264-encoding-guide/

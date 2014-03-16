@@ -1,0 +1,6 @@
+name: Beesbot.com
+markdown: redcarpet
+pygments: true
+exclude: ["vendor"]
+excerpt_separator: <!-- more -->
+include: [.htaccess]

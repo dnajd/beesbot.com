@@ -1,0 +1,58 @@
+---
+layout: post
+title:  "Nao Colored Object Detection"
+date:   2013-01-04
+categories: makey ruby
+summary: The Colored Object Detection module was developed by Vincent Berenz and can be added to NAO
+permalink: nao-colored-object-detection/
+---
+
+The Colored Object Detection module was developed by Vincent Berenz and can bee added to NAO. The module is described as, "allowing detection of blue, red, green and yellow objects. Adding more colors is also possible."
+
+## Install on Nao
+
+Word of warning... this has only been tested on NAO Next Gen. If you have a Nao Next Gen, then download the module and follow these instructions.
+
+Use an ftp program like filezilla to connect to nao.local:
+
+* Create a folder in the root called 'mymodules'
+* Upload the file 'libcolored_object_detection.so' into that folder
+* the module comes with an example 'autoload.ini' that you can upload to /naoqi/preferences
+** if you have never edited Nao's autoload.ini, you can overwrite the autoload.ini on the robot with the file included in the module; otherwise of course merge in the configuration manually.
+
+## Confirm it Worked
+
+To confirm the module was installed properly
+
+* Browse to your Nao (http://nao.local). 
+* Go to the "advanced" menu and then to "naoqi". 
+* Select the "restart" button to restart naoqi on the robot. 
+* After restart the module should show up in the list as "ColoredObjectDetection"
+
+## Using the Module in Choregraphe
+If you create a script box with this code.
+
+{% highlight python %}
+# get the module
+codProxy = ALProxy("ColoredObjectDetection")
+
+# subscribe ALMemory Event 
+codProxy.subscribe("ColoredObjectDetection")
+{% endhighlight %}
+
+You can then right-click on the margin in choregraphe and "Add Input from ALMemory", which will be stimulated when nao recognizes an object. The list returned by the module consist of:
+
+{% highlight python %}
+# color
+color = value[0]
+
+# more than -1 if detected
+NbPixels = self.value[1] 
+
+# position
+Yaw = value[2]
+Pitch = value[3]
+X = value[4]
+Y = value[5]
+
+{% endhighlight %}

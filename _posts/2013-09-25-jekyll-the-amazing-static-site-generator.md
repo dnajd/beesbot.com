@@ -1,0 +1,48 @@
+---
+layout: post
+title:  "Jekyll the Amazing Static Site Generator"
+date:   2013-09-25
+categories: dell windows 8 ubuntu grub
+summary: You're used to thinking cms or wordpress for building websites that require templating or ease of editing; but in my experience 90% of the time it ends up feeling like your "killing an ant with a sledgehammer".
+permalink: jekyll-static-site-generator/
+---
+
+You're used to thinking cms or wordpress for building websites that require templating or ease of editing; but in my experience 90% of the time it ends up feeling like your "killing an ant with a sledgehammer".  It's not every day you discover a vastly more simple solution to a very common problem, but static site generators + markdown are it.  I'm convinced.
+
+## Build Websites
+
+[Jekyll](http://jekyllrb.com/) is a static site generator that helps developers build websites and solves problems including:
+
+* templates & partials - easy to maintain and [DRY](http://en.wikipedia.org/wiki/Don't_repeat_yourself)
+* [canonical urls](http://www.mattcutts.com/blog/seo-advice-url-canonicalization/) - seo friendly
+* asset optimiziation - blazing fast
+* markdown - really easy to edit
+* free hosting - when combined with github pages
+
+### And What's More
+It does this without a hundred thousand pounds of code, without more expensive hosting, without needing tons of security patches and without a database.  In my mind it's a whole new way of building website and it's refreshing.
+
+## One Catch 
+You have to install ruby and the gem. But it's really not that big of a deal...
+
+### 1. Install Ruby 
+
+You can use [my preferred approach](/ubuntu/rbenv/ruby/bundler/2013/02/10/rbenv-ubuntu-bundler.html) or find instructions on google quite easily
+
+### 2. Install the jekyll gem
+
+{% highlight bash %}
+gem install jekyll
+{% endhighlight %}
+
+### 3. Add Jekyll to your path
+On my machine I found Jekyll in the following folder and added it to my .bashrc as follows
+
+{% highlight bash %}
+export PATH="$PATH:$HOME//.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/jekyll-1.1.2/bin"
+{% endhighlight %}
+
+Then you can create a jekyll site with the following:
+jekyll new my-site
+
+Try it out... it's fantastic.
