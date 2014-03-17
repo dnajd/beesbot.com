@@ -1,95 +1,95 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>/ubuntu-video/</loc>
+        <loc>http://www.beesbot.com/ubuntu-video/</loc>
         <lastmod>2014-03-17T00:07:36-07:00</lastmod>
     </url>
     <url>
-        <loc>/video-for-the-web/</loc>
+        <loc>http://www.beesbot.com/video-for-the-web/</loc>
         <lastmod>2014-03-17T00:07:42-07:00</lastmod>
     </url>
     <url>
-        <loc>/what-can-nao-do/</loc>
+        <loc>http://www.beesbot.com/what-can-nao-do/</loc>
         <lastmod>2014-03-17T00:07:46-07:00</lastmod>
     </url>
     <url>
-        <loc>/makey-makey-fruit/</loc>
+        <loc>http://www.beesbot.com/makey-makey-fruit/</loc>
         <lastmod>2014-03-17T00:07:12-07:00</lastmod>
     </url>
     <url>
-        <loc>/nao-colored-object-detection/</loc>
+        <loc>http://www.beesbot.com/nao-colored-object-detection/</loc>
         <lastmod>2014-03-17T00:07:55-07:00</lastmod>
     </url>
     <url>
-        <loc>/rbenv-ubuntu-bundler/</loc>
+        <loc>http://www.beesbot.com/rbenv-ubuntu-bundler/</loc>
         <lastmod>2014-03-17T00:07:52-07:00</lastmod>
     </url>
     <url>
-        <loc>/ubuntu-dot-net-mvc/</loc>
+        <loc>http://www.beesbot.com/ubuntu-dot-net-mvc/</loc>
         <lastmod>2014-03-17T00:07:58-07:00</lastmod>
     </url>
     <url>
-        <loc>/naoscript/</loc>
+        <loc>http://www.beesbot.com/naoscript/</loc>
         <lastmod>2014-03-17T00:08:01-07:00</lastmod>
     </url>
     <url>
-        <loc>/learn-ruby-on-rails/</loc>
+        <loc>http://www.beesbot.com/learn-ruby-on-rails/</loc>
         <lastmod>2014-03-17T00:08:07-07:00</lastmod>
     </url>
     <url>
-        <loc>/functional-ruby-fu/</loc>
+        <loc>http://www.beesbot.com/functional-ruby-fu/</loc>
         <lastmod>2014-03-17T00:08:09-07:00</lastmod>
     </url>
     <url>
-        <loc>/ubuntu-tmux/</loc>
+        <loc>http://www.beesbot.com/ubuntu-tmux/</loc>
         <lastmod>2014-03-17T00:08:12-07:00</lastmod>
     </url>
     <url>
-        <loc>/ruby-for-monitoring-and-testing/</loc>
+        <loc>http://www.beesbot.com/ruby-for-monitoring-and-testing/</loc>
         <lastmod>2014-03-17T00:08:15-07:00</lastmod>
     </url>
     <url>
-        <loc>/jenkins-ruby-selenium/</loc>
+        <loc>http://www.beesbot.com/jenkins-ruby-selenium/</loc>
         <lastmod>2014-03-17T00:08:17-07:00</lastmod>
     </url>
     <url>
-        <loc>/nao-robot-python-interactive-shell/</loc>
+        <loc>http://www.beesbot.com/nao-robot-python-interactive-shell/</loc>
         <lastmod>2014-03-17T00:08:21-07:00</lastmod>
     </url>
     <url>
-        <loc>/ubuntu-rocks/</loc>
+        <loc>http://www.beesbot.com/ubuntu-rocks/</loc>
         <lastmod>2014-03-17T00:08:26-07:00</lastmod>
     </url>
     <url>
-        <loc>/groovy-on-grails-ubuntu/</loc>
+        <loc>http://www.beesbot.com/groovy-on-grails-ubuntu/</loc>
         <lastmod>2014-03-17T00:08:28-07:00</lastmod>
     </url>
     <url>
-        <loc>/dell-windows-8-ubuntu-grub-challenges/</loc>
+        <loc>http://www.beesbot.com/dell-windows-8-ubuntu-grub-challenges/</loc>
         <lastmod>2014-03-17T00:08:31-07:00</lastmod>
     </url>
     <url>
-        <loc>/jekyll-static-site-generator/</loc>
+        <loc>http://www.beesbot.com/jekyll-static-site-generator/</loc>
         <lastmod>2014-03-17T00:08:33-07:00</lastmod>
     </url>
     <url>
-        <loc>/generate-ssl-certificates/</loc>
+        <loc>http://www.beesbot.com/generate-ssl-certificates/</loc>
         <lastmod>2014-03-17T00:08:35-07:00</lastmod>
     </url>
     <url>
-        <loc>/import-ovpn-file-on-ubuntu/</loc>
+        <loc>http://www.beesbot.com/import-ovpn-file-on-ubuntu/</loc>
         <lastmod>2014-03-17T00:08:38-07:00</lastmod>
     </url>
     <url>
-        <loc>/object-oriented-javascript/</loc>
+        <loc>http://www.beesbot.com/object-oriented-javascript/</loc>
         <lastmod>2014-03-17T00:08:41-07:00</lastmod>
     </url>
     <url>
-        <loc>/.htaccess</loc>
+        <loc>http://www.beesbot.com/.htaccess</loc>
         <lastmod>2014-02-04T00:41:01-08:00</lastmod>
     </url>
     <url>
-        <loc>/</loc>
+        <loc>http://www.beesbot.com/</loc>
         <lastmod>2014-03-17T00:08:41-07:00</lastmod>
     </url>
 </urlset>
