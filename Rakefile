@@ -7,7 +7,7 @@ task :deploy do
   public_dir = '_site'
 
   # cleanup
-  puts "## Deploying to Github Pages.."
+  puts "## Deploying to branch.."
   (Dir["#{deploy_dir}/*"]).each { |f| rm_rf(f) }
 
   # copy
@@ -24,7 +24,7 @@ task :deploy do
     system "git commit -m \"#{message}\""
 
     puts "## Pushing generated #{deploy_dir} website"
-    system "git push origin master --force"
+    system "git push origin deploy --force"
 
     puts "## Deploy Complete!"
   end
