@@ -1,4 +1,6 @@
 
+    rewrite ^/People(.*) http://www.beesbot.com permanent;
+
     if ($args ~ s=173){
       rewrite ^ http://www.beesbot.com/import-ovpn-file-on-ubuntu/? permanent;
     }

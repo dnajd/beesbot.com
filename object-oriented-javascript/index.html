@@ -35,82 +35,171 @@
 <p class="meta">10 Feb 2014</p>
 
 <div class="post">
-<div class="highlight"><pre><code class="javascript"><span class="c1">////////////////////////////////</span>
-<span class="c1">// Global Stuff</span>
-<span class="kd">function</span> <span class="nx">mix</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">object</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">options</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<p>Beginners with Javascript start by using a lot of global functions and variables.  Once things get complex it becomes difficult to maintain &amp; enhance a long list of functions.  So this blog post shows the basics of building your javascript in a more Object Oriented way.</p>
 
-<span class="kd">function</span> <span class="nx">newObject</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// Get the properties passed through options in the constructor.</span>
-  <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
-  <span class="nx">mix</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
-<span class="p">};</span>
+<p>Starting by maintaining info on &#39;People&#39;, we&#39;ll have the following goals:</p>
 
+<ul>
+<li>Maintain state: ex. firstName, lastName</li>
+<li>Define behavior: ex. printName()</li>
+</ul>
 
-<span class="c1">////////////////////////////////</span>
-<span class="c1">// DEFINE our prototypes</span>
+<h1>Most Basic</h1>
 
-<span class="c1">// Person Factory</span>
-<span class="c1">// dynamic options / args</span>
-<span class="c1">// Now you can&#39;t override `printName` with some value in options.</span>
-<span class="kd">function</span> <span class="nx">makePerson</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">newObject</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
-  <span class="nx">p</span><span class="p">.</span><span class="nx">printName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">print</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span><span class="p">);</span>
-  <span class="p">};</span>
-  <span class="k">return</span> <span class="nx">p</span><span class="p">;</span>
-<span class="p">}</span>
+<p>The simplest example of doing this in a more Object Oriented way is to</p>
 
-<span class="c1">// Person Prototype</span>
-<span class="c1">// If options contains property `printName` it will be overriden.</span>
-<span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">mix</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>  
-<span class="p">}</span>
+<ul>
+<li>Define a function called &#39;Person&#39;, then</li>
+<li>Adjust it&#39;s prototype</li>
+</ul>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// define person</span>
+<span class="kd">function</span> <span class="nx">Person</span><span class="p">()</span> <span class="p">{}</span>
 <span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">firstName</span> <span class="o">:</span> <span class="s1">&#39;Default&#39;</span><span class="p">,</span>
-  <span class="nx">lastName</span> <span class="o">:</span> <span class="s1">&#39;NameThatAllPersonObjectsWillInherit&#39;</span><span class="p">,</span>
+  <span class="nx">firstName</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+  <span class="nx">lastName</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
   <span class="nx">printName</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">};</span>
   
-<span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">({</span><span class="nx">key1</span> <span class="o">:</span> <span class="s1">&#39;thing&#39;</span><span class="p">,</span> <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Paul&#39;</span><span class="p">,</span> <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;McCartney&#39;</span><span class="p">});</span>
-<span class="kd">var</span> <span class="nx">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">({</span><span class="nx">firstName</span> <span class="o">:</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Lennon&#39;</span><span class="p">});</span>
+<span class="c1">// now use it</span>
+<span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+<span class="nx">p1</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="s1">&#39;John&#39;</span>
+<span class="nx">p1</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">=</span> <span class="s1">&#39;Doe&#39;</span>
+<span class="nx">p1</span><span class="p">.</span><span class="nx">printName</span><span class="p">();</span>
+</code></pre></div>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p1</span><span class="p">.</span><span class="nx">printName</span><span class="p">(),</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">printName</span><span class="p">());</span>
+<h1>Basic Initialization</h1>
 
-<span class="c1">// Prototype: Car</span>
-<span class="c1">// fixed options / arguments</span>
-<span class="kd">function</span> <span class="nx">makeCar</span> <span class="p">(</span><span class="nx">make</span><span class="p">,</span> <span class="nx">year</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">make</span> <span class="o">=</span> <span class="nx">make</span><span class="p">;</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">year</span> <span class="o">=</span> <span class="nx">year</span><span class="p">;</span>
-  <span class="nx">o</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">print</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">make</span> <span class="o">+</span> <span class="s1">&#39; says.... varrooom&#39;</span><span class="p">);</span>
-  <span class="p">};</span>
-  <span class="k">return</span> <span class="nx">o</span><span class="p">;</span>
+<p>Here we add basic intitialize to our simplistic example.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// define person</span>
+<span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">firstName</span><span class="p">,</span> <span class="nx">lastName</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// init the person</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">firstName</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">=</span> <span class="nx">lastName</span><span class="p">;</span>
+
+<span class="p">}</span>
+<span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">firstName</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+  <span class="nx">lastName</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+  <span class="nx">printName</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+  
+<span class="c1">// now use it</span>
+<span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;Doe&#39;</span><span class="p">);</span>
+<span class="nx">p1</span><span class="p">.</span><span class="nx">printName</span><span class="p">();</span>
+</code></pre></div>
+
+<h1>Better Initialization</h1>
+
+<p>In this example we&#39;ll add a function called &#39;mix&#39; to help us initialize our object with json</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">mix</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+
+  <span class="c1">// mix options into object</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">object</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">options</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="c1">////////////////////////////////</span>
-<span class="c1">// USE our prototypes</span>
+<span class="c1">// define person</span>
+<span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mix</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>  <span class="c1">// using mix function </span>
+<span class="p">}</span>
+<span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">firstName</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+  <span class="nx">lastName</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+  <span class="nx">printName</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+ 
+<span class="c1">// now use it </span>
+<span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">({</span> 
+  <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Paul&#39;</span><span class="p">,</span> 
+  <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;McCartney&#39;</span> 
+<span class="p">});</span>
+<span class="nx">p1</span><span class="p">.</span><span class="nx">printName</span><span class="p">();</span>
+</code></pre></div>
 
-<span class="c1">// create a car</span>
-<span class="kd">var</span> <span class="nx">car</span> <span class="o">=</span> <span class="nx">makeCar</span><span class="p">(</span><span class="s1">&#39;honda&#39;</span><span class="p">,</span> <span class="mi">1978</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">car</span><span class="p">.</span><span class="nx">start</span><span class="p">);</span>
+<h1>Factory Pattern</h1>
 
+<p>Now that was cool... But we can do better using a factory pattern.  The benefit of this approach is we can define many objects with it.</p>
 
-<span class="c1">// create a bunch of people</span>
-<span class="kd">var</span> <span class="nx">friends</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">people</span><span class="o">:</span> <span class="p">[</span>
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">mix</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+
+  <span class="c1">// mix options into object</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">object</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">options</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// build any object w/ options</span>
+<span class="kd">function</span> <span class="nx">newObject</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mix</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// define person</span>
+<span class="kd">function</span> <span class="nx">makePerson</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">newObject</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+
+  <span class="c1">// with this approach no one can override `printName`</span>
+  <span class="c1">// because it&#39;s being mixed into the object here</span>
+  <span class="c1">// instead of being put on the prototype</span>
+  <span class="nx">obj</span><span class="p">.</span><span class="nx">printName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// define address</span>
+<span class="kd">function</span> <span class="nx">makeAddress</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">newObject</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+
+  <span class="c1">// print</span>
+  <span class="nx">obj</span><span class="p">.</span><span class="nx">printAddress</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">street1</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">city</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">zip</span><span class="p">);</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// use it</span>
+<span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="nx">makePerson</span><span class="p">({</span> 
+  <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Bill&#39;</span><span class="p">,</span> 
+  <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Gates&#39;</span><span class="p">,</span>
+  <span class="nx">address</span><span class="o">:</span> <span class="nx">makeAddress</span><span class="p">({</span>
+              <span class="nx">street1</span><span class="o">:</span> <span class="s1">&#39;One Microsoft Way&#39;</span><span class="p">,</span>
+              <span class="nx">city</span><span class="o">:</span> <span class="s1">&#39;Redmond&#39;</span><span class="p">,</span>
+              <span class="nx">state</span><span class="o">:</span><span class="s1">&#39;WA&#39;</span><span class="p">,</span>
+              <span class="nx">zip</span><span class="o">:</span><span class="s1">&#39;98052&#39;</span><span class="p">})</span> 
+<span class="p">});</span>
+<span class="nx">p1</span><span class="p">.</span><span class="nx">printName</span><span class="p">();</span>
+<span class="nx">p1</span><span class="p">.</span><span class="nx">address</span><span class="p">.</span><span class="nx">printAddress</span><span class="p">();</span>
+</code></pre></div>
+
+<h1>Getting Crazy</h1>
+
+<p>How about using the previous code to create a company with employees and give the employees multiple addressses</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// create a company with employees</span>
+<span class="kd">var</span> <span class="nx">company</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">employees</span><span class="o">:</span> <span class="p">[</span>
     <span class="nx">makePerson</span><span class="p">({</span>
       <span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;Bill&quot;</span><span class="p">,</span>
       <span class="nx">lastName</span><span class="o">:</span> <span class="s2">&quot;Gates&quot;</span><span class="p">,</span>
       <span class="nx">number</span><span class="o">:</span> <span class="s2">&quot;(206) 555-5555&quot;</span><span class="p">,</span>
       <span class="nx">addresses</span><span class="o">:</span> <span class="p">[</span>
-          <span class="p">{</span><span class="nx">street1</span><span class="o">:</span> <span class="s1">&#39;One Microsoft Way&#39;</span><span class="p">,</span><span class="nx">city</span><span class="o">:</span> <span class="s1">&#39;Redmond&#39;</span><span class="p">,</span><span class="nx">state</span><span class="o">:</span><span class="s1">&#39;WA&#39;</span><span class="p">,</span><span class="nx">zip</span><span class="o">:</span><span class="s1">&#39;98052&#39;</span><span class="p">},</span>
-          <span class="p">{</span><span class="nx">street1</span><span class="o">:</span> <span class="s1">&#39;One Microsoft Way&#39;</span><span class="p">,</span><span class="nx">city</span><span class="o">:</span> <span class="s1">&#39;Cobb&#39;</span><span class="p">,</span><span class="nx">state</span><span class="o">:</span><span class="s1">&#39;CA&#39;</span><span class="p">,</span><span class="nx">zip</span><span class="o">:</span><span class="s1">&#39;95426&#39;</span><span class="p">}</span>
+          <span class="nx">makeAddress</span><span class="p">({</span><span class="nx">street1</span><span class="o">:</span> <span class="s1">&#39;One Microsoft Way&#39;</span><span class="p">,</span> <span class="nx">city</span><span class="o">:</span> <span class="s1">&#39;Redmond&#39;</span><span class="p">,</span> <span class="nx">state</span><span class="o">:</span><span class="s1">&#39;WA&#39;</span><span class="p">,</span> <span class="nx">zip</span><span class="o">:</span><span class="s1">&#39;98052&#39;</span><span class="p">}),</span>
+          <span class="nx">makeAddress</span><span class="p">({</span><span class="nx">street1</span><span class="o">:</span> <span class="s1">&#39;One Microsoft Way&#39;</span><span class="p">,</span> <span class="nx">city</span><span class="o">:</span> <span class="s1">&#39;Cobb&#39;</span><span class="p">,</span> <span class="nx">state</span><span class="o">:</span><span class="s1">&#39;CA&#39;</span><span class="p">,</span> <span class="nx">zip</span><span class="o">:</span><span class="s1">&#39;95426&#39;</span><span class="p">})</span>
      <span class="p">]</span>
     <span class="p">}),</span>
     <span class="nx">makePerson</span><span class="p">({</span>
@@ -118,34 +207,37 @@
       <span class="nx">lastName</span><span class="o">:</span> <span class="s2">&quot;Jobs&quot;</span><span class="p">,</span>
       <span class="nx">number</span><span class="o">:</span> <span class="s2">&quot;(408) 555-5555&quot;</span><span class="p">,</span>
       <span class="nx">addresses</span><span class="o">:</span> <span class="p">[</span>
-          <span class="p">{</span><span class="nx">street1</span><span class="o">:</span> <span class="s1">&#39;One Microsoft Way&#39;</span><span class="p">,</span><span class="nx">city</span><span class="o">:</span> <span class="s1">&#39;Redmond&#39;</span><span class="p">,</span><span class="nx">state</span><span class="o">:</span><span class="s1">&#39;WA&#39;</span><span class="p">,</span><span class="nx">zip</span><span class="o">:</span><span class="s1">&#39;98052&#39;</span><span class="p">}</span>
+          <span class="nx">makeAddress</span><span class="p">({</span><span class="nx">street1</span><span class="o">:</span> <span class="s1">&#39;One Microsoft Way&#39;</span><span class="p">,</span> <span class="nx">city</span><span class="o">:</span> <span class="s1">&#39;Redmond&#39;</span><span class="p">,</span> <span class="nx">state</span><span class="o">:</span><span class="s1">&#39;WA&#39;</span><span class="p">,</span> <span class="nx">zip</span><span class="o">:</span><span class="s1">&#39;98052&#39;</span><span class="p">})</span>
      <span class="p">]</span>
     <span class="p">})</span>
-  <span class="p">],</span>
-  <span class="nx">doSomething</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">)</span> <span class="p">}</span>
+  <span class="p">]</span>
 <span class="p">};</span>
 
-<span class="nx">friends</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">();</span>
+<span class="c1">// ex. loop through employees</span>
+<span class="k">for</span> <span class="p">(</span><span class="nx">e</span> <span class="k">in</span> <span class="nx">company</span><span class="p">.</span><span class="nx">employees</span><span class="p">){</span>
+  
+  <span class="kd">var</span> <span class="nx">employee</span> <span class="o">=</span> <span class="nx">company</span><span class="p">.</span><span class="nx">employees</span><span class="p">[</span><span class="nx">e</span><span class="p">];</span>
+  <span class="nx">employee</span><span class="p">.</span><span class="nx">printName</span><span class="p">();</span>
 
-<span class="c1">// loop through peopl</span>
-<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">p</span> <span class="k">in</span> <span class="nx">friends</span><span class="p">.</span><span class="nx">people</span><span class="p">){</span>
-  
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">printName</span><span class="p">());</span>  <span class="c1">// log full name</span>
-  
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">a</span> <span class="k">in</span> <span class="nx">p</span><span class="p">.</span><span class="nx">addresses</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">zip</span><span class="p">);</span>  <span class="c1">// log zip</span>
+  <span class="c1">// each address</span>
+  <span class="k">for</span> <span class="p">(</span><span class="nx">a</span> <span class="k">in</span> <span class="nx">employee</span><span class="p">.</span><span class="nx">addresses</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">address</span> <span class="o">=</span> <span class="nx">employee</span><span class="p">.</span><span class="nx">addresses</span><span class="p">[</span><span class="nx">a</span><span class="p">];</span>
+    <span class="nx">address</span><span class="p">.</span><span class="nx">printAddress</span><span class="p">();</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
+<span class="c1">// ex. access directly</span>
+<span class="kd">var</span> <span class="nx">emp1</span> <span class="o">=</span> <span class="nx">company</span><span class="p">.</span><span class="nx">employees</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">a1</span> <span class="o">=</span> <span class="nx">emp1</span><span class="p">.</span><span class="nx">addresses</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="nx">a1</span><span class="p">.</span><span class="nx">printAddress</span><span class="p">();</span>
+</code></pre></div>
 
-<span class="c1">//////////////////////////////////////////////////////////</span>
-<span class="c1">//////////////////////////////////////////////////////////</span>
+<h1>Debugging</h1>
 
-<span class="nx">list</span><span class="p">(</span><span class="nx">friends</span><span class="p">);</span>
-<span class="c1">// List of friends objects</span>
+<p>If you want to see what an object has on it, use this</p>
 
-<span class="kd">var</span> <span class="nx">list</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="javascript"><span class="c1">// spin through object</span>
+<span class="kd">var</span> <span class="nx">listProps</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">prop</span> <span class="k">in</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">prop</span><span class="p">);</span>
   <span class="p">}</span>
