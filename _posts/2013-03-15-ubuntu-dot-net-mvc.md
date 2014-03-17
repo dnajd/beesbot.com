@@ -50,3 +50,5 @@ Connect to mysql through [nhibernate](http://nhforge.org/), do it in an agile wa
 Off chance you have compile error related to "WebApplication.targets", look at [my solution on this stack overflow](http://stackoverflow.com/questions/10575509/webapplication-targets-missing-when-building-a-mvc4-project-in-monodevelop-on-os)
 
 Beesbot.com ran on linux, nginx and mysql... before I moved it to jekyll.
+
+By Don Najd

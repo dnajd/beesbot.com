@@ -126,3 +126,5 @@ var list = function(obj) {
 };
 
 {% endhighlight %}
+
+By Don Najd

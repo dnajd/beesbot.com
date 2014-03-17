@@ -20,3 +20,5 @@ NOTE: to get this to work you have to add the [nao python sdk](https://community
 export PYTHONPATH=$PYTHONPATH:/path_to_fluent_nao/FluentNao/src/main/python
 export PYTHONPATH=$PYTHONPATH:/path_to_sdk/python-2.7-naoqi-1.14-linux64
 {% endhighlight %}
+
+By Don Najd

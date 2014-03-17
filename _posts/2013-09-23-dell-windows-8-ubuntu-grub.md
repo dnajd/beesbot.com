@@ -24,3 +24,5 @@ Then [disable secure boot](http://www.maketecheasier.com/disable-secure-boot-in-
 You don't see grub by default when you reboot. So you have to reboot, hit f9 (or whatever) to edit the boot option menu, select ubuntu and then you'll see grub / be able to select ubuntu.
 
 I'm still working on fixing it so you don't have to hit f9. to be continued...
+
+By Don Najd

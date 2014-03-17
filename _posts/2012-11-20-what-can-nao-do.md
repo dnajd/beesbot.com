@@ -19,3 +19,5 @@ I've been learning about the robot and writing applications in Python for a few 
 * Object Recognition - recognizes books
 
 I am just scratching the surface in terms of the capabilities Nao has.  My five year old son and I work with him each night and hope to learn more about robotics.
+
+By Don Najd

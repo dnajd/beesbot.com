@@ -37,3 +37,5 @@ Lastly you'll want to install grails with the GVM here: http://gvmtool.net/
 * Blog post on [grails and mysql](http://www.redtoad.ca/ataylor/2011/06/getting-started-with-grails-and-mysql/)
 * Getting started with [database migrations](http://grails.org/plugin/database-migration)
 * You'll want the [grails asset pipeline](http://grails.org/plugins/search?q=asset+pipeline) which includes less
+
+By Don Najd

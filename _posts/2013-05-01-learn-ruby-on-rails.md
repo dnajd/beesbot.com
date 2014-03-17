@@ -45,3 +45,5 @@ permalink: learn-ruby-on-rails/
 [http://pragprog.com/book/rr2/rails-recipes](http://pragprog.com/book/rr2/rails-recipes)
 
 * LOVED this one.. for once you know some rails and want to fill in the gaps / see awesome approaches to sticky situations
+
+By Don Najd

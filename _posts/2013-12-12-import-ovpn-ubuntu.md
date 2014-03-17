@@ -24,3 +24,5 @@ Then select vpn -> select import -> pick .ovpn file
 
 ## Oh No: Vpn is blocking regular internet
 By default this will block non-vpn networks (e.g. the world wide web); There's an option under "IPv4 Settings" - click the "Routes" button and then check the box next to "Use this connection only for resources on its network" and that will get you back online with the rest of the world.
+
+By Don Najd

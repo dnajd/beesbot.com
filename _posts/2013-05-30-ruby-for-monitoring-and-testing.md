@@ -22,3 +22,5 @@ As a bonus I included a logging library and sample config file that I have used 
 I find this tool-set much easier and faster to use than the one that come with other technology stacks. First hand I have seen .NET and PHP developers pick up the Ruby language in literally a few days and start using it. 
 
 So go ahead... [learn ruby](http://tryruby.org/), clone the [ruby_tester](https://github.com/dnajd/ruby_tester)r and give it a try.
+
+By Don Najd

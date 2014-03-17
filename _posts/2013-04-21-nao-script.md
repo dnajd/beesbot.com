@@ -12,3 +12,5 @@ I have been programming Nao for some time and doing motion has been challenging.
 <iframe width="420" height="315" src="//www.youtube.com/embed/37mG2C3KkH8" frameborder="0" allowfullscreen></iframe>
 
 I knew I had succeeded when my wife (not a programmer), in just a few minutes and without reading documentation, was able to program Nao and have him wave to her, give her compliments on how beautiful she is and have his eye's light up.
+
+By Don Najd

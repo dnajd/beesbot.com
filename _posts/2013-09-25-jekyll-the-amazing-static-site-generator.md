@@ -46,3 +46,5 @@ Then you can create a jekyll site with the following:
 jekyll new my-site
 
 Try it out... it's fantastic.
+
+By Don Najd

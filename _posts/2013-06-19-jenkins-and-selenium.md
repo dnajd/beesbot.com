@@ -82,3 +82,5 @@ NOTE: local host and port 4444 are assumed
 
 ## Email Notifications
 I simply [used a gmail account](http://lifehacker.com/111166/how-to-use-gmail-as-your-smtp-server) to send email and put the credentials into Jenkins.
+
+By Don Najd

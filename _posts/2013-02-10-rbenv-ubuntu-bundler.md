@@ -92,3 +92,5 @@ Resources:
 [ruby-build](https://github.com/sstephenson/ruby-build)
 [concerning zlib error](https://github.com/sstephenson/ruby-build/wiki)
 [rbenv and bundler; a good write up](http://ryan.mcgeary.org/2011/02/09/vendor-everything-still-applies/)
+
+By Don Najd

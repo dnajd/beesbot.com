@@ -52,3 +52,6 @@ echo "set-window-option -g mode-mouse on" >> ~/.tmux.conf
 
 ## Cool Cheats 
 [Mohamed Alaa](https://gist.github.com/MohamedAlaa/2961058)
+
+
+By Don Najd

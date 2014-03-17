@@ -57,4 +57,4 @@ Enjoy!
 
 P.S. Do you have the NVIDIA Optimus? Read this: https://wiki.ubuntu.com/HardwareSupport/Machines/Laptops/Dell/XPS/15z
 
-Don Najd
+By Don Najd
