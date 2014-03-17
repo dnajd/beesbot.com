@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Import ovpn File on Ubuntu | beesbot</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body class="internal-layout">
+
+  <header class="site-header" role="banner">
+     <div class="container">
+      
+     <!-- <nav class="site-nav" role="navigation">
+        <div class="nav-links">
+            <a href="/" href="/">Home</a>
+            <a href="/about" href="/about">About</a>
+            <a href="/blog" href="/about">Blog</a>
+            <div class="mobile-menu"><i class="icon-reorder"></i></div>
+        </div>
+      </nav>-->
+
+      <a href="/"><img src="/images/logo_no_bee.png" alt="beesbot - a technology group" width="250" class="navbar-brand" /></a>
+
+    </div>
+  </header>
+  <main class="site-main" role="main">
+     <div class="container">
+
+        <h1>Import ovpn File on Ubuntu</h1>
+<p class="meta">12 Dec 2013</p>
+
+<div class="post">
+<p>The new ubuntu network manager doesn&#39;t include openvpn and even after installing that it doesn&#39;t include an option to import your ovpn file. Here are the straight forward steps to getting set up.</p>
+
+<h2>Install these packages</h2>
+
+<div class="highlight"><pre><code class="bash">sudo apt-get install openvpn network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
+</code></pre></div>
+
+<h2>Run this command in a terminal to load the old interface</h2>
+
+<p>nm-connection-editor</p>
+
+<div class="highlight"><pre><code class="bash">Then <span class="k">select </span>vpn -&gt; <span class="k">select </span>import -&gt; pick .ovpn file
+</code></pre></div>
+
+<h2>Oh No: Vpn is blocking regular internet</h2>
+
+<p>By default this will block non-vpn networks (e.g. the world wide web); There&#39;s an option under &quot;IPv4 Settings&quot; - click the &quot;Routes&quot; button and then check the box next to &quot;Use this connection only for resources on its network&quot; and that will get you back online with the rest of the world.</p>
+
+</div>
+
+<a href="/">...back to all posts</a>
+
+
+    </div>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+     <div class="container">
+        beesbot 2014
+      </div>
+  </footer>
+
+</body>
+</html>

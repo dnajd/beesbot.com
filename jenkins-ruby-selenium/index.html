@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Jenkins & Selenium | beesbot</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body class="internal-layout">
+
+  <header class="site-header" role="banner">
+     <div class="container">
+      
+     <!-- <nav class="site-nav" role="navigation">
+        <div class="nav-links">
+            <a href="/" href="/">Home</a>
+            <a href="/about" href="/about">About</a>
+            <a href="/blog" href="/about">Blog</a>
+            <div class="mobile-menu"><i class="icon-reorder"></i></div>
+        </div>
+      </nav>-->
+
+      <a href="/"><img src="/images/logo_no_bee.png" alt="beesbot - a technology group" width="250" class="navbar-brand" /></a>
+
+    </div>
+  </header>
+  <main class="site-main" role="main">
+     <div class="container">
+
+        <h1>Jenkins & Selenium</h1>
+<p class="meta">19 Jun 2013</p>
+
+<div class="post">
+<p>I have in the past used <a href="https://www.atlassian.com/software/bamboo">Atlassian Bamboo</a> for build automation and to run automated tests. While I love that solution, it costs money and not everyone wants to buy it. </p>
+
+<p>Tonight I took my first dive into using the open source CI server called <a href="http://jenkins-ci.org/">Jenkins</a>, in combination with my <a href="https://github.com/dnajd/ruby_tester">ruby_tester</a> project to launch selenium tests for my current employer.</p>
+
+<p>This is not a step by step, but I&#39;ve included all the things I got tripped up on. So here are my tips if you try to do this:</p>
+
+<h2>Installation</h2>
+
+<p><a href="https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu">Install Jenkins</a> on ubuntu</p>
+
+<div class="highlight"><pre><code class="bash">wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+sudo sh -c <span class="s1">&#39;echo deb http://pkg.jenkins-ci.org/debian binary/ &gt; /etc/apt/sources.list.d/jenkins.list&#39;</span>
+sudo apt-get update
+sudo apt-get install jenkins
+</code></pre></div>
+
+<h3>Setup Jenkins User</h3>
+
+<div class="highlight"><pre><code class="bash">At this point jenkins will load up on http://localhost:8080 and run as a jenkins user; but we want to use git, rbenv, ruby and selenium. So login to your machine as the jenkins user:
+sudo su jenkins -s /bin/bash
+</code></pre></div>
+
+<p>Remember to create an ssh key and add it where appropriate; ex. github or bitbucket</p>
+
+<div class="highlight"><pre><code class="bash">ssh-keygen -t rsa
+git config --global user.email <span class="s2">&quot;you@example.com&quot;</span>
+git config --global user.name <span class="s2">&quot;Your Name&quot;</span>
+</code></pre></div>
+
+<p>Go through the steps to <a href="/ubuntu/rbenv/ruby/bundler/2013/02/10/rbenv-ubuntu-bundler.html">install rbenv</a> for the jenkins user.</p>
+
+<p>For <a href="https://github.com/dnajd/ruby_tester">ruby_tester</a>, remember to download the <a href="http://chromedriver.storage.googleapis.com/index.html">correct chromedriver</a> for selenium and add it to your path in .bashrc</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$PATH:$HOME/Applications/chromedriver&quot;</span>
+</code></pre></div>
+
+<h2>Jenkins Job</h2>
+
+<p>Finally when you setup your jenkins job and try to execute a shell command, remember to include:
+source /var/lib/jenkins/.bashrc </p>
+
+<p>as well as run your bundle install and bundle exec rake</p>
+
+<div class="highlight"><pre><code class="bash">bundle install --path vendor <span class="o">&amp;&amp;</span> bundle <span class="nb">exec </span>rake your_rake_task
+</code></pre></div>
+
+<p>If you&#39;re using the <a href="https://github.com/dnajd/ruby_tester">ruby_tester</a> remember to add a &#39;post-build action&#39; to &#39;publish j-unit test report&#39; and set the pattern to:</p>
+
+<div class="highlight"><pre><code class="bash">spec/reports/*.xml
+</code></pre></div>
+
+<h2>Selenium Tests</h2>
+
+<p>You can use the Selenium Web Driver, but you&#39;re going to need to run it against a Selenium Server (very easy). Because jenkin runs under a service account and is not inside of a windowed (x-session) environment and has no access to a browser. Download the <a href="http://docs.seleniumhq.org/download/">Selenium Server Jar</a> and then run the following command to start it.</p>
+
+<div class="highlight"><pre><code class="bash">java -jar selenium-server-standalone-2.33.0.jar <span class="o">[</span>-port 4444<span class="o">]</span> <span class="o">[</span>-interactive<span class="o">]</span> <span class="o">[</span>-timeout 1800<span class="o">]</span>
+</code></pre></div>
+
+<p>Then you simply need to launch your web driver using this syntax</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">driver</span> <span class="o">=</span> <span class="ss">Selenium</span><span class="p">:</span><span class="ss">:WebDriver</span><span class="o">.</span><span class="n">for</span> <span class="ss">:remote</span><span class="p">,</span> <span class="ss">:desired_capabilities</span> <span class="o">=&gt;</span> <span class="ss">:chrome</span>
+</code></pre></div>
+
+<p>NOTE: local host and port 4444 are assumed</p>
+
+<h2>Email Notifications</h2>
+
+<p>I simply <a href="http://lifehacker.com/111166/how-to-use-gmail-as-your-smtp-server">used a gmail account</a> to send email and put the credentials into Jenkins.</p>
+
+</div>
+
+<a href="/">...back to all posts</a>
+
+
+    </div>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+     <div class="container">
+        beesbot 2014
+      </div>
+  </footer>
+
+</body>
+</html>

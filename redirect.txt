@@ -1,0 +1,66 @@
+
+    if ($args ~ s=173){
+      rewrite ^ http://stage.beesbot.com/import-ovpn-file-on-ubuntu/? permanent;
+    }
+    if ($args ~ s=171){
+      rewrite ^ http://stage.beesbot.com/generate-ssl-certificates/? permanent;
+    }
+    if ($args ~ s=169){
+      rewrite ^ http://stage.beesbot.com/jekyll-static-site-generator/? permanent;
+    }
+    if ($args ~ s=167){
+      rewrite ^ http://stage.beesbot.com/dell-windows-8-ubuntu-grub-challenges/? permanent;
+    }
+    if ($args ~ s=165){
+      rewrite ^ http://stage.beesbot.com/groovy-on-grails-ubuntu/? permanent;
+    }
+    if ($args ~ s=161){
+      rewrite ^ http://stage.beesbot.com/ubuntu-rocks/? permanent;
+    }
+    if ($args ~ s=157){
+      rewrite ^ http://stage.beesbot.com/nao-robot-python-interactive-shell/? permanent;
+    }
+    if ($args ~ s=155){
+      rewrite ^ http://stage.beesbot.com/jenkins-ruby-selenium/? permanent;
+    }
+    if ($args ~ s=153){
+      rewrite ^ http://stage.beesbot.com/ruby-for-monitoring-and-testing/? permanent;
+    }
+    if ($args ~ s=149){
+      rewrite ^ http://stage.beesbot.com/ubuntu-tmux/? permanent;
+    }
+    if ($args ~ s=143){
+      rewrite ^ http://stage.beesbot.com/functional-ruby-fu/? permanent;
+    }
+    if ($args ~ s=141){
+      rewrite ^ http://stage.beesbot.com/learn-ruby-on-rails/? permanent;
+    }
+    if ($args ~ s=139){
+      rewrite ^ http://stage.beesbot.com/naoscript/? permanent;
+    }
+    if ($args ~ s=129){
+      rewrite ^ http://stage.beesbot.com/ubuntu-dot-net-mvc/? permanent;
+    }
+    if ($args ~ s=125){
+      rewrite ^ http://stage.beesbot.com/rbenv-ubuntu-bundler/? permanent;
+    }
+    if ($args ~ s=121){
+      rewrite ^ http://stage.beesbot.com/nao-colored-object-detection/? permanent;
+    }
+    if ($args ~ s=145){
+      rewrite ^ http://stage.beesbot.com/nao-colored-object-detection/? permanent;
+    }
+    if ($args ~ s=119){
+      rewrite ^ http://stage.beesbot.com/makey-makey-fruit/? permanent;
+    }
+    if ($args ~ s=117){
+      rewrite ^ http://stage.beesbot.com/what-can-nao-do/? permanent;
+    }
+    if ($args ~ s=103){
+      rewrite ^ http://stage.beesbot.com/video-for-the-web/? permanent;
+    }
+    if ($args ~ s=99){
+      rewrite ^ http://stage.beesbot.com/ubuntu-video/? permanent;
+    }
+
+

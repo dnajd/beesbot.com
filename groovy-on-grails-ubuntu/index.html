@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Groovy on Grails & Ubuntu | beesbot</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body class="internal-layout">
+
+  <header class="site-header" role="banner">
+     <div class="container">
+      
+     <!-- <nav class="site-nav" role="navigation">
+        <div class="nav-links">
+            <a href="/" href="/">Home</a>
+            <a href="/about" href="/about">About</a>
+            <a href="/blog" href="/about">Blog</a>
+            <div class="mobile-menu"><i class="icon-reorder"></i></div>
+        </div>
+      </nav>-->
+
+      <a href="/"><img src="/images/logo_no_bee.png" alt="beesbot - a technology group" width="250" class="navbar-brand" /></a>
+
+    </div>
+  </header>
+  <main class="site-main" role="main">
+     <div class="container">
+
+        <h1>Groovy on Grails & Ubuntu</h1>
+<p class="meta">18 Jul 2013</p>
+
+<div class="post">
+<p>I personally have always loved java and C# style and syntax, but having tried ruby on rails there is no ignoring dynamic languages ability to get stuff done. Especially one with functional style that makes programming fun. </p>
+
+<p>Grails makes extensive use of groovy and even more interesting is the way they have wrapped some mature favorites (junit, ant and hybernate) with the groovy language. They have a powerful mvc and a really streamline workflow. You have to try it. </p>
+
+<h2>Installing Grails on Ubuntu</h2>
+
+<p>You&#39;ll want to purge the openjdk and install oracle&#39;s version</p>
+
+<div class="highlight"><pre><code class="bash">sudo apt-get purge openjdk*
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update <span class="o">&amp;&amp;</span> sudo apt-get install oracle-java7-installer
+</code></pre></div>
+
+<p>Then you&#39;ll need to set the JAVA_HOME in your .bashrc. Something like this...</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-7-oracle
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/lib/jvm/java-7-oracle/bin
+</code></pre></div>
+
+<p>Lastly you&#39;ll want to install grails with the GVM here: http://gvmtool.net/</p>
+
+<h2>Tips For Getting Started</h2>
+
+<ul>
+<li><a href="http://grails.org/doc/latest/guide/gettingStarted.html#creatingAnApplication">get started</a> with groovy and grails</li>
+<li>Series of <a href="http://www.grailsexample.net/course-outline/">grails casts</a></li>
+<li>Blog post on <a href="http://www.redtoad.ca/ataylor/2011/06/getting-started-with-grails-and-mysql/">grails and mysql</a></li>
+<li>Getting started with <a href="http://grails.org/plugin/database-migration">database migrations</a></li>
+<li>You&#39;ll want the <a href="http://grails.org/plugins/search?q=asset+pipeline">grails asset pipeline</a> which includes less</li>
+</ul>
+
+</div>
+
+<a href="/">...back to all posts</a>
+
+
+    </div>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+     <div class="container">
+        beesbot 2014
+      </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Ubuntu & TMUX | beesbot</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body class="internal-layout">
+
+  <header class="site-header" role="banner">
+     <div class="container">
+      
+     <!-- <nav class="site-nav" role="navigation">
+        <div class="nav-links">
+            <a href="/" href="/">Home</a>
+            <a href="/about" href="/about">About</a>
+            <a href="/blog" href="/about">Blog</a>
+            <div class="mobile-menu"><i class="icon-reorder"></i></div>
+        </div>
+      </nav>-->
+
+      <a href="/"><img src="/images/logo_no_bee.png" alt="beesbot - a technology group" width="250" class="navbar-brand" /></a>
+
+    </div>
+  </header>
+  <main class="site-main" role="main">
+     <div class="container">
+
+        <h1>Ubuntu & TMUX</h1>
+<p class="meta">20 May 2013</p>
+
+<div class="post">
+<p>First off, from the <a href="http://tmux.sourceforge.net/">tmux website</a>... &quot;tmux is a terminal multiplexer. What is a terminal multiplexer? It lets you switch easily between several programs in one terminal...&quot; </p>
+
+<h2>Easy to install on Ubuntu</h2>
+
+<div class="highlight"><pre><code class="bash">sudo apt-get install tmux
+</code></pre></div>
+
+<p>Make it run every time you open a terminal</p>
+
+<div class="highlight"><pre><code class="bash"><span class="c"># add at the end of .bashrc</span>
+<span class="k">if</span> <span class="o">[[</span> ! <span class="nv">$TERM</span> <span class="o">=</span>~ screen <span class="o">]]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">exec </span>tmux
+<span class="k">fi</span>
+</code></pre></div>
+
+<h2>Use it right away...</h2>
+
+<p>Ctrl-b, % splits the screen vertically
+Ctrl-b, &quot; splits the screen horizontally
+Ctrl-b, arrow to move between screens. arrow key in the direction you want to move</p>
+
+<h2>Remember commands</h2>
+
+<p>You&#39;re always using tmux in the terminal, why not have your bash echo common commands every time you open a terminal.</p>
+
+<div class="highlight"><pre><code class="bash"><span class="c"># edit the bashrc</span>
+nano ~/.bashrc
+
+<span class="c"># add the following</span>
+<span class="nb">echo</span> <span class="s2">&quot;tmux commands&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;--------------------------&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;shift to highlight&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;ctrl b + letter&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;c           new window&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;w           list windows&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;&amp;           kill window&quot;</span>
+</code></pre></div>
+
+<h2>Configuration</h2>
+
+<p>I added this because I wanted my mouse wheel to scroll up; note, hit the escape key to get out of scroll mode
+echo &quot;set-window-option -g mode-mouse on&quot; &gt;&gt; ~/.tmux.conf</p>
+
+<h2>Cool Cheats</h2>
+
+<p><a href="https://gist.github.com/MohamedAlaa/2961058">Mohamed Alaa</a></p>
+
+</div>
+
+<a href="/">...back to all posts</a>
+
+
+    </div>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+     <div class="container">
+        beesbot 2014
+      </div>
+  </footer>
+
+</body>
+</html>

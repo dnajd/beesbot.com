@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Control Nao Robot from Interactive Python Shell | beesbot</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body class="internal-layout">
+
+  <header class="site-header" role="banner">
+     <div class="container">
+      
+     <!-- <nav class="site-nav" role="navigation">
+        <div class="nav-links">
+            <a href="/" href="/">Home</a>
+            <a href="/about" href="/about">About</a>
+            <a href="/blog" href="/about">Blog</a>
+            <div class="mobile-menu"><i class="icon-reorder"></i></div>
+        </div>
+      </nav>-->
+
+      <a href="/"><img src="/images/logo_no_bee.png" alt="beesbot - a technology group" width="250" class="navbar-brand" /></a>
+
+    </div>
+  </header>
+  <main class="site-main" role="main">
+     <div class="container">
+
+        <h1>Control Nao Robot from Interactive Python Shell</h1>
+<p class="meta">29 Jun 2013</p>
+
+<div class="post">
+<p>See how to control the Nao Robot from the interactive python shell. Meaning you type the commands, press enter and Nao moves.</p>
+
+<p>This is useful when showing Nao to a group of people and wanting to really quickly get nao into a position like &quot;sit&quot;, &quot;stand&quot;, etc. But it also powerful enough to get nao into any position and useful for creating animations to embed in your applications.</p>
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/co3sydMPd3Q" frameborder="0" allowfullscreen></iframe>
+
+<p>Accomplished with <a href="https://github.com/dnajd/FluentNao">FluentNao</a>, an open source python library that also powers <a href="https://store.aldebaran-robotics.com/product/naoscript_1/">naoscript</a>; a application available via the Nao Store.</p>
+
+<p>NOTE: to get this to work you have to add the <a href="https://community.aldebaran-robotics.com/resources/">nao python sdk</a> and the path to <a href="https://github.com/dnajd/FluentNao">FluentNao</a> to your <a href="http://stackoverflow.com/questions/3402168/permanently-add-a-directory-to-pythonpath">python path</a> like so:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:/path_to_fluent_nao/FluentNao/src/main/python
+<span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:/path_to_sdk/python-2.7-naoqi-1.14-linux64
+</code></pre></div>
+
+</div>
+
+<a href="/">...back to all posts</a>
+
+
+    </div>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+     <div class="container">
+        beesbot 2014
+      </div>
+  </footer>
+
+</body>
+</html>

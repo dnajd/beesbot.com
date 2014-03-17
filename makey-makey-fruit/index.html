@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Makey Makey Inventors Kit | beesbot</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body class="internal-layout">
+
+  <header class="site-header" role="banner">
+     <div class="container">
+      
+     <!-- <nav class="site-nav" role="navigation">
+        <div class="nav-links">
+            <a href="/" href="/">Home</a>
+            <a href="/about" href="/about">About</a>
+            <a href="/blog" href="/about">Blog</a>
+            <div class="mobile-menu"><i class="icon-reorder"></i></div>
+        </div>
+      </nav>-->
+
+      <a href="/"><img src="/images/logo_no_bee.png" alt="beesbot - a technology group" width="250" class="navbar-brand" /></a>
+
+    </div>
+  </header>
+  <main class="site-main" role="main">
+     <div class="container">
+
+        <h1>Makey Makey Inventors Kit</h1>
+<p class="meta">04 Jan 2013</p>
+
+<div class="post">
+<p>I finally got my Makey Makey inventors kit and just for fun I wired up / programmed a tomato and some grapes from my parents farm. </p>
+
+<p><img src="/images/blog/makey1.jpg" alt="Makey Makey Vegetables"></p>
+
+<p>I wrote a ruby script that uses the curses gem to capture commands from Makey Makey and use a case statement to tell me which fruit / vegetable I touched.</p>
+
+<p><img src="/images/blog/makey2.jpg" alt="Ruby Output"></p>
+
+<p>Here is the script.</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;curses&#39;</span>
+
+<span class="no">Curses</span><span class="o">.</span><span class="n">noecho</span> <span class="c1"># do not show typed keys</span>
+<span class="no">Curses</span><span class="o">.</span><span class="n">init_screen</span>
+<span class="no">Curses</span><span class="o">.</span><span class="n">stdscr</span><span class="o">.</span><span class="n">keypad</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span> <span class="c1"># enable arrow keys (required for pageup / down)</span>
+
+<span class="kp">loop</span> <span class="k">do</span>
+  <span class="k">case</span> <span class="no">Curses</span><span class="o">.</span><span class="n">getch</span>
+  <span class="k">when</span> <span class="ss">Curses</span><span class="p">:</span><span class="ss">:Key</span><span class="o">::</span><span class="no">DOWN</span>
+    <span class="nb">puts</span> <span class="s2">&quot;grapes&quot;</span>
+  <span class="k">when</span> <span class="ss">Curses</span><span class="p">:</span><span class="ss">:Key</span><span class="o">::</span><span class="no">UP</span>
+    <span class="nb">puts</span> <span class="s2">&quot;tomato&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>Melissa was amazed and said &quot;we should plug it into the cat&quot;. We are married 7 years to the day and it&#39;s got everything to do with suggestions like that. :)</p>
+
+</div>
+
+<a href="/">...back to all posts</a>
+
+
+    </div>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+     <div class="container">
+        beesbot 2014
+      </div>
+  </footer>
+
+</body>
+</html>
