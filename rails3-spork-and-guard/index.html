@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Rails 3, Test:Unit, Spork & Guard | beesbot</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body class="internal-layout">
+
+  <header class="site-header" role="banner">
+     <div class="container">
+      
+     <!-- <nav class="site-nav" role="navigation">
+        <div class="nav-links">
+            <a href="/" href="/">Home</a>
+            <a href="/about" href="/about">About</a>
+            <a href="/blog" href="/about">Blog</a>
+            <div class="mobile-menu"><i class="icon-reorder"></i></div>
+        </div>
+      </nav>-->
+
+      <a href="/"><img src="/images/logo_no_bee.png" alt="beesbot - a technology group" width="250" class="navbar-brand" /></a>
+
+    </div>
+  </header>
+  <main class="site-main" role="main">
+     <div class="container">
+
+        <h1>Rails 3, Test:Unit, Spork & Guard</h1>
+<p class="meta">19 Mar 2014</p>
+
+<div class="post">
+<p>There are a lot tutorials (all different); here is how I got Rails 3 &amp; TestUnit working with Spork and Guard.  Note I use factory girl, there is additional setup if you want to use standard Rails fixtures.</p>
+
+<h2>Gemfile</h2>
+
+<div class="highlight"><pre><code class="ruby">  <span class="n">gem</span> <span class="s1">&#39;spork-rails&#39;</span>                   <span class="c1"># SPORK - preload env</span>
+  <span class="n">gem</span> <span class="s1">&#39;spork-testunit&#39;</span>                <span class="c1"># Test:Unit compatibility</span>
+  <span class="n">gem</span> <span class="s1">&#39;guard-spork&#39;</span>                   <span class="c1"># GUARD - watch files</span>
+  <span class="n">gem</span> <span class="s1">&#39;guard-test&#39;</span>                    <span class="c1"># Test:Unit compatibility</span>
+</code></pre></div>
+
+<h2>Guardfile</h2>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">guard</span> <span class="s1">&#39;spork&#39;</span><span class="p">,</span> <span class="ss">:cucumber_env</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s1">&#39;RAILS_ENV&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;test&#39;</span> <span class="p">},</span> <span class="ss">:rspec_env</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s1">&#39;RAILS_ENV&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;test&#39;</span> <span class="p">}</span> <span class="k">do</span>
+  <span class="n">watch</span><span class="p">(</span><span class="s1">&#39;config/application.rb&#39;</span><span class="p">)</span>
+  <span class="n">watch</span><span class="p">(</span><span class="s1">&#39;config/environment.rb&#39;</span><span class="p">)</span>
+  <span class="n">watch</span><span class="p">(</span><span class="s1">&#39;config/environments/test.rb&#39;</span><span class="p">)</span>
+  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{^config/initializers/.+\.rb$}</span><span class="p">)</span>
+  <span class="n">watch</span><span class="p">(</span><span class="s1">&#39;Gemfile.lock&#39;</span><span class="p">)</span>
+  <span class="n">watch</span><span class="p">(</span><span class="s1">&#39;spec/spec_helper.rb&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="ss">:rspec</span> <span class="p">}</span>
+  <span class="n">watch</span><span class="p">(</span><span class="s1">&#39;test/test_helper.rb&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="ss">:test_unit</span> <span class="p">}</span>
+  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{features/support/}</span><span class="p">)</span> <span class="p">{</span> <span class="ss">:cucumber</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="n">guard</span> <span class="ss">:test</span> <span class="k">do</span>
+  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{^test/.+_test\.rb$}</span><span class="p">)</span>
+  <span class="n">watch</span><span class="p">(</span><span class="s1">&#39;test/test_helper.rb&#39;</span><span class="p">)</span>  <span class="p">{</span> <span class="s1">&#39;test&#39;</span> <span class="p">}</span>
+
+  <span class="c1"># Non-rails</span>
+  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{^lib/(.+)\.rb$}</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="s2">&quot;test/</span><span class="si">#{</span><span class="n">m</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="si">}</span><span class="s2">_test.rb&quot;</span> <span class="p">}</span>
+
+  <span class="c1"># Rails &lt; 4</span>
+  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{^app/models/(.+)\.rb$}</span><span class="p">)</span>                   <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="s2">&quot;test/unit/</span><span class="si">#{</span><span class="n">m</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="si">}</span><span class="s2">_test.rb&quot;</span> <span class="p">}</span>
+  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{^app/controllers/(.+)\.rb$}</span><span class="p">)</span>              <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="s2">&quot;test/functional/</span><span class="si">#{</span><span class="n">m</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="si">}</span><span class="s2">_test.rb&quot;</span> <span class="p">}</span>
+  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{^app/views/(.+)/.+\.erb$}</span><span class="p">)</span>                <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="s2">&quot;test/functional/</span><span class="si">#{</span><span class="n">m</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="si">}</span><span class="s2">_controller_test.rb&quot;</span> <span class="p">}</span>
+  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{^app/views/.+$}</span><span class="p">)</span>                          <span class="p">{</span> <span class="s1">&#39;test/integration&#39;</span> <span class="p">}</span>
+  <span class="n">watch</span><span class="p">(</span><span class="s1">&#39;app/controllers/application_controller.rb&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="o">[</span><span class="s1">&#39;test/functional&#39;</span><span class="p">,</span> <span class="s1">&#39;test/integration&#39;</span><span class="o">]</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<h2>test_helper.rb</h2>
+
+<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;spork&#39;</span>
+<span class="c1">#require &#39;spork/ext/ruby-debug&#39;  #uncomment the following line to use spork with the debugger</span>
+
+<span class="no">Spork</span><span class="o">.</span><span class="n">prefork</span> <span class="k">do</span>
+
+  <span class="no">ENV</span><span class="o">[</span><span class="s2">&quot;RAILS_ENV&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span>
+  <span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">&#39;../../config/environment&#39;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
+  <span class="nb">require</span> <span class="s1">&#39;rails/test_help&#39;</span>
+  <span class="nb">require</span> <span class="s1">&#39;factory_girl&#39;</span>
+
+  <span class="k">class</span> <span class="nc">ActiveSupport</span><span class="o">::</span><span class="no">TestCase</span>
+    <span class="kp">include</span> <span class="ss">FactoryGirl</span><span class="p">:</span><span class="ss">:Syntax</span><span class="o">::</span><span class="no">Methods</span>
+  <span class="k">end</span>
+
+<span class="k">end</span>
+
+<span class="no">Spork</span><span class="o">.</span><span class="n">each_run</span> <span class="k">do</span>
+  <span class="no">FactoryGirl</span><span class="o">.</span><span class="n">reload</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<h2>In the Terminal</h2>
+
+<p>A little setup</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">bundle</span> <span class="n">install</span> <span class="o">--</span><span class="n">path</span> <span class="n">vendor</span>
+<span class="n">spork</span> <span class="o">--</span><span class="n">bootstrap</span>
+</code></pre></div>
+
+<p>Now use it!</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">guard</span>
+</code></pre></div>
+
+</div>
+
+<a href="/">...back to all posts</a>
+
+
+    </div>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+     <div class="container">
+        beesbot 2014
+      </div>
+  </footer>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1550337-13', 'beesbot.com');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
