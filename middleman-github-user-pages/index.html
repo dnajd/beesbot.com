@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Deploy Middleman to Github User Pages | beesbot</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body class="internal-layout">
+
+  <header class="site-header" role="banner">
+     <div class="container">
+      
+     <!-- <nav class="site-nav" role="navigation">
+        <div class="nav-links">
+            <a href="/" href="/">Home</a>
+            <a href="/about" href="/about">About</a>
+            <a href="/blog" href="/about">Blog</a>
+            <div class="mobile-menu"><i class="icon-reorder"></i></div>
+        </div>
+      </nav>-->
+
+      <a href="/"><img src="/images/logo_no_bee.png" alt="beesbot - a technology group" width="250" class="navbar-brand" /></a>
+
+    </div>
+  </header>
+  <main class="site-main" role="main">
+     <div class="container">
+
+        <h1>Deploy Middleman to Github User Pages</h1>
+<p class="meta">27 Mar 2014</p>
+
+<div class="post">
+<p>There are required structural difference between Github Project &amp; User Pages.  Deploying <a href="https://github.com/middleman/middleman">Middleman</a> to Github Project Pages is simple with the gem <a href="https://github.com/neo/middleman-gh-pages">middleman-gh-pages</a>.  But I&#39;m here to explain how to deploy middleman to Github User Pages.</p>
+
+<p>A quick overview of Github User Pages</p>
+
+<ul>
+<li>the url is simply: http://username.github.io.<br></li>
+<li>You can only have one of these per github account</li>
+<li>Generated site must be pushed to &#39;master&#39; branch (LAME!).</li>
+<li>Deploying requires this blog post</li>
+</ul>
+
+<h2>Setting up Git</h2>
+
+<p>Remember Github User Pages require the generated site to be in branch &#39;master&#39;.  So we&#39;ll create our middleman repo in branch &#39;source&#39;.</p>
+
+<p>Clone <a href="https://github.com/middleman/middleman">Middleman</a> or <a href="https://github.com/dnajd/middleman-loaded">middleman-loaded</a>.. my version of it. :)</p>
+
+<div class="highlight"><pre><code class="bash">git clone git@github.com:middleman/middleman.git username.github.io
+
+or 
+
+git clone git@github.com:dnajd/middleman-loaded.git username.github.io
+</code></pre></div>
+
+<p>Remove the .git folder</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nb">cd </span>username.github.io
+rm -rf .git
+</code></pre></div>
+
+<p>Init a new git repo with branch &#39;source&#39;</p>
+
+<div class="highlight"><pre><code class="bash">git init .
+git checkout -b <span class="nb">source</span>
+git add .
+git commit -m<span class="s2">&quot;forked middleman for github user pages&quot;</span>
+</code></pre></div>
+
+<p>Now browse to <a href="http://www.github.com">Github</a> and manually create your repository. It must be named <em>username.github.io.git</em>, where the username is your github username.</p>
+
+<p>Add a remote &amp; push &#39;origin source&#39;</p>
+
+<div class="highlight"><pre><code class="bash">git add remote origin git@github.com:username/username.github.io.git
+git push -u origin <span class="nb">source</span>
+</code></pre></div>
+
+<p>Create &#39;origin master&#39; &amp; push - this is prep for deploying to branch master; as I said this is <em>required</em> and <em>lame</em>. </p>
+
+<div class="highlight"><pre><code class="bash">git branch master
+git push origin master
+</code></pre></div>
+
+<h3>Middleman Configuration</h3>
+
+<p>You&#39;ll want to add the gem <a href="https://github.com/tvaughan/middleman-deploy">middleman-deploy</a> to your app.</p>
+
+<p>And the following in <em>config.rb</em>:</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="c1"># github deploy</span>
+<span class="n">activate</span> <span class="ss">:deploy</span> <span class="k">do</span> <span class="o">|</span><span class="n">deploy</span><span class="o">|</span>
+  <span class="n">deploy</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="ss">:git</span>
+  <span class="n">deploy</span><span class="o">.</span><span class="n">build_before</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">deploy</span><span class="o">.</span><span class="n">branch</span>   <span class="o">=</span> <span class="s2">&quot;master&quot;</span>
+  <span class="n">deploy</span><span class="o">.</span><span class="n">remote</span>   <span class="o">=</span> <span class="s2">&quot;git@github.com:username/username.github.io.git&quot;</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<h3>And Finally Deploy</h3>
+
+<p>Each time you make changes you&#39;ll do the usual commit / push; and then run this to publish to Github User Pages</p>
+
+<div class="highlight"><pre><code class="bash">middleman deploy
+</code></pre></div>
+
+</div>
+
+<a href="/">...back to all posts</a>
+
+
+    </div>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+     <div class="container">
+        beesbot 2014
+      </div>
+  </footer>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1550337-13', 'beesbot.com');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
