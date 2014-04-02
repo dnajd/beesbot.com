@@ -77,17 +77,18 @@ git commit -m<span class="s2">&quot;forked middleman for github user pages&quot;
 
 <p>Add a remote &amp; push &#39;origin source&#39;</p>
 
-<div class="highlight"><pre><code class="bash">git add remote origin git@github.com:username/username.github.io.git
+<div class="highlight"><pre><code class="bash">git remote add origin git@github.com:username/username.github.io.git
 git push -u origin <span class="nb">source</span>
 </code></pre></div>
 
-<p>Create &#39;origin master&#39; &amp; push - this is prep for deploying to branch master; as I said this is <em>required</em> and <em>lame</em>. </p>
+<p>Create &#39;origin master&#39;, push and the remove it locally (trust me).</p>
 
 <div class="highlight"><pre><code class="bash">git branch master
 git push origin master
+git branch -d
 </code></pre></div>
 
-<h3>Middleman Configuration</h3>
+<h2>Middleman Configuration</h2>
 
 <p>You&#39;ll want to add the gem <a href="https://github.com/tvaughan/middleman-deploy">middleman-deploy</a> to your app.</p>
 
@@ -102,11 +103,16 @@ git push origin master
 <span class="k">end</span>
 </code></pre></div>
 
-<h3>And Finally Deploy</h3>
+<h2>And Deploy</h2>
+
+<p>Remember to build gems </p>
+
+<div class="highlight"><pre><code class="bash">bundle install
+</code></pre></div>
 
 <p>Each time you make changes you&#39;ll do the usual commit / push; and then run this to publish to Github User Pages</p>
 
-<div class="highlight"><pre><code class="bash">middleman deploy
+<div class="highlight"><pre><code class="bash">bundle <span class="nb">exec </span>middleman deploy
 </code></pre></div>
 
 </div>
