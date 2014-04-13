@@ -37,39 +37,23 @@
 <div class="post">
 <p>Mono.net and Mono Develop have come a long way; it&#39;s not only reasonable to run/develop .NET MVC on linux, it&#39;s damn near preferable.</p>
 
-<p>Setup to install Mono.NET</p>
+<h2>Install Mono &amp; Mono Develop</h2>
 
-<div class="highlight"><pre><code class="bash">sudo apt-get update <span class="o">&amp;&amp;</span> sudo apt-get -y install git-core curl python-software-properties
-</code></pre></div>
-
-<p>Use nathanb&#39;s script to install mono 2.11 which includes MVC 4.</p>
-
-<div class="highlight"><pre><code class="bash">mkdir mono-2.11
-<span class="nb">cd </span>mono-2.11
-wget --no-check-certificate https://github.com/nathanb/iws-snippets/raw/master/mono-install-scripts/ubuntu/install_mono-2.11.sh
-sudo chmod 755 install_mono-2.11.sh
-sudo ./install_mono-2.11.sh
-</code></pre></div>
-
-<p>Run this to check if the correct version shows up</p>
-
-<div class="highlight"><pre><code class="bash">/opt/mono-2.11/bin/mono -V
-</code></pre></div>
-
-<p>To set as default, add it to the end of your .bashrc </p>
-
-<div class="highlight"><pre><code class="bash">pico ~/.bashrc
-
-<span class="c"># add at the end of your .bashrc</span>
-<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$PATH:/opt/mono-2.11/bin&quot;</span>
-</code></pre></div>
-
-<p>Install mono develop 4 from source:</p>
+<p>UPDATE April 13, 2014: Installing the latest Mono 2.10 and Mono Develop 4.x is much easier than it was in 2013.  It&#39;s as simple as following choffmeister&#39;s gist.</p>
 
 <script src="https://gist.github.com/choffmeister/5114966.js"></script>
 
-<p>As for building your applications to run on Linux:
-Connect to mysql through <a href="http://nhforge.org/">nhibernate</a>, do it in an agile way with <a href="https://github.com/schambers/fluentmigrator">fluent migrator</a> and don&#39;t forget the <a href="http://dev.mysql.com/downloads/connector/net/">mysql-connector-net-6.4.3</a>.</p>
+<h2>Database Agnostic</h2>
+
+<p>Run you application on MS SQL Server, Mysql or Postgres.</p>
+
+<ul>
+<li>Connect to mysql through <a href="http://nhforge.org/">nhibernate</a></li>
+<li>Manage you db in an agile way with <a href="https://github.com/schambers/fluentmigrator">fluent migrator</a> </li>
+<li>For Mysql don&#39;t forget to include the <a href="http://dev.mysql.com/downloads/connector/net/">mysql-connector-net-6.4.3</a>.</li>
+</ul>
+
+<h2>Just in Case</h2>
 
 <p>Off chance you have compile error related to &quot;WebApplication.targets&quot;, look at <a href="http://stackoverflow.com/questions/10575509/webapplication-targets-missing-when-building-a-mvc4-project-in-monodevelop-on-os">my solution on this stack overflow</a></p>
 

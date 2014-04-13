@@ -35,51 +35,71 @@
 <p class="meta">10 Jul 2013</p>
 
 <div class="post">
-<p>Ubuntu 13 is fantastic, stable and I&#39;ve truly been enjoying it. Since I advocate for Ubuntu and the Unity Interface SUCKS BAD. I thought I&#39;d write up a quick list of things to do after you install ubuntu.</p>
+<h1>UPDATED: April 10, 2014 for Ubuntu 14</h1>
+
+<p>Ubuntu 14 is fantastic, stable and I&#39;ve truly been enjoying it. Since I advocate for Ubuntu and the Unity Interface SUCKS BAD, I want to provide friends and family with a cheatsheet for getting your system up and running.</p>
+
+<h2>Get Ubuntu</h2>
 
 <p>Of course you can <a href="http://www.ubuntu.com/">download Ubuntu</a> for free, burn it to a CD and install it side-by-side with windows. </p>
 
+<h2>Gnome 3</h2>
+
 <p>But once it&#39;s installed and you&#39;re logged in, open a terminal and install the superior <a href="http://www.gnome.org/">gnome-shell</a> windows manager.</p>
 
-<div class="highlight"><pre><code class="bash">sudo apt-get install gnome-shell
+<div class="highlight"><pre><code class="bash">sudo apt-get install gnome-shell gnome-panel
 </code></pre></div>
 
 <p>Then logout of ubuntu, click the little foot icon and select &quot;GNOME&quot; as your windows manager. You are now officially free of UNITY lameness.</p>
 
-<p>Ubuntu Restricted Extra&#39;s to make all rich media work well...</p>
+<h2>The Basics</h2>
 
-<div class="highlight"><pre><code class="bash">sudo apt-get install ubuntu-restricted-extras
+<p>Ubuntu Restricted Extra&#39;s makes all rich media work, vlc will play anything and gimp is your open source photoshop.</p>
+
+<div class="highlight"><pre><code class="bash">sudo apt-get install ubuntu-restricted-extras vlc gimp 
 </code></pre></div>
 
-<p>VLC, the best video player in the world...</p>
+<p>No need to worry about alacarte or ssd trim anymore.  We&#39;ve got these out of the box. :)</p>
 
-<div class="highlight"><pre><code class="bash">sudo apt-get install vlc
+<h3>Ditch Firefox for Chrome</h3>
+
+<p><a href="https://www.google.com/intl/en/chrome/browser/">Google Chrome</a> can be downloaded from google or <a href="http://www.cyberciti.biz/faq/how-to-install-google-chrome-in-ubuntu-linux-12-xx-13-xx/">installed from the command line</a> like so.</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nb">cd</span> ~/Downloads
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
 </code></pre></div>
 
-<p>Alacarte menu editor, for those applications that don&#39;t add themselves to your menu</p>
+<p>We can&#39;t live without our <a href="https://chrome.google.com/webstore/detail/hangouts/nckgahadagoaajjgafhacjanaoiihapd?hl=en">hangouts plugin</a>, an absolute must have!</p>
 
-<div class="highlight"><pre><code class="bash">sudo apt-get install alacarte
+<h2>Programmer stuff</h2>
+
+<p><a href="http://www.sublimetext.com/3">Sublime Text 3</a> is a great all-purpose editor for programmers, also <a href="http://www.webupd8.org/2013/07/sublime-text-3-ubuntu-ppa-now-available.html">installable via the command line</a> with this:</p>
+
+<div class="highlight"><pre><code class="bash">sudo add-apt-repository ppa:webupd8team/sublime-text-3
+sudo apt-get update
+sudo apt-get install sublime-text-installer
 </code></pre></div>
 
-<p>You&#39;ll want to install the open-source image editing software (aka photoshop)</p>
+<p>And make sure you get your <a href="https://sublime.wbond.net/installation">package manager</a></p>
 
-<div class="highlight"><pre><code class="bash">sudo apt-get install gimp
+<p>Setup your <a href="https://help.github.com/articles/generating-ssh-keys">ssh-key</a> for source control sites like <a href="https://github.com/">github</a> and <a href="https://bitbucket.org">bitbucket</a></p>
+
+<div class="highlight"><pre><code class="bash">ssh-keygen -t rsa -C <span class="s2">&quot;your_email@example.com&quot;</span>
+cat ~/.ssh/id_rsa.pub
 </code></pre></div>
 
-<p>Another note is if you have a solid state drive, you&#39;ll want to <a href="http://www.webupd8.org/2013/01/enable-trim-on-ssd-solid-state-drives.html">configure TRIM</a> to ensure the drive lasts and stays fast.</p>
+<p>then copy-n-paste the output into your account settings on github or bitbucket</p>
 
-<p>Lastly don&#39;t forget to download</p>
+<h2>Ruby, Rails &amp; Tmux</h2>
 
-<ul>
-<li>google chrome browser</li>
-<li>sublime text (editing code)</li>
-</ul>
+<p>Don&#39;t miss out on my other blog posts that walk you through installing <a href="http://www.beesbot.com/rbenv-ubuntu-bundler/">Ruby &amp; Rails</a> and <a href="http://www.beesbot.com/ubuntu-tmux/">Tmux</a>.</p>
 
-<p>And you&#39;ve got ubuntu stock + things it should have come with anyway.</p>
+<h2>And That&#39;s All</h2>
+
+<p>You&#39;ve got ubuntu + things it should have come with anyway.</p>
 
 <p>Enjoy!</p>
-
-<p>P.S. Do you have the NVIDIA Optimus? Read this: https://wiki.ubuntu.com/HardwareSupport/Machines/Laptops/Dell/XPS/15z</p>
 
 <p>By Don Najd</p>
 

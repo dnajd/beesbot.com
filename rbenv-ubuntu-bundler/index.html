@@ -75,12 +75,6 @@ gem install bundler
 rbenv rehash
 </code></pre></div>
 
-<p>In a project directory, you can set the version of ruby with this command</p>
-
-<div class="highlight"><pre><code class="bash"><span class="nb">cd</span> ~/dev/myRailProject
-rbenv <span class="nb">local </span>1.9.3-p484
-</code></pre></div>
-
 <h2>Alias Goodness</h2>
 
 <p>I&#39;ve been really enjoying these commands to shortcut using bundler exec before everything add these to your ~/.bashrc</p>
@@ -95,20 +89,16 @@ rbenv <span class="nb">local </span>1.9.3-p484
 <span class="nb">alias </span><span class="nv">berp</span><span class="o">=</span><span class="s2">&quot;be rake db:test:prepare &amp;&amp; ber&quot;</span>
 </code></pre></div>
 
-<h2>A Note about Bundler</h2>
+<h2>And you&#39;re all set</h2>
 
-<p>To manage gems or run rake.. use bundler
-cd ~/dev/myRailProject</p>
+<p>Read more on rbenv and bundler</p>
 
-<div class="highlight"><pre><code class="bash">bundle install --path vendor
-bundle <span class="nb">exec </span>rake db:migrate
-</code></pre></div>
-
-<p>Resources:
-<a href="https://github.com/sstephenson/rbenv">rbenv</a>
-<a href="https://github.com/sstephenson/ruby-build">ruby-build</a>
-<a href="https://github.com/sstephenson/ruby-build/wiki">concerning zlib error</a>
-<a href="http://ryan.mcgeary.org/2011/02/09/vendor-everything-still-applies/">rbenv and bundler; a good write up</a></p>
+<ul>
+<li><a href="https://github.com/sstephenson/rbenv">rbenv</a></li>
+<li><a href="https://github.com/sstephenson/ruby-build">ruby-build</a></li>
+<li><a href="https://github.com/sstephenson/ruby-build/wiki">concerning zlib error</a></li>
+<li><a href="http://ryan.mcgeary.org/2011/02/09/vendor-everything-still-applies/">rbenv and bundler; a good write up</a></li>
+</ul>
 
 <p>By Don Najd</p>
 
