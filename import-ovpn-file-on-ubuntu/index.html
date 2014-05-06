@@ -53,6 +53,21 @@
 
 <p>By default this will block non-vpn networks (e.g. the world wide web); There&#39;s an option under &quot;IPv4 Settings&quot; - click the &quot;Routes&quot; button and then check the box next to &quot;Use this connection only for resources on its network&quot; and that will get you back online with the rest of the world.</p>
 
+<h1>Note on Ubuntu 14</h1>
+
+<p>There is (a bug)[https://bugs.launchpad.net/ubuntu/+source/network-manager-openvpn/+bug/1294899] where this process does not work with ubuntu 14.  A networking genius friend of mine suggested setting it up manually by performing the following steps</p>
+
+<ol>
+<li>Copy .ovpn &amp; keys into /etc/openvpn</li>
+<li>Rename your .ovpn file to openvpn.conf</li>
+<li>Run it manually using the following command</li>
+</ol>
+
+<div class="highlight"><pre><code class="bash">sudo openvpn /etc/openvpn/openvpn.conf
+</code></pre></div>
+
+<p>It should prompt you for username and password.. and you&#39;re there.  Now wait for the bug to get fixed. :)</p>
+
 <p>By Don Najd</p>
 
 </div>
