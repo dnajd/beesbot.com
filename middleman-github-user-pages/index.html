@@ -66,6 +66,29 @@
 bundle install
 </code></pre></div>
 
+<h2>Git Work</h2>
+
+<p>Remove the git folder</p>
+
+<div class="highlight"><pre><code class="bash">rm -rf .git
+</code></pre></div>
+
+<p>Init a new git repo and add middleman-loaded as your upstream</p>
+
+<div class="highlight"><pre><code class="bash">git init .
+git add .
+git commit -m<span class="s2">&quot;forked middleman for github user pages&quot;</span>
+git remote add upstream git@github.com:dnajd/middleman-loaded.git
+</code></pre></div>
+
+<p>Now browse to <a href="http://www.github.com">Github</a>, manually create your repository and name it whatever you want.</p>
+
+<p>Then add a remote &amp; push &#39;origin source&#39;</p>
+
+<div class="highlight"><pre><code class="bash">git remote add origin git@github.com:username/whatever-your-named-it.git
+git push -u origin <span class="nb">source</span>
+</code></pre></div>
+
 <h3>Configure Middleman</h3>
 
 <p>In the config.rb uncomment the deployment settings</p>

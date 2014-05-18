@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>FluentNao and Events | beesbot</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body class="internal-layout">
+
+  <header class="site-header" role="banner">
+     <div class="container">
+      
+     <!-- <nav class="site-nav" role="navigation">
+        <div class="nav-links">
+            <a href="/" href="/">Home</a>
+            <a href="/about" href="/about">About</a>
+            <a href="/blog" href="/about">Blog</a>
+            <div class="mobile-menu"><i class="icon-reorder"></i></div>
+        </div>
+      </nav>-->
+
+      <a href="/"><img src="/images/logo_no_bee.png" alt="beesbot - a technology group" width="250" class="navbar-brand" /></a>
+
+    </div>
+  </header>
+  <main class="site-main" role="main">
+     <div class="container">
+
+        <h1>FluentNao and Events</h1>
+<p class="meta">17 May 2014</p>
+
+<div class="post">
+<p>I had a great time at the Bay Area Nao Dev&#39;s meetup and thought it might be fun to write up a post showing how to handle events like voice recognition with FluentNao.  This post assumes you have <a href="/interactive-fluent-nao/">setup fluent-nao</a> first.</p>
+
+<h2>Create a Script</h2>
+
+<p>Since you already have FluentNao code on your machine, copy/rename the bootstrap.py file to create a very simple script</p>
+
+<div class="highlight"><pre><code class="bash">cp bootstrap.py my-script.py
+</code></pre></div>
+
+<h2>Fluent Nao</h2>
+
+<p>Clear everything out of that file except the following code.</p>
+
+<ul>
+<li>Be sure to update the naoIP so it points to your Nao Robot&#39;s ipaddress.</li>
+<li>Get the ipaddress by pushing Nao&#39;s chest button once.</li>
+</ul>
+
+<div class="highlight"><pre><code class="python"><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">naoutil.naoenv</span> <span class="kn">as</span> <span class="nn">naoenv</span>
+<span class="kn">import</span> <span class="nn">naoutil.memory</span> <span class="kn">as</span> <span class="nn">memory</span>
+<span class="kn">import</span> <span class="nn">fluentnao.nao</span> <span class="kn">as</span> <span class="nn">nao</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">naoutil</span> <span class="kn">import</span> <span class="n">broker</span>
+
+<span class="c"># naoutil broker &amp; env</span>
+<span class="n">naoIp</span> <span class="o">=</span> <span class="s">&quot;192.168.2.12&quot;</span>
+<span class="n">broker</span><span class="o">.</span><span class="n">Broker</span><span class="p">(</span><span class="s">&#39;bootstrapBroker&#39;</span><span class="p">,</span> <span class="n">naoIp</span><span class="o">=</span><span class="n">naoIp</span><span class="p">,</span> <span class="n">naoPort</span><span class="o">=</span><span class="mi">9559</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">naoenv</span><span class="o">.</span><span class="n">make_environment</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span> <span class="c">#using broker don&#39;t need -&gt;, ipaddr=&quot;nao.local&quot;, port=9559)</span>
+
+<span class="c"># FluentNao</span>
+<span class="n">nao</span> <span class="o">=</span> <span class="n">nao</span><span class="o">.</span><span class="n">Nao</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Voice Recognition code</h2>
+
+<p>Add the following code to your script, which will...</p>
+
+<ul>
+<li>Set a vocabulary to use</li>
+<li>Define a callback for voice recognition events</li>
+<li>Subscribe to the voice recognition </li>
+</ul>
+
+<div class="highlight"><pre><code class="python"><span class="c"># set VR Vocabulary</span>
+<span class="n">vocab</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;sit&#39;</span><span class="p">,</span> <span class="s">&#39;stand&#39;</span><span class="p">,</span> <span class="s">&#39;hands open&#39;</span><span class="p">]</span>
+<span class="n">nao</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">speechRecognition</span><span class="o">.</span><span class="n">setVocabulary</span><span class="p">(</span><span class="n">vocab</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+
+<span class="c"># define VR callback</span>
+<span class="k">def</span> <span class="nf">speech_callback</span><span class="p">(</span><span class="n">dataName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">value</span>
+
+    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;sit&#39;</span>
+        <span class="n">nao</span><span class="o">.</span><span class="n">sit</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;stand&#39;</span>
+        <span class="n">nao</span><span class="o">.</span><span class="n">stand</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;hands open&#39;</span>
+        <span class="n">nao</span><span class="o">.</span><span class="n">hands</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+
+
+<span class="c"># subscribe to VR</span>
+<span class="n">memory</span><span class="o">.</span><span class="n">subscribeToEvent</span><span class="p">(</span><span class="s">&#39;WordRecognized&#39;</span><span class="p">,</span> <span class="n">speech_callback</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Run Your Script</h2>
+
+<p>Run your script and tell nao to &quot;sit&quot;</p>
+
+<div class="highlight"><pre><code class="bash">python my-script.py
+</code></pre></div>
+
+</div>
+
+<a href="/">...back to all posts</a>
+
+
+    </div>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+     <div class="container">
+        beesbot 2014
+      </div>
+  </footer>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1550337-13', 'beesbot.com');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

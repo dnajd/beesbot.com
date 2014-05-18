@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interactive FluentNao | beesbot</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body class="internal-layout">
+
+  <header class="site-header" role="banner">
+     <div class="container">
+      
+     <!-- <nav class="site-nav" role="navigation">
+        <div class="nav-links">
+            <a href="/" href="/">Home</a>
+            <a href="/about" href="/about">About</a>
+            <a href="/blog" href="/about">Blog</a>
+            <div class="mobile-menu"><i class="icon-reorder"></i></div>
+        </div>
+      </nav>-->
+
+      <a href="/"><img src="/images/logo_no_bee.png" alt="beesbot - a technology group" width="250" class="navbar-brand" /></a>
+
+    </div>
+  </header>
+  <main class="site-main" role="main">
+     <div class="container">
+
+        <h1>Interactive FluentNao</h1>
+<p class="meta">16 May 2014</p>
+
+<div class="post">
+<p>Here I will show you how to set up Fluent Nao code to interactively control Nao.</p>
+
+<h2>Setup Pynaoqi Python SDK</h2>
+
+<p>Download the <a href="https://community.aldebaran-robotics.com/resources/">Python SDK</a> from Aldebaran&#39;s community site and extract it into a folder on your computer.  </p>
+
+<p>Afer that add the folder to your PYTHONPATH by editing you .bashrc or .profile file.  For example on my system I added the following to my .bashrc</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="nv">$HOME</span>/development/opensource/pynaoqi-python-2.7-naoqi-1.14-linux64
+</code></pre></div>
+
+<h2>Setup Fluent Nao</h2>
+
+<p>Next up you&#39;ll need to clone fluent nao using <a href="http://git-scm.com/">git</a></p>
+
+<div class="highlight"><pre><code class="bash">git clone https://github.com/dnajd/FluentNao.git
+</code></pre></div>
+
+<p>And add the src/main/python folder to your .bashrc or .profile file.  For example on my system I added the following to my .bashrc</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="nv">$HOME</span>/development/opensource/FluentNao/src/main/python
+</code></pre></div>
+
+<h2>Bootstrap Python</h2>
+
+<p>To test things out you can edit the bootstrap.py file in the root of the FluentNao code you checked out.  </p>
+
+<ul>
+<li>Update the following line to Nao&#39;s ipaddress if needed. </li>
+<li>Get Nao&#39;s ipaddress by pushing his chest button once.</li>
+</ul>
+
+<div class="highlight"><pre><code class="python"><span class="n">naoIp</span> <span class="o">=</span> <span class="s">&quot;192.168.2.12&quot;</span>
+</code></pre></div>
+
+<p>Then run the bootstrap file in an interactive python shell to connect</p>
+
+<div class="highlight"><pre><code class="bash">python -i bootstrap.py
+</code></pre></div>
+
+<h2>Interactively Control Nao</h2>
+
+<p>Run a <a href="https://github.com/dnajd/FluentNao/wiki">FluentNao commands</a> to test it out.</p>
+
+<div class="highlight"><pre><code class="bash">nao.say<span class="o">(</span><span class="s1">&#39;hi&#39;</span><span class="o">)</span>
+</code></pre></div>
+
+<p>If that worked you&#39;re ready to go.</p>
+
+</div>
+
+<a href="/">...back to all posts</a>
+
+
+    </div>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+     <div class="container">
+        beesbot 2014
+      </div>
+  </footer>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1550337-13', 'beesbot.com');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
