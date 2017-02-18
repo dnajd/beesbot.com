@@ -1,0 +1,41 @@
+---
+layout: post
+title:  "Groovy on Grails & Ubuntu"
+date:   2013-07-18
+categories: groovy grails ubuntu
+summary: Grails makes extensive use of groovy and even more interesting is the way they have wrapped some mature favorites (junit, ant and hybernate) with the groovy language.
+permalink: groovy-on-grails-ubuntu/
+---
+
+I personally have always loved java and C# style and syntax, but having tried ruby on rails there is no ignoring dynamic languages ability to get stuff done. Especially one with functional style that makes programming fun. 
+
+Grails makes extensive use of groovy and even more interesting is the way they have wrapped some mature favorites (junit, ant and hybernate) with the groovy language. They have a powerful mvc and a really streamline workflow. You have to try it. 
+
+## Installing Grails on Ubuntu
+
+You'll want to purge the openjdk and install oracle's version
+
+{% highlight bash %}
+sudo apt-get purge openjdk*
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update && sudo apt-get install oracle-java7-installer
+{% endhighlight %}
+
+Then you'll need to set the JAVA_HOME in your .bashrc. Something like this...
+
+{% highlight bash %}
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+export PATH=$PATH:/usr/lib/jvm/java-7-oracle/bin
+{% endhighlight %}
+
+Lastly you'll want to install grails with the GVM here: http://gvmtool.net/
+
+## Tips For Getting Started
+
+* [get started](http://grails.org/doc/latest/guide/gettingStarted.html#creatingAnApplication) with groovy and grails
+* Series of [grails casts](http://www.grailsexample.net/course-outline/)
+* Blog post on [grails and mysql](http://www.redtoad.ca/ataylor/2011/06/getting-started-with-grails-and-mysql/)
+* Getting started with [database migrations](http://grails.org/plugin/database-migration)
+* You'll want the [grails asset pipeline](http://grails.org/plugins/search?q=asset+pipeline) which includes less
+
+By Don Najd

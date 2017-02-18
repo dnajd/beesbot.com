@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "What Can Nao Do?"
+date:   2012-11-20
+categories: nao robot
+summary: Nao recognizes my face, understands when I speak, talks back and recognizes programming books.
+permalink: what-can-nao-do/
+---
+
+Nao is truly amazing.  I was accepted to the [Nao Developer Program](http://www.aldebaran-robotics.com/en/Solutions/For-Development/developer-program.html) a few months back and have received a [Nao Robot](http://www.youtube.com/watch?v=nNbj2G3GmAo) from Aldebaran Robotics.
+
+<iframe width="560" height="315" src="http://www.youtube.com/embed/tctI2sfsakw" frameborder="0" allowfullscreen=""></iframe>
+
+I've been learning about the robot and writing applications in Python for a few weeks now.  I created a video of an application I wrote that demonstrates some of Nao's capabilities.
+
+* Face Recognition - when I walk up
+* Text to speech - says "hi"
+* Voice Recognition - When I ask him about books
+* Object Recognition - recognizes books
+
+I am just scratching the surface in terms of the capabilities Nao has.  My five year old son and I work with him each night and hope to learn more about robotics.
+
+By Don Najd

@@ -1,0 +1,25 @@
+@charset "utf-8";
+@import "normalize";
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  max-width: 1200px;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.big-bee {
+  display: block;
+}
+
+header {
+  h1 {
+    text-align: center;
+    font-size:5em;
+  }
+}

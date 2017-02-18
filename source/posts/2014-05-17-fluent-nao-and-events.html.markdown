@@ -1,0 +1,87 @@
+---
+layout: post
+title:  "FluentNao and Events"
+date:   2014-05-17
+categories: nao fluentnao events python
+summary: Next up is code to handle voice recognition with Fluent Nao
+permalink: fluent-nao-and-events/
+---
+
+I had a great time at the Bay Area Nao Dev's meetup and thought it might be fun to write up a post showing how to handle events like voice recognition with FluentNao.  This post assumes you have [setup fluent-nao](/interactive-fluent-nao/) first.
+
+## Create a Script
+
+Since you already have FluentNao code on your machine, copy/rename the bootstrap.py file to create a very simple script
+
+{% highlight bash %}
+cp bootstrap.py my-script.py
+{% endhighlight %}
+
+## Fluent Nao
+
+Clear everything out of that file except the following code.
+
+* Be sure to update the naoIP so it points to your Nao Robot's ipaddress.
+* Get the ipaddress by pushing Nao's chest button once.
+
+{% highlight python %}
+
+import math
+import naoutil.naoenv as naoenv
+import naoutil.memory as memory
+import fluentnao.nao as nao
+from datetime import datetime
+from naoutil import broker
+
+# naoutil broker & env
+naoIp = "192.168.2.12"
+broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
+env = naoenv.make_environment(None) #using broker don't need ->, ipaddr="nao.local", port=9559)
+
+# FluentNao
+nao = nao.Nao(env, None)
+
+{% endhighlight %}
+
+## Voice Recognition code
+
+Add the following code to your script, which will...
+
+* Set a vocabulary to use
+* Define a callback for voice recognition events
+* Subscribe to the voice recognition 
+
+{% highlight python %}
+
+# set VR Vocabulary
+vocab = ['sit', 'stand', 'hands open']
+nao.env.speechRecognition.setVocabulary(vocab, True)
+
+# define VR callback
+def speech_callback(dataName, value, message):
+	print value
+
+	if value == 'sit'
+		nao.sit()
+
+	if value == 'stand'
+		nao.stand()
+
+	if value == 'hands open'
+		nao.hands.open()
+
+
+# subscribe to VR
+memory.subscribeToEvent('WordRecognized', speech_callback)
+
+{% endhighlight %}
+
+
+## Run Your Script
+
+Run your script and tell nao to "sit"
+
+{% highlight bash %}
+python my-script.py
+{% endhighlight %}
+

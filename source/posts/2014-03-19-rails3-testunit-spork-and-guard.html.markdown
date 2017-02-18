@@ -1,0 +1,99 @@
+---
+layout: post
+title:  "Rails 3, Test:Unit, Spork & Guard"
+date:   2014-03-19
+categories: ruby rails testunit spork guard
+summary: There are a lot tutorials (all different); here is how I got Rails 3 & TestUnit working with Spork and Guard
+permalink: rails3-spork-and-guard/
+---
+
+There are a lot tutorials (all different); here is how I got Rails 3 & TestUnit working with Spork and Guard.  Note I use factory girl, there is additional setup if you want to use standard Rails fixtures.
+
+## Gemfile
+
+{% highlight ruby %}
+  gem 'spork-rails'                   # SPORK - preload env
+  gem 'spork-testunit'                # Test:Unit compatibility
+  gem 'guard-spork'                   # GUARD - watch files
+  gem 'guard-test'                    # Test:Unit compatibility
+{% endhighlight %}
+
+
+## Guardfile
+
+{% highlight ruby %}
+
+guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' } do
+  watch('config/application.rb')
+  watch('config/environment.rb')
+  watch('config/environments/test.rb')
+  watch(%r{^config/initializers/.+\.rb$})
+  watch('Gemfile.lock')
+  watch('spec/spec_helper.rb') { :rspec }
+  watch('test/test_helper.rb') { :test_unit }
+  watch(%r{features/support/}) { :cucumber }
+end
+
+guard :test do
+  watch(%r{^test/.+_test\.rb$})
+  watch('test/test_helper.rb')  { 'test' }
+
+  # Non-rails
+  watch(%r{^lib/(.+)\.rb$}) { |m| "test/#{m[1]}_test.rb" }
+
+  # Rails < 4
+  watch(%r{^app/models/(.+)\.rb$})                   { |m| "test/unit/#{m[1]}_test.rb" }
+  watch(%r{^app/controllers/(.+)\.rb$})              { |m| "test/functional/#{m[1]}_test.rb" }
+  watch(%r{^app/views/(.+)/.+\.erb$})                { |m| "test/functional/#{m[1]}_controller_test.rb" }
+  watch(%r{^app/views/.+$})                          { 'test/integration' }
+  watch('app/controllers/application_controller.rb') { ['test/functional', 'test/integration'] }
+end
+
+{% endhighlight %}
+
+## test_helper.rb
+
+{% highlight ruby %}
+
+require 'rubygems'
+require 'spork'
+#require 'spork/ext/ruby-debug'  #uncomment the following line to use spork with the debugger
+
+Spork.prefork do
+
+  ENV["RAILS_ENV"] = "test"
+  require File.expand_path('../../config/environment', __FILE__)
+  require 'rails/test_help'
+  require 'factory_girl'
+
+  class ActiveSupport::TestCase
+    include FactoryGirl::Syntax::Methods
+  end
+
+end
+
+Spork.each_run do
+  FactoryGirl.reload
+end
+
+{% endhighlight %}
+
+
+## In the Terminal
+
+A little setup
+
+{% highlight ruby %}
+
+bundle install --path vendor
+spork --bootstrap
+
+{% endhighlight %}
+
+Now use it!
+
+{% highlight ruby %}
+
+bundle exec guard
+
+{% endhighlight %}

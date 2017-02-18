@@ -1,0 +1,106 @@
+---
+layout: post
+title:  "Ubuntu Rocks"
+date:   2013-07-10
+categories: ubuntu
+summary: Ubuntu is fantastic, stable and you'll truly enjoy it. Here is a list of things to get a good developer machine up and running
+permalink: ubuntu-rocks/
+---
+
+UPDATED: Nov 15, 2014 - Ubuntu Gnome 14.04 
+
+Ubuntu 14 is fantastic, stable and I've truly been enjoying it. For my friends and family, here is a cheatsheet for getting your system up and running.
+
+## Get Ubuntu Gnome
+
+The default Unity interface sucks..  So be sure to download [Ubuntu Gnome 14.04](http://cdimage.ubuntu.com/ubuntu-gnome/releases/14.04/release/), burn it to a CD/thumb drive and install it side-by-side with windows. 
+
+## The Basics
+
+Ubuntu Restricted Extra's makes all rich media work, vlc will play anything and gimp is your open source photoshop and some other goodies you'll need.
+
+{% highlight bash %}
+sudo apt-get install ubuntu-restricted-extras vlc gimp alacarte
+{% endhighlight %}
+
+No need to worry about ssd trim anymore.  We've got these out of the box. :)
+
+
+### Ditch Firefox for Chrome
+
+[Google Chrome](https://www.google.com/intl/en/chrome/browser/) can be downloaded from google or [installed from the command line](http://www.cyberciti.biz/faq/how-to-install-google-chrome-in-ubuntu-linux-12-xx-13-xx/) like so.
+
+{% highlight bash %}
+cd ~/Downloads
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+{% endhighlight %}
+
+We can't live without our [hangouts plugin](https://chrome.google.com/webstore/detail/hangouts/nckgahadagoaajjgafhacjanaoiihapd?hl=en), an absolute must have!
+
+And we'll need java, since it runs billions of devices
+
+{% highlight bash %}
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+{% endhighlight %}
+
+If you get a message complaining, be sure to run the fix command that the message instructs you to run... then re-run the 'sudo apt-get install oracle-java7-installer'
+
+## Customize
+
+You can only install gnome extensions in firefox.  I highly recomend browsing to these in firefox and installing them:
+
+* [insensitive-message-tray](https://extensions.gnome.org/extension/616/insensitive-message-tray/)
+* [Taskbar](https://extensions.gnome.org/extension/584/taskbar/)
+* [todo-list](https://extensions.gnome.org/extension/162/todo-list/)
+* [wallpaper slideshow](https://extensions.gnome.org/extension/543/backslide/)
+
+If you're like me you get tired of the animation when you bring up the applications menu.  Disable it with this:
+
+{% highlight bash %}
+gsettings set org.gnome.desktop.interface enable-animations false
+{% endhighlight %}
+
+## Programmer stuff
+
+Install and setup git
+
+{% highlight bash %}
+sudo apt-get install git
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+git config --global push.default simple
+{% endhighlight %}
+
+[Sublime Text 3](http://www.sublimetext.com/3) is a great all-purpose editor for programmers, also [installable via the command line](http://www.webupd8.org/2013/07/sublime-text-3-ubuntu-ppa-now-available.html) with this:
+
+{% highlight bash %}
+sudo add-apt-repository ppa:webupd8team/sublime-text-3
+sudo apt-get update
+sudo apt-get install sublime-text-installer
+{% endhighlight %}
+
+And make sure you get your [package manager](https://sublime.wbond.net/installation)
+
+Setup your [ssh-key](https://help.github.com/articles/generating-ssh-keys) for source control sites like [github](https://github.com/) and [bitbucket](https://bitbucket.org)
+
+{% highlight bash %}
+ssh-keygen -t rsa -C "your_email@example.com"
+cat ~/.ssh/id_rsa.pub
+{% endhighlight %}
+
+then copy-n-paste the output into your account settings on github or bitbucket
+
+## Ruby, Rails & Tmux
+
+Don't miss out on my other blog posts that walk you through installing [Ruby & Rails](http://www.beesbot.com/rbenv-ubuntu-bundler/) and [Tmux](http://www.beesbot.com/ubuntu-tmux/).
+
+## And That's All
+
+You've got ubuntu + things it should have come with anyway.
+
+Enjoy!
+
+By Don Najd

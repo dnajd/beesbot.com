@@ -1,0 +1,108 @@
+---
+layout: post
+title:  "Rails Multiple Databases"
+date:   2014-10-20
+categories: rails ruby database
+summary: There are a few tricks to integrating a rails app with a legacy database.  Here is what I've learned...
+permalink: rails-multiple-databases/
+---
+
+There are a few tricks to integrating a rails app with a multiple database, especially if you involve a gem.  Here is a summary of the situation I was in.
+
+* Building a Rails Application that had it's own database
+* But also required access to a (MSSQL) financial system's database; to get customer data
+* I used ActiveRecord and additionally packaged the code in a gem for reuse in other applications
+
+# The Gem
+
+I built a standard gem and included an abstract base class for establishing a connection to the financial system.  All active record models will extend this base class and therefore share the connection details.
+
+```
+# /lib/financial/system/financial_system_active_record_base.rb
+
+module Financial::System
+  class FinancialSystemActiveRecordBase < ActiveRecord::Base
+    self.abstract_class = true
+  end
+end
+```
+
+In the Gem Module I created a method to configure the database connection.  Note the workaround I had to use because of this [lousy bug](http://stackoverflow.com/questions/7390623/activerecord-3-1-0-multiple-databases)
+
+```
+# /lib/financial/system.rb
+
+module Financial
+  module System
+    def self.configure(yml_config)
+
+      # first gotcha
+      if ActiveRecord::Base.connected?
+        FinancialSystemActiveRecordBase.establish_connection(yml_config)
+      else
+        ActiveRecord::Base.establish_connection(yml_config)
+      end
+
+    end
+  end
+end
+```
+
+# The Rails App
+
+The Rails App has the usual stock stuff including a database.yml for it's own database.
+
+## Initialize the Gem
+
+I created an initializer to configure the Financial Systems gem.  The previous workaround (in the gem) causes problems with automated tests in the Rails app. I explain below, but here is how I got through it.
+
+```
+# /config/initializer/financial_system.rb
+
+module RailsAppName
+  class Application < Rails::Application
+    config.after_initialize do
+      yml_config = YAML.load_file(Rails.root.join('config/financial_system_config.yml'))[Rails.env]
+      Financial::System.configure(yml_config)
+    end
+  end
+end
+```
+
+Replace RailsAppName with whatever your module is called in config/application.rb.  I had to run this code 'after_initialize' so automated tests would NOT point the Rails App's models at the Financial Systems database.  But rather only configure the Gem's models.  Before this fix my tests would throw an error saying "cannot find the table ____" and no it was not due to any lack of running 'rake db:test:prepare'. :)
+
+# Factory Girl
+
+Eventually I used this gem in more than one rails app and needed the Financial Systems factory girl settings in both.  So I created a class in the Gem to configure the factories
+
+```
+# in the gem
+module Financial::System
+  class Factories
+    def self.define(factoryGirl)
+      factoryGirl.define do
+        factory :contact, :class => Financial::System::Contact do
+          sequence :contactid
+          contactname 'Some Name'
+          phoneno1 '1112223333'
+          phoneno2 ''
+          emailaddress 'name@email.com'
+        end
+      end
+    end
+  end
+end
+```
+
+Things to note
+
+* I passed in the module FactoryGirl
+* I had to associate the factory with the Gems Active Record Model
+
+I used the factories in the rails app; Place the following code at the very bottom regardless of if you are using spork / guard, and you'll be good to go.
+
+```
+# /test/test_helper.rb
+
+Financial::System::Factories.define(FactoryGirl)
+```

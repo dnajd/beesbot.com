@@ -1,0 +1,164 @@
+---
+layout: post
+title:  "Deploy middleman-loaded to Github Pages"
+date:   2014-03-27
+categories: ruby rails testunit spork guard
+summary: Here I explain the different github pages offerings and how to deploy middleman to to them.
+permalink: middleman-github-user-pages/
+---
+
+There are significant structural difference between Github Project & User Pages.  Deployment and domain configuration can be complication, but I've streamlined the process with [middleman-loaded](https://github.com/dnajd/middleman-loaded).  First a summary of the differences between Github Project & User Pages.
+
+### Project Pages
+
+* The url is something like: http://username.github.io/project-name  (Troublesome)
+* You can have as many of these as your want
+* Generated site must be pushed to a 'gh-pages' branch (Awesome!)
+* Deploying is really easy
+
+### User Pages
+
+* the url is simply: http://username.github.io.  
+* You can only have one of these per github account
+* Generated site must be pushed to 'master' branch (LAME!).
+* Deploying requires this blog post
+
+# Deploy Project Pages 
+
+Project Pages are simple so I'll cover that first.  
+
+### Clone & Build
+
+{% highlight bash %}
+git clone git@github.com:dnajd/middleman-loaded.git my-project.com
+cd my-project.com
+bundle install
+{% endhighlight %}
+
+## Git Work
+
+Remove the git folder
+{% highlight bash %}
+rm -rf .git
+{% endhighlight %}
+
+Init a new git repo and add middleman-loaded as your upstream
+
+{% highlight bash %}
+git init .
+git add .
+git commit -m"forked middleman for github user pages"
+git remote add upstream git@github.com:dnajd/middleman-loaded.git
+{% endhighlight %}
+
+Now browse to [Github](http://www.github.com), manually create your repository and name it whatever you want.
+
+Then add a remote & push 'origin master'
+
+{% highlight bash %}
+git remote add origin git@github.com:username/whatever-your-named-it.git
+git push -u origin master
+{% endhighlight %}
+
+### Configure Middleman
+
+In the config.rb uncomment the deployment settings
+
+{% highlight ruby %}
+# github project pages deploy
+activate :deploy do |deploy|
+  deploy.method = :git
+  deploy.build_before = true # default: false
+end
+{% endhighlight %}
+
+And remember to commit your changes
+
+{% highlight bash %}
+git add .
+git commit -m"configured for deployment to github project pages"
+git push
+{% endhighlight %}
+
+### Deploy
+
+{% highlight bash %}
+bundle exec middleman deploy
+{% endhighlight %}
+
+### Configure Custom Domain
+
+Project pages are hosted under a url under your user (ex. http://username.github.io/my-project.com).  This means path references and images will likely be broken. Pointing a custom domain at this fixes everything, but requires to DNS settings.
+
+* create a CNAME Record from: www.my-project.com to username.github.io
+* create an A Record for: my-project.com to ipaddress (dig username.github.io)
+
+# Deploy User Pages
+
+User pages have their benefits, but deploying with middleman is a bit more complicated.  Here are the steps.
+
+## Clone & Build
+
+{% highlight bash %}
+git clone git@github.com:dnajd/middleman-loaded.git username.github.io
+bundle install
+{% endhighlight %}
+
+## Git Work
+
+Remember User Pages require the generated site to be in branch 'master'.  To get our code into a branch called 'source', we'll first remove the .git folder
+
+{% highlight bash %}
+cd username.github.io
+rm -rf .git
+{% endhighlight %}
+
+Init a new git repo with branch 'source'
+
+{% highlight bash %}
+git init .
+git checkout -b source
+git add .
+git commit -m"forked middleman for github user pages"
+{% endhighlight %}
+
+Now browse to [Github](http://www.github.com) and manually create your repository. It must be named *username.github.io.git*, where the username is your github username.
+
+Add a remote & push 'origin source'
+
+{% highlight bash %}
+git remote add origin git@github.com:username/username.github.io.git
+git push -u origin source
+{% endhighlight %}
+
+Create 'origin master', push and the remove it locally (trust me).
+
+{% highlight bash %}
+git branch master
+git push origin master
+git branch -d
+{% endhighlight %}
+
+### Configure Middleman
+
+Uncomment the following in your *config.rb* and set the remote
+
+{% highlight ruby %}
+# github deploy
+activate :deploy do |deploy|
+  deploy.method = :git
+  deploy.build_before = true
+  deploy.branch   = "master"
+  deploy.remote   = "git@github.com:username/username.github.io.git"
+end
+{% endhighlight %}
+
+## Deploy
+
+{% highlight bash %}
+bundle exec middleman deploy
+{% endhighlight %}
+
+## Browse
+
+The best feature of User Pages are that they have a nice url.  Browser to your new site with your username (ex. http://username.github.io)

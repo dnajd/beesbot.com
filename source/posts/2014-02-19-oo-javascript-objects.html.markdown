@@ -1,0 +1,236 @@
+---
+layout: post
+title:  "Object Oriented Javascript Objects"
+date:   2014-02-10
+categories: javascript architecture
+summary: Build your javascript in an object oriented and maintainable way
+permalink: object-oriented-javascript/
+---
+
+Beginners with Javascript start by using a lot of global functions and variables.  Once things get complex it becomes difficult to maintain & enhance a long list of functions.  So this blog post shows the basics of building your javascript in a more Object Oriented way.
+
+Starting by maintaining info on 'People', we'll have the following goals:
+
+* Maintain state: ex. firstName, lastName
+* Define behavior: ex. printName()
+
+## Simple Example
+
+The simplest example of doing this in a more Object Oriented way is to
+
+* Define a function called 'Person', then
+* Adjust it's prototype
+
+{% highlight javascript %}
+
+// define person
+function Person() {}
+Person.prototype = {
+  firstName : '',
+  lastName : '',
+  printName : function() {
+    console.log(this.firstName, this.lastName);
+  }
+};
+  
+// now use it
+var p1 = new Person();
+p1.firstName = 'John'
+p1.lastName = 'Doe'
+p1.printName();
+
+{% endhighlight %}
+
+## Basic Initialization
+
+Here we add basic intitialize to our simplistic example.
+
+{% highlight javascript %}
+
+// define person
+function Person(firstName, lastName) {
+
+  // init the person
+  this.firstName = firstName;
+  this.lastName = lastName;
+
+}
+Person.prototype = {
+  firstName : '',
+  lastName : '',
+  printName : function() {
+    console.log(this.firstName, this.lastName);
+  }
+};
+  
+// now use it
+var p1 = new Person('John', 'Doe');
+p1.printName();
+
+{% endhighlight %}
+
+## Better Initialization
+
+In this example we'll add a function called 'mix' to help us initialize our object with json
+
+{% highlight javascript %}
+
+function mix(options, object) {
+  options = options || {};
+
+  // mix options into object
+  for(var key in options) {
+    object[key] = options[key];
+  }
+}
+
+// define person
+function Person(options) {
+  mix(options, this);  // using mix function 
+}
+Person.prototype = {
+  firstName : '',
+  lastName : '',
+  printName : function() {
+    console.log(this.firstName, this.lastName);
+  }
+};
+ 
+// now use it 
+var p1 = new Person({ 
+  firstName: 'Paul', 
+  lastName: 'McCartney' 
+});
+p1.printName();
+
+{% endhighlight %}
+
+
+## Factory Pattern
+
+Now that was cool... But we can do better using a factory pattern.  The benefit of this approach is we can define many objects with it.
+
+{% highlight javascript %}
+
+function mix(options, object) {
+  options = options || {};
+
+  // mix options into object
+  for(var key in options) {
+    object[key] = options[key];
+  }
+}
+
+// build any object w/ options
+function newObject(options) {
+  mix(options, this);
+};
+
+// define person
+function makePerson (options) {
+  var obj = new newObject(options);
+
+  // with this approach no one can override `printName`
+  // because it's being mixed into the object here
+  // instead of being put on the prototype
+  obj.printName = function() {
+	  console.log(this.firstName + ' ' + this.lastName);
+  };
+
+  return obj;
+}
+
+// define address
+function makeAddress (options) {
+  var obj = new newObject(options);
+
+  // print
+  obj.printAddress = function() {
+    console.log(this.street1);
+    console.log(this.city + ' ' + this.state + ' ' + this.zip);
+  };
+  return obj;
+}
+
+// use it
+var p1 = makePerson({ 
+  firstName: 'Bill', 
+  lastName: 'Gates',
+  address: makeAddress({
+              street1: 'One Microsoft Way',
+              city: 'Redmond',
+              state:'WA',
+              zip:'98052'}) 
+});
+p1.printName();
+p1.address.printAddress();
+
+{% endhighlight %}
+
+
+## Getting Crazy
+
+How about using the previous code to create a company with employees and give the employees multiple addresses
+
+{% highlight javascript %}
+
+// create a company with employees
+var company = {
+  employees: [
+    makePerson({
+      firstName: "Bill",
+      lastName: "Gates",
+      number: "(206) 555-5555",
+      addresses: [
+          makeAddress({street1: 'One Microsoft Way', city: 'Redmond', state:'WA', zip:'98052'}),
+          makeAddress({street1: 'One Microsoft Way', city: 'Cobb', state:'CA', zip:'95426'})
+     ]
+    }),
+    makePerson({
+      firstName: "Steve",
+      lastName: "Jobs",
+      number: "(408) 555-5555",
+      addresses: [
+          makeAddress({street1: 'One Microsoft Way', city: 'Redmond', state:'WA', zip:'98052'})
+     ]
+    })
+  ]
+};
+
+// ex. loop through employees
+for (e in company.employees){
+  
+  var employee = company.employees[e];
+  employee.printName();
+
+  // each address
+  for (a in employee.addresses){
+    var address = employee.addresses[a];
+    address.printAddress();
+  }
+}
+
+// ex. access directly
+var emp1 = company.employees[0];
+var a1 = emp1.addresses[0];
+a1.printAddress();
+
+{% endhighlight %}
+
+## Debugging
+
+If you want to see what an object has on it, use this
+
+{% highlight javascript %}
+
+// spin through object
+var listProps = function(obj) {
+  for(var prop in obj) {
+    console.log(prop);
+  }
+};
+
+
+{% endhighlight %}
+
+By Don Najd
