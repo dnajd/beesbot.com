@@ -9,78 +9,86 @@ permalink: rails-scaffold-for-model-in-module/
 
 I used active record to map a legacy database and packaged the active record models in a gem.  When you do that you end up with a model embedded in a module path, for example something like this ```class Legacy::Database::Product```
 
-When you roll this into rails and use scaffold you'll end up with paths like ```/legacy/database/products``` and path variables like ```legacy_database_products_path```. 
+When you roll this into rails and use scaffold you'll end up with paths like ```/legacy/database/products``` and path variables like ```legacy_database_products_path```.
 
 So lets fix all that! Start by assuming we have a rails project and have included our gem.
+
 
 ## Generate the scaffold
 
 Note you'll need to include the attributes of your model so the forms generate correctly.
 
-```
+<% code("ruby") do %>
 rails generate scaffold Products title:string description:text price:decimal
-```
+<% end %>
+
 
 ## Clean up
 
 Remove the generated model, migration, fixtures/factory and unit test for the model.
 
+
 ## Shorter Routes
 
 Update the routes to ```/products``` by adjusting the ```config/routes.rb``` file.
 
-```
+<% code("ruby") do %>
 resources :products, path: '/products'
-```
+<% end %>
 
 Now your paths / path variables will be shallow and not include module names.
 
+
 ## Views
 
-Anywhere that a model is passed to a ```form_for``` needs the addition of the ```url``` 
+Anywhere that a model is passed to a ```form_for``` needs the addition of the ```url```
 
-```
-<%= form_for(@product, {
+<% code("ruby") do %>
+form_for(@product, {
   url: (@product.new_record? ? products_path : product_path(@product)),
   method: (@product.new_record? ? :post : :put)
-}) do |f| %>
-```
+}) do |f|
+<% end %>
 
 ```link_to``` methods that don't include a path variable (ex. ```link_to 'Show', @product```) need to inlcude the path variable.
 
-```
-<%= link_to 'Show', product_path(@product) %>
-```
+
+<% code("ruby") do %>
+link_to 'Show', product_path(@product)
+<% end %>
+
 
 ## Controller
 
 The create and update actions have a params key that will need to be updated (```params[:product]```) to a param key including the module names.
 
-```
+<% code("ruby") do %>
 params[:legacy_database_product]
-```
+<% end %>
+
 
 ## Functional Tests
 
-The scaffold will create automated tests and there are a few changes to make.  
+The scaffold will create automated tests and there are a few changes to make.
 
 First add the module name to the ```assert_difference``` in the destory test.
 
-```
+<% code("ruby") do %>
  test "should destroy product" do
     assert_difference('Legacy::Database::Product.count', -1)...
-```
+<% end %>
 
 And the parameter names for the update and create tests
 
-```
+<% code("ruby") do %>
  test "should create product" do
     assert_difference('Legacy::Database::Product.count') do
       post :create, {legacy_database_product: {
 
   test "should update product" do
     put :update, {id: @product, legacy_database_product: {
-```
+<% end %>
+
 
 ## Congrats
 

@@ -23,6 +23,7 @@ sudo apt-get update
 sudo apt-get install jenkins
 <% end %>
 
+
 ### Setup Jenkins User
 
 <% code("bash") do %>
@@ -47,6 +48,7 @@ For [ruby_tester](https://github.com/dnajd/ruby_tester), remember to download th
 export PATH="$PATH:$HOME/Applications/chromedriver"
 <% end %>
 
+
 ## Jenkins Job
 
 Finally when you setup your jenkins job and try to execute a shell command, remember to include:
@@ -63,6 +65,7 @@ If you're using the [ruby_tester](https://github.com/dnajd/ruby_tester) remember
 <% code("bash") do %>
 spec/reports/*.xml
 <% end %>
+
 
 ## Selenium Tests
 
@@ -83,4 +86,4 @@ NOTE: local host and port 4444 are assumed
 ## Email Notifications
 I simply [used a gmail account](http://lifehacker.com/111166/how-to-use-gmail-as-your-smtp-server) to send email and put the credentials into Jenkins.
 
-By Don Najd
+

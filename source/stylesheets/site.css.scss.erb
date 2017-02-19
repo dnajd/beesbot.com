@@ -53,7 +53,7 @@ blockquote {
 /* blog */
 article.post {
   h1 {
-    font-size:4em;
+    font-size:3em;
     line-height: 1em;
     margin:0;
   }
@@ -81,9 +81,12 @@ article.post {
   }
 }
 
-
 /* code highlighting */
 <%= Rouge::Themes::ThankfulEyes.render(:scope => '.highlight') %>
 .highlight {
   padding: 1em;
+}
+pre {
+  overflow: auto;
+overflow-y: hidden;
 }

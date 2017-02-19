@@ -34,7 +34,12 @@
         <h1><%= current_page.data.title %></h1>
         <p class="date"><%= current_page.data.date %></p>
         <%= yield %>
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
       </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
     </main>
   </body>
 </html>

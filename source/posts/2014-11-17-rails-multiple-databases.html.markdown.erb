@@ -13,25 +13,24 @@ There are a few tricks to integrating a rails app with a multiple database, espe
 * But also required access to a (MSSQL) financial system's database; to get customer data
 * I used ActiveRecord and additionally packaged the code in a gem for reuse in other applications
 
+
 # The Gem
 
 I built a standard gem and included an abstract base class for establishing a connection to the financial system.  All active record models will extend this base class and therefore share the connection details.
 
-```
+<% code("ruby") do %>
 # /lib/financial/system/financial_system_active_record_base.rb
-
 module Financial::System
   class FinancialSystemActiveRecordBase < ActiveRecord::Base
     self.abstract_class = true
   end
 end
-```
+<% end %>
 
 In the Gem Module I created a method to configure the database connection.  Note the workaround I had to use because of this [lousy bug](http://stackoverflow.com/questions/7390623/activerecord-3-1-0-multiple-databases)
 
-```
+<% code("ruby") do %>
 # /lib/financial/system.rb
-
 module Financial
   module System
     def self.configure(yml_config)
@@ -46,7 +45,7 @@ module Financial
     end
   end
 end
-```
+<% end %>
 
 # The Rails App
 
@@ -56,9 +55,9 @@ The Rails App has the usual stock stuff including a database.yml for it's own da
 
 I created an initializer to configure the Financial Systems gem.  The previous workaround (in the gem) causes problems with automated tests in the Rails app. I explain below, but here is how I got through it.
 
-```
-# /config/initializer/financial_system.rb
 
+<% code("ruby") do %>
+# /config/initializer/financial_system.rb
 module RailsAppName
   class Application < Rails::Application
     config.after_initialize do
@@ -67,15 +66,17 @@ module RailsAppName
     end
   end
 end
-```
+<% end %>
 
 Replace RailsAppName with whatever your module is called in config/application.rb.  I had to run this code 'after_initialize' so automated tests would NOT point the Rails App's models at the Financial Systems database.  But rather only configure the Gem's models.  Before this fix my tests would throw an error saying "cannot find the table ____" and no it was not due to any lack of running 'rake db:test:prepare'. :)
+
 
 # Factory Girl
 
 Eventually I used this gem in more than one rails app and needed the Financial Systems factory girl settings in both.  So I created a class in the Gem to configure the factories
 
-```
+
+<% code("ruby") do %>
 # in the gem
 module Financial::System
   class Factories
@@ -92,7 +93,7 @@ module Financial::System
     end
   end
 end
-```
+<% end %>
 
 Things to note
 
@@ -101,8 +102,8 @@ Things to note
 
 I used the factories in the rails app; Place the following code at the very bottom regardless of if you are using spork / guard, and you'll be good to go.
 
-```
-# /test/test_helper.rb
 
+<% code("ruby") do %>
+# /test/test_helper.rb
 Financial::System::Factories.define(FactoryGirl)
-```
+<% end %>

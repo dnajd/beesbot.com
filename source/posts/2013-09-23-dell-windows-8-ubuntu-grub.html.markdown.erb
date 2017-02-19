@@ -9,11 +9,12 @@ permalink: dell-windows-8-ubuntu-grub-challenges/
 
 ## 1. Boot Windows.
 
-Launch a Command Shell prompt with Administrator privileges. (You do this by right-clicking the shell icon and selecting the option to "Run as Administrator.") Type the following to register GRUB as the desired default boot program. 
+Launch a Command Shell prompt with Administrator privileges. (You do this by right-clicking the shell icon and selecting the option to "Run as Administrator.") Type the following to register GRUB as the desired default boot program.
 
 <% code("bash") do %>
-bcdedit /set {bootmgr} path \EFI\ubuntu\grubx64.efi 
+bcdedit /set {bootmgr} path \EFI\ubuntu\grubx64.efi
 <% end %>
+
 
 ## 2. Disable secure boot
 
@@ -25,4 +26,4 @@ You don't see grub by default when you reboot. So you have to reboot, hit f9 (or
 
 I'm still working on fixing it so you don't have to hit f9. to be continued...
 
-By Don Najd
+

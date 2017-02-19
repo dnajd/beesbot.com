@@ -18,14 +18,14 @@ There are significant structural difference between Github Project & User Pages.
 
 ### User Pages
 
-* the url is simply: http://username.github.io.  
+* the url is simply: http://username.github.io.
 * You can only have one of these per github account
 * Generated site must be pushed to 'master' branch (LAME!).
 * Deploying requires this blog post
 
-# Deploy Project Pages 
+# Deploy Project Pages
 
-Project Pages are simple so I'll cover that first.  
+Project Pages are simple so I'll cover that first.
 
 ### Clone & Build
 
@@ -34,6 +34,7 @@ git clone git@github.com:dnajd/middleman-loaded.git my-project.com
 cd my-project.com
 bundle install
 <% end %>
+
 
 ## Git Work
 
@@ -60,6 +61,7 @@ git remote add origin git@github.com:username/whatever-your-named-it.git
 git push -u origin master
 <% end %>
 
+
 ### Configure Middleman
 
 In the config.rb uncomment the deployment settings
@@ -80,11 +82,13 @@ git commit -m"configured for deployment to github project pages"
 git push
 <% end %>
 
+
 ### Deploy
 
 <% code("bash") do %>
 bundle exec middleman deploy
 <% end %>
+
 
 ### Configure Custom Domain
 
@@ -103,6 +107,7 @@ User pages have their benefits, but deploying with middleman is a bit more compl
 git clone git@github.com:dnajd/middleman-loaded.git username.github.io
 bundle install
 <% end %>
+
 
 ## Git Work
 
@@ -153,11 +158,13 @@ activate :deploy do |deploy|
 end
 <% end %>
 
+
 ## Deploy
 
 <% code("bash") do %>
 bundle exec middleman deploy
 <% end %>
+
 
 ## Browse
 
