@@ -1,8 +1,73 @@
 ---
 layout: post
 title:  "2017 Middleman Deploy to Github User Pages"
-date:   2015-06-05
+date:   2017-02-19
 categories: staticsite middleman deploy github
 summary: An updated article on a simple approach to deploying middleman on github user pages
 permalink: 2017-middleman-deploy-github-user-pages
 ---
+
+Middleman has come a long ways and so have my habits.  My blog is now running a stock version of the latest [Middleman App](https://middlemanapp.com/).
+
+I wanted to share this very simple rake task for deploying to [Github User Pages](https://help.github.com/articles/user-organization-and-project-pages/).
+
+## Add Rake to Gemfile
+
+<% code("ruby") do %>
+gem "rake"
+<% end %>
+
+and remember to
+
+<% code("ruby") do %>
+bundle install --path=vendor
+<% end %>
+
+
+## Deploy Rake Task
+
+<% code("ruby") do %>
+
+desc "Deploy"
+task :deploy do
+
+  puts 'do build'
+
+  # build folder
+  system "rm -rf build"
+  system "mkdir build"
+
+  # git
+  Dir.chdir("build") do
+    system "git init ."
+    system "git remote add origin git@github.com:YOURACCOUNT/beesbot.com.git"
+    system "git checkout --orphan gh-pages"
+  end
+
+  # do build
+  system "bundle exec middleman build"
+
+  # push build
+  Dir.chdir("build") do
+    system "git add -A"
+    system "git commit -m build"
+    system "git push -uf origin gh-pages"
+  end
+end
+
+<% end %>
+
+
+## Try it out
+
+
+<% code("ruby") do %>
+bundle exec rake deploy
+<% end %>
+
+Note the greatness
+
+* it builds static assets into gh-pages branch
+* does a force push so your repo doesn't continually get bigger
+
+Happy blogging!
