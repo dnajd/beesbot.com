@@ -1,26 +1,23 @@
-###
-# Page options, layouts, aliases and proxies
-###
 
-
-# custom
+# extensions
 require 'lib/extensions/permalink.rb'
 activate :permalink
 activate :syntax
 
-# Per-page layout changes:
-#
-# With no layout
-page '/*.xml', layout: false
-page '/*.json', layout: false
-page '/*.txt', layout: false
-
-# Reload the browser automatically whenever files change
+# dev
 configure :development do
   activate :livereload
 end
 
-# Build-specific configuration
+# helpers
+helpers do
+  def blog_posts
+    posts = sitemap.resources.select {|p| p.source_file.include? '/posts'}
+    return posts.sort_by { |page| page.data[:date] }.reverse
+  end
+end
+
+# build
 configure :build do
   # Minify CSS on build
   # activate :minify_css

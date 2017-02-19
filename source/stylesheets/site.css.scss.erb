@@ -1,12 +1,8 @@
 @charset "utf-8";
 @import "normalize";
 
-/* code highlighting */
-<%= Rouge::Themes::ThankfulEyes.render(:scope => '.highlight') %>
-.highlight {
-  padding: 1em;
-}
 
+/* typography */
 h1, h2, h3, h4 {
   font-family: Georgia, Times, "Times New Roman", serif;
 }
@@ -17,19 +13,13 @@ body, p, article {
   line-height: 2em;
 }
 
+/* links */
 a:link {color: #BB5111; text-decoration: none; }
 a:active {color: #BB5111; text-decoration: none; }
 a:visited {color: #BB5111; text-decoration: none; }
 a:hover {color: #BB5111; text-decoration: underline; }
 
-
-a {
-  h1 {text-decoration: none;}
-}
-
-
 /* base styles */
-
 .center {
   margin-left: auto;
   margin-right: auto;
@@ -43,11 +33,6 @@ a {
   margin-right: auto;
 }
 
-.big-bee {
-  display: block;
-  margin-bottom: 4em;
-}
-
 header {
   h1 {
     text-align: center;
@@ -59,11 +44,31 @@ blockquote {
   font-size:2em;
 }
 
+.big-bee {
+  display: block;
+  margin-bottom: 4em;
+}
+
+
+/* blog */
+article.post {
+  h1 {
+    font-size:4em;
+    line-height: 1em;
+    margin:0;
+  }
+  .date {
+    color: #BB5111;
+    font-weight: bold;
+    font-size:1.5em;
+    margin:0;
+  }
+}
 .blog-list {
   article { margin-bottom: 4em;}
   h2 {
     font-size: 3em;
-    margin-bottom: .5em;
+    margin-bottom: .2em;
     line-height: 1em;
   }
   p {
@@ -71,4 +76,14 @@ blockquote {
     font-size: 2em;
     line-height: 1em;
   }
+  .date {
+    font-size:1.5em;
+  }
+}
+
+
+/* code highlighting */
+<%= Rouge::Themes::ThankfulEyes.render(:scope => '.highlight') %>
+.highlight {
+  padding: 1em;
 }

@@ -22,16 +22,19 @@
       <div class="container">
       <a href="/">
         <div class="container">
-          <h1>Beesbot</h1>
+          <h1 class="site-title">Beesbot</h1>
         </div>
         <%= image_tag "big_bee.png", class: 'big-bee center' %>
       </a>
     </header>
 
     <main role="main">
-      <div class="container">
+
+      <article class="container post">
+        <h1><%= current_page.data.title %></h1>
+        <p class="date"><%= current_page.data.date %></p>
         <%= yield %>
-      </div>
+      </article>
     </main>
   </body>
 </html>

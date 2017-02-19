@@ -5,9 +5,10 @@ title: Beesbot
 
 <div class="container blog-list">
 
-  <% sitemap.resources.each do |page| %>
+  <% blog_posts.each do |page| %>
     <article>
       <h2><%= link_to page.data.title, page.url %></h2>
+      <p class="date"><%= page.data.date %></p>
       <p><%= page.data.summary %></p>
     </article>
   <% end %>
