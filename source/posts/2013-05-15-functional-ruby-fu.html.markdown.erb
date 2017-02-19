@@ -9,32 +9,32 @@ permalink: functional-ruby-fu/
 For some strange reason I keep forgetting ruby folding functions. So for my future self...
 
 Reject
-{% highlight ruby %}
+<% code("ruby") do %>
 [1, 2, 3, 4, 5].reject {|x| x%2==0}
 => [1, 3, 5]
-{% endhighlight %}
+<% end %>
 
 
 Select
-{% highlight ruby %}
+<% code("ruby") do %>
 [1, 2, 3, 4, 5].select {|x| x%2==0}
 => [2, 4]
-{% endhighlight %}
+<% end %>
 
 
 Collect
-{% highlight ruby %}
+<% code("ruby") do %>
 [1, 2, 3, 4, 5].collect {|x| x*2}
 => [2, 4, 6, 8, 10]
-{% endhighlight %}
+<% end %>
 
 
 Inject
-{% highlight ruby %}
+<% code("ruby") do %>
 sum = 0
 [1, 2, 3, 4, 5].inject {|sum, x| sum + x}
 => 15
-{% endhighlight %}
+<% end %>
 
 
 Now I will never forget!

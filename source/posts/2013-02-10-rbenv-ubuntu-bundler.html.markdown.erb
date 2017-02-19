@@ -11,53 +11,53 @@ A how to for setting up ubuntu for ruby on rails development
 
 You want to checkout rbenv and the plugin ruby-build:
 
-{% highlight bash %}
+<% code("bash") do %>
 cd ~/
 git clone git://github.com/sstephenson/rbenv.git .rbenv
 git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-{% endhighlight %}
+<% end %>
 
 Then add it to your path so it actually runs ruby versions installed by rbenv
 
-{% highlight bash %}
+<% code("bash") do %>
 echo 'export PATH="$PATH:$HOME/.rbenv/bin"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 exec $SHELL
-{% endhighlight %}
+<% end %>
 
 And the reason for the blog post... avoid a host of issues includes the "LoadError cannot load such file -- zlib" error, do this step before installing ruby. I spiced it up with postgresql and imagemagick; if you plan on using heroku and dealing with images, you'll want those too.
 
-{% highlight bash %}
+<% code("bash") do %>
 sudo apt-get install build-essential libreadline-dev libssl-dev zlib1g-dev libsqlite3-dev nodejs libxslt-dev libxml2-dev libpq-dev postgresql imagemagick libmagickwand-dev
-{% endhighlight %}
+<% end %>
 
 Then use rbenv to install a version of ruby and set it as global
 
-{% highlight bash %}
+<% code("bash") do %>
 rbenv install 1.9.3-p484
 rbenv global 1.9.3-p484
-{% endhighlight %}
+<% end %>
 
 Now this should show you the ruby version
 
-{% highlight bash %}
+<% code("bash") do %>
 ruby -v
-{% endhighlight %}
+<% end %>
 
 The step other howto's forget; you want to develop in rails right? Then you'll want to install rails and bundler in the global gems
 
-{% highlight bash %}
+<% code("bash") do %>
 gem install rails --version "=3.2.13"
 rbenv rehash
 gem install bundler
 rbenv rehash
-{% endhighlight %}
+<% end %>
 
 ## Alias Goodness
 
 I've been really enjoying these commands to shortcut using bundler exec before everything add these to your ~/.bashrc
 
-{% highlight bash %}
+<% code("bash") do %>
 alias b="bundle"
 alias bi="b install --path vendor"
 alias bil="bi --local"
@@ -66,7 +66,7 @@ alias be="b exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 alias ber="be rspec"
 alias berp="be rake db:test:prepare && ber"
-{% endhighlight %}
+<% end %>
 
 
 ## And you're all set

@@ -10,18 +10,18 @@ First off, from the [tmux website](http://tmux.sourceforge.net/)... "tmux is a t
 
 ## Easy to install on Ubuntu
 
-{% highlight bash %}
+<% code("bash") do %>
 sudo apt-get install tmux
-{% endhighlight %}
+<% end %>
 
 Make it run every time you open a terminal
 
-{% highlight bash %}
+<% code("bash") do %>
 # add at the end of .bashrc
 if [[ ! $TERM =~ screen ]]; then
     exec tmux
 fi
-{% endhighlight %}
+<% end %>
 
 ## Use it right away...
 Ctrl-b, % splits the screen vertically
@@ -31,7 +31,7 @@ Ctrl-b, arrow to move between screens. arrow key in the direction you want to mo
 ## Remember commands
 You're always using tmux in the terminal, why not have your bash echo common commands every time you open a terminal.
 
-{% highlight bash %}
+<% code("bash") do %>
 # edit the bashrc
 nano ~/.bashrc
 
@@ -43,14 +43,14 @@ echo "ctrl b + letter"
 echo "c           new window"
 echo "w           list windows"
 echo "&           kill window"
-{% endhighlight %}
+<% end %>
 
 ## Configuration
 I added this because I wanted my mouse wheel to scroll up; note, hit the escape key to get out of scroll mode
 
-{% highlight bash %}
+<% code("bash") do %>
 echo "set-window-option -g mode-mouse on" >> ~/.tmux.conf
-{% endhighlight %}
+<% end %>
 
 ## Cool Cheats 
 [Mohamed Alaa](https://gist.github.com/MohamedAlaa/2961058)

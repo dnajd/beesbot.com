@@ -6,7 +6,7 @@
 # custom
 require 'lib/extensions/permalink.rb'
 activate :permalink
-
+activate :syntax
 
 # Per-page layout changes:
 #

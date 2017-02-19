@@ -21,7 +21,7 @@ The simplest example of doing this in a more Object Oriented way is to
 * Define a function called 'Person', then
 * Adjust it's prototype
 
-{% highlight javascript %}
+<% code("javascript") do %>
 
 // define person
 function Person() {}
@@ -39,13 +39,13 @@ p1.firstName = 'John'
 p1.lastName = 'Doe'
 p1.printName();
 
-{% endhighlight %}
+<% end %>
 
 ## Basic Initialization
 
 Here we add basic intitialize to our simplistic example.
 
-{% highlight javascript %}
+<% code("javascript") do %>
 
 // define person
 function Person(firstName, lastName) {
@@ -67,13 +67,13 @@ Person.prototype = {
 var p1 = new Person('John', 'Doe');
 p1.printName();
 
-{% endhighlight %}
+<% end %>
 
 ## Better Initialization
 
 In this example we'll add a function called 'mix' to help us initialize our object with json
 
-{% highlight javascript %}
+<% code("javascript") do %>
 
 function mix(options, object) {
   options = options || {};
@@ -103,14 +103,14 @@ var p1 = new Person({
 });
 p1.printName();
 
-{% endhighlight %}
+<% end %>
 
 
 ## Factory Pattern
 
 Now that was cool... But we can do better using a factory pattern.  The benefit of this approach is we can define many objects with it.
 
-{% highlight javascript %}
+<% code("javascript") do %>
 
 function mix(options, object) {
   options = options || {};
@@ -165,14 +165,14 @@ var p1 = makePerson({
 p1.printName();
 p1.address.printAddress();
 
-{% endhighlight %}
+<% end %>
 
 
 ## Getting Crazy
 
 How about using the previous code to create a company with employees and give the employees multiple addresses
 
-{% highlight javascript %}
+<% code("javascript") do %>
 
 // create a company with employees
 var company = {
@@ -215,13 +215,13 @@ var emp1 = company.employees[0];
 var a1 = emp1.addresses[0];
 a1.printAddress();
 
-{% endhighlight %}
+<% end %>
 
 ## Debugging
 
 If you want to see what an object has on it, use this
 
-{% highlight javascript %}
+<% code("javascript") do %>
 
 // spin through object
 var listProps = function(obj) {
@@ -231,6 +231,6 @@ var listProps = function(obj) {
 };
 
 
-{% endhighlight %}
+<% end %>
 
 By Don Najd

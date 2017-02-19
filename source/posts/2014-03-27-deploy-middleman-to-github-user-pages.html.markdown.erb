@@ -29,62 +29,62 @@ Project Pages are simple so I'll cover that first.
 
 ### Clone & Build
 
-{% highlight bash %}
+<% code("bash") do %>
 git clone git@github.com:dnajd/middleman-loaded.git my-project.com
 cd my-project.com
 bundle install
-{% endhighlight %}
+<% end %>
 
 ## Git Work
 
 Remove the git folder
-{% highlight bash %}
+<% code("bash") do %>
 rm -rf .git
-{% endhighlight %}
+<% end %>
 
 Init a new git repo and add middleman-loaded as your upstream
 
-{% highlight bash %}
+<% code("bash") do %>
 git init .
 git add .
 git commit -m"forked middleman for github user pages"
 git remote add upstream git@github.com:dnajd/middleman-loaded.git
-{% endhighlight %}
+<% end %>
 
 Now browse to [Github](http://www.github.com), manually create your repository and name it whatever you want.
 
 Then add a remote & push 'origin master'
 
-{% highlight bash %}
+<% code("bash") do %>
 git remote add origin git@github.com:username/whatever-your-named-it.git
 git push -u origin master
-{% endhighlight %}
+<% end %>
 
 ### Configure Middleman
 
 In the config.rb uncomment the deployment settings
 
-{% highlight ruby %}
+<% code("ruby") do %>
 # github project pages deploy
 activate :deploy do |deploy|
   deploy.method = :git
   deploy.build_before = true # default: false
 end
-{% endhighlight %}
+<% end %>
 
 And remember to commit your changes
 
-{% highlight bash %}
+<% code("bash") do %>
 git add .
 git commit -m"configured for deployment to github project pages"
 git push
-{% endhighlight %}
+<% end %>
 
 ### Deploy
 
-{% highlight bash %}
+<% code("bash") do %>
 bundle exec middleman deploy
-{% endhighlight %}
+<% end %>
 
 ### Configure Custom Domain
 
@@ -99,51 +99,51 @@ User pages have their benefits, but deploying with middleman is a bit more compl
 
 ## Clone & Build
 
-{% highlight bash %}
+<% code("bash") do %>
 git clone git@github.com:dnajd/middleman-loaded.git username.github.io
 bundle install
-{% endhighlight %}
+<% end %>
 
 ## Git Work
 
 Remember User Pages require the generated site to be in branch 'master'.  To get our code into a branch called 'source', we'll first remove the .git folder
 
-{% highlight bash %}
+<% code("bash") do %>
 cd username.github.io
 rm -rf .git
-{% endhighlight %}
+<% end %>
 
 Init a new git repo with branch 'source'
 
-{% highlight bash %}
+<% code("bash") do %>
 git init .
 git checkout -b source
 git add .
 git commit -m"forked middleman for github user pages"
-{% endhighlight %}
+<% end %>
 
 Now browse to [Github](http://www.github.com) and manually create your repository. It must be named *username.github.io.git*, where the username is your github username.
 
 Add a remote & push 'origin source'
 
-{% highlight bash %}
+<% code("bash") do %>
 git remote add origin git@github.com:username/username.github.io.git
 git push -u origin source
-{% endhighlight %}
+<% end %>
 
 Create 'origin master', push and the remove it locally (trust me).
 
-{% highlight bash %}
+<% code("bash") do %>
 git branch master
 git push origin master
 git branch -d
-{% endhighlight %}
+<% end %>
 
 ### Configure Middleman
 
 Uncomment the following in your *config.rb* and set the remote
 
-{% highlight ruby %}
+<% code("ruby") do %>
 # github deploy
 activate :deploy do |deploy|
   deploy.method = :git
@@ -151,13 +151,13 @@ activate :deploy do |deploy|
   deploy.branch   = "master"
   deploy.remote   = "git@github.com:username/username.github.io.git"
 end
-{% endhighlight %}
+<% end %>
 
 ## Deploy
 
-{% highlight bash %}
+<% code("bash") do %>
 bundle exec middleman deploy
-{% endhighlight %}
+<% end %>
 
 ## Browse
 

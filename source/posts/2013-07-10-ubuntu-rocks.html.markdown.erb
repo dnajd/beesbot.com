@@ -19,9 +19,9 @@ The default Unity interface sucks..  So be sure to download [Ubuntu Gnome 14.04]
 
 Ubuntu Restricted Extra's makes all rich media work, vlc will play anything and gimp is your open source photoshop and some other goodies you'll need.
 
-{% highlight bash %}
+<% code("bash") do %>
 sudo apt-get install ubuntu-restricted-extras vlc gimp alacarte
-{% endhighlight %}
+<% end %>
 
 No need to worry about ssd trim anymore.  We've got these out of the box. :)
 
@@ -30,21 +30,21 @@ No need to worry about ssd trim anymore.  We've got these out of the box. :)
 
 [Google Chrome](https://www.google.com/intl/en/chrome/browser/) can be downloaded from google or [installed from the command line](http://www.cyberciti.biz/faq/how-to-install-google-chrome-in-ubuntu-linux-12-xx-13-xx/) like so.
 
-{% highlight bash %}
+<% code("bash") do %>
 cd ~/Downloads
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
-{% endhighlight %}
+<% end %>
 
 We can't live without our [hangouts plugin](https://chrome.google.com/webstore/detail/hangouts/nckgahadagoaajjgafhacjanaoiihapd?hl=en), an absolute must have!
 
 And we'll need java, since it runs billions of devices
 
-{% highlight bash %}
+<% code("bash") do %>
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
 sudo apt-get install oracle-java7-installer
-{% endhighlight %}
+<% end %>
 
 If you get a message complaining, be sure to run the fix command that the message instructs you to run... then re-run the 'sudo apt-get install oracle-java7-installer'
 
@@ -59,37 +59,37 @@ You can only install gnome extensions in firefox.  I highly recomend browsing to
 
 If you're like me you get tired of the animation when you bring up the applications menu.  Disable it with this:
 
-{% highlight bash %}
+<% code("bash") do %>
 gsettings set org.gnome.desktop.interface enable-animations false
-{% endhighlight %}
+<% end %>
 
 ## Programmer stuff
 
 Install and setup git
 
-{% highlight bash %}
+<% code("bash") do %>
 sudo apt-get install git
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 git config --global push.default simple
-{% endhighlight %}
+<% end %>
 
 [Sublime Text 3](http://www.sublimetext.com/3) is a great all-purpose editor for programmers, also [installable via the command line](http://www.webupd8.org/2013/07/sublime-text-3-ubuntu-ppa-now-available.html) with this:
 
-{% highlight bash %}
+<% code("bash") do %>
 sudo add-apt-repository ppa:webupd8team/sublime-text-3
 sudo apt-get update
 sudo apt-get install sublime-text-installer
-{% endhighlight %}
+<% end %>
 
 And make sure you get your [package manager](https://sublime.wbond.net/installation)
 
 Setup your [ssh-key](https://help.github.com/articles/generating-ssh-keys) for source control sites like [github](https://github.com/) and [bitbucket](https://bitbucket.org)
 
-{% highlight bash %}
+<% code("bash") do %>
 ssh-keygen -t rsa -C "your_email@example.com"
 cat ~/.ssh/id_rsa.pub
-{% endhighlight %}
+<% end %>
 
 then copy-n-paste the output into your account settings on github or bitbucket
 

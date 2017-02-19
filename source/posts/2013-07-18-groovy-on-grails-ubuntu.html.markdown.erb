@@ -15,18 +15,18 @@ Grails makes extensive use of groovy and even more interesting is the way they h
 
 You'll want to purge the openjdk and install oracle's version
 
-{% highlight bash %}
+<% code("bash") do %>
 sudo apt-get purge openjdk*
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update && sudo apt-get install oracle-java7-installer
-{% endhighlight %}
+<% end %>
 
 Then you'll need to set the JAVA_HOME in your .bashrc. Something like this...
 
-{% highlight bash %}
+<% code("bash") do %>
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle
 export PATH=$PATH:/usr/lib/jvm/java-7-oracle/bin
-{% endhighlight %}
+<% end %>
 
 Lastly you'll want to install grails with the GVM here: http://gvmtool.net/
 

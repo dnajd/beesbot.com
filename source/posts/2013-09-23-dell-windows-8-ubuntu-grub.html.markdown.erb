@@ -11,9 +11,9 @@ permalink: dell-windows-8-ubuntu-grub-challenges/
 
 Launch a Command Shell prompt with Administrator privileges. (You do this by right-clicking the shell icon and selecting the option to "Run as Administrator.") Type the following to register GRUB as the desired default boot program. 
 
-{% highlight bash %}
+<% code("bash") do %>
 bcdedit /set {bootmgr} path \EFI\ubuntu\grubx64.efi 
-{% endhighlight %}
+<% end %>
 
 ## 2. Disable secure boot
 

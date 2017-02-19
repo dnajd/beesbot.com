@@ -10,15 +10,15 @@ The ubuntu 14.04 network manager doesn't include openvpn and even after installi
 
 ## Install these packages
 
-{% highlight bash %}
+<% code("bash") do %>
 sudo apt-get install openvpn network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
-{% endhighlight %}
+<% end %>
 
 ## Run this command in a terminal to load the old interface
 
-{% highlight bash %}
+<% code("bash") do %>
 nm-connection-editor
-{% endhighlight %}
+<% end %>
 
 Then select vpn -> select import -> pick .ovpn file
 

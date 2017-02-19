@@ -31,16 +31,16 @@ You can use [my preferred approach](/ubuntu/rbenv/ruby/bundler/2013/02/10/rbenv-
 
 ### 2. Install the jekyll gem
 
-{% highlight bash %}
+<% code("bash") do %>
 gem install jekyll
-{% endhighlight %}
+<% end %>
 
 ### 3. Add Jekyll to your path
 On my machine I found Jekyll in the following folder and added it to my .bashrc as follows
 
-{% highlight bash %}
+<% code("bash") do %>
 export PATH="$PATH:$HOME//.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/jekyll-1.1.2/bin"
-{% endhighlight %}
+<% end %>
 
 Then you can create a jekyll site with the following:
 jekyll new my-site

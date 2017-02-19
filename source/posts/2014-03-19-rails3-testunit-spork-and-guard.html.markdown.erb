@@ -11,17 +11,17 @@ There are a lot tutorials (all different); here is how I got Rails 3 & TestUnit 
 
 ## Gemfile
 
-{% highlight ruby %}
+<% code("ruby") do %>
   gem 'spork-rails'                   # SPORK - preload env
   gem 'spork-testunit'                # Test:Unit compatibility
   gem 'guard-spork'                   # GUARD - watch files
   gem 'guard-test'                    # Test:Unit compatibility
-{% endhighlight %}
+<% end %>
 
 
 ## Guardfile
 
-{% highlight ruby %}
+<% code("ruby") do %>
 
 guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' } do
   watch('config/application.rb')
@@ -49,11 +49,11 @@ guard :test do
   watch('app/controllers/application_controller.rb') { ['test/functional', 'test/integration'] }
 end
 
-{% endhighlight %}
+<% end %>
 
 ## test_helper.rb
 
-{% highlight ruby %}
+<% code("ruby") do %>
 
 require 'rubygems'
 require 'spork'
@@ -76,24 +76,24 @@ Spork.each_run do
   FactoryGirl.reload
 end
 
-{% endhighlight %}
+<% end %>
 
 
 ## In the Terminal
 
 A little setup
 
-{% highlight ruby %}
+<% code("ruby") do %>
 
 bundle install --path vendor
 spork --bootstrap
 
-{% endhighlight %}
+<% end %>
 
 Now use it!
 
-{% highlight ruby %}
+<% code("ruby") do %>
 
 bundle exec guard
 
-{% endhighlight %}
+<% end %>

@@ -17,7 +17,7 @@ I wrote a ruby script that uses the curses gem to capture commands from Makey Ma
 
 Here is the script.
 
-{% highlight ruby %}
+<% code("ruby") do %>
 require 'curses'
 
 Curses.noecho # do not show typed keys
@@ -27,12 +27,12 @@ Curses.stdscr.keypad(true) # enable arrow keys (required for pageup / down)
 loop do
   case Curses.getch
   when Curses::Key::DOWN
-	puts "grapes"
+    puts "grapes"
   when Curses::Key::UP
-	puts "tomato"
+    puts "tomato"
   end
 end
-{% endhighlight %}
+<% end %>
 
 Melissa was amazed and said "we should plug it into the cat". We are married 7 years to the day and it's got everything to do with suggestions like that. :)
 

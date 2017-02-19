@@ -13,9 +13,9 @@ I had a great time at the Bay Area Nao Dev's meetup and thought it might be fun 
 
 Since you already have FluentNao code on your machine, copy/rename the bootstrap.py file to create a very simple script
 
-{% highlight bash %}
+<% code("bash") do %>
 cp bootstrap.py my-script.py
-{% endhighlight %}
+<% end %>
 
 ## Fluent Nao
 
@@ -24,7 +24,7 @@ Clear everything out of that file except the following code.
 * Be sure to update the naoIP so it points to your Nao Robot's ipaddress.
 * Get the ipaddress by pushing Nao's chest button once.
 
-{% highlight python %}
+<% code("python") do %>
 
 import math
 import naoutil.naoenv as naoenv
@@ -41,7 +41,7 @@ env = naoenv.make_environment(None) #using broker don't need ->, ipaddr="nao.loc
 # FluentNao
 nao = nao.Nao(env, None)
 
-{% endhighlight %}
+<% end %>
 
 ## Voice Recognition code
 
@@ -49,9 +49,9 @@ Add the following code to your script, which will...
 
 * Set a vocabulary to use
 * Define a callback for voice recognition events
-* Subscribe to the voice recognition 
+* Subscribe to the voice recognition
 
-{% highlight python %}
+<% code("python") do %>
 
 # set VR Vocabulary
 vocab = ['sit', 'stand', 'hands open']
@@ -74,14 +74,14 @@ def speech_callback(dataName, value, message):
 # subscribe to VR
 memory.subscribeToEvent('WordRecognized', speech_callback)
 
-{% endhighlight %}
+<% end %>
 
 
 ## Run Your Script
 
 Run your script and tell nao to "sit"
 
-{% highlight bash %}
+<% code("bash") do %>
 python my-script.py
-{% endhighlight %}
+<% end %>
 

@@ -17,7 +17,7 @@ Here is a very simple approach to caching Jquery ajax calls.
 ## The Model
 Here is a simple prototype that will represent out Model and be responsible for making ajax calls.
 
-{% highlight javascript %}
+<% code("javascript") do %>
 
 function MyModel(options) {
 	this.url = "http://www.some-rest-service.com";
@@ -45,7 +45,7 @@ MyModel.prototype.all = function (url) {
   // return promise
   return this.cache[cacheKey];
 };
-{% endhighlight %}
+<% end %>
 
 Notice how we store the [jquery promise](http://api.jquery.com/promise/), which callers will use to fetch data. 
 
@@ -56,7 +56,7 @@ Unlike a regular jquery events (binds and triggers) which must be caught right a
 
 Now a prototype that would be responsible for using the model to fetch data and render it somewhere.
 
-{% highlight javascript %}
+<% code("javascript") do %>
 function MyView(options) { }
 
 MyView.prototype.renderSomething = function () {
@@ -78,6 +78,6 @@ MyView.prototype.renderSomething = function () {
 
  };
 
-{% endhighlight %}
+<% end %>
 
 We simply created the model and used the .done method of the promise to deal with the data right there inline; we could have used a callback as well.  Also because we used the [jquery proxy](http://api.jquery.com/jquery.proxy/), the keyword 'this' still refers to the MyView.

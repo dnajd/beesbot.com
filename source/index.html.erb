@@ -3,9 +3,13 @@ title: Beesbot
 ---
 
 
-<div class="container">
-  <%= image_tag "big_bee.png", class: 'big-bee center' %>
+<div class="container blog-list">
 
-  <blockquote>Branded websites for businesses for an affordable price. Upgrade existing sites for mobile, tablet and desktop.  Business systems for operations, analytics and efficiency.</blockquote>
+  <% sitemap.resources.each do |page| %>
+    <article>
+      <h2><%= link_to page.data.title, page.url %></h2>
+      <p><%= page.data.summary %></p>
+    </article>
+  <% end %>
 
 </div>
