@@ -1,6 +1,8 @@
 desc "Deploy"
 task :deploy do
 
+  puts 'do build'
+
   # build folder
   system "rm -rf build"
   system "mkdir build"
