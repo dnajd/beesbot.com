@@ -1,0 +1,46 @@
+---
+layout: post
+title:  "Middleman Permalinks in Frontmatter"
+date:   2017-01-25
+categories: middleman url routing links
+summary: Give your middleman page any url you want with permalinks
+permalink: middleman-permalinks-in-frontmatter
+---
+
+There are a lot of reasons to want descriptive, clean and specific urls for your middleman pages.  Sometimes the filename wont match and you'd like to just define the url in frontmatter.
+
+Here is a simple extension I wrote to allow this.
+
+<% code("ruby") do %>
+# lib/extensions/permalink.rb
+class Permalink < Middleman::Extension
+  def manipulate_resource_list(resources)
+    resources.each do |resource|
+      if resource.respond_to?(:data) and resource.data[:permalink]
+        resource.destination_path = resource.data[:permalink] + "index.html"
+      end
+    end
+  end
+end
+
+::Middleman::Extensions.register(:permalink, Permalink)
+<% end %>
+
+
+This will apply a destination_path to any middleman page with the following frontmatter
+
+<% code("ruby") do %>
+---
+permalink: beautiful-url-goes-here
+---
+<% end %>
+
+
+To enable it you add the following to your ```config.rb```
+
+
+<% code("ruby") do %>
+# extensions
+require 'lib/extensions/permalink.rb'
+activate :permalink
+<% end %>
