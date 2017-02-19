@@ -14,3 +14,4 @@ gem 'middleman-livereload'
 gem 'middleman-compass', '>= 4.0.0'
 gem 'byebug'
 gem "middleman-syntax"
+gem "rake"
