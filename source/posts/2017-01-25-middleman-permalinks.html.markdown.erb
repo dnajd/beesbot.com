@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Middleman Permalinks in Frontmatter"
-date:   2017-01-25
+date: 2017-01-25
 categories: middleman url routing links
 summary: Give your middleman page any url you want with permalinks
 permalink: middleman-permalinks-in-frontmatter
@@ -17,7 +17,7 @@ class Permalink < Middleman::Extension
   def manipulate_resource_list(resources)
     resources.each do |resource|
       if resource.respond_to?(:data) and resource.data[:permalink]
-        resource.destination_path = resource.data[:permalink] + "index.html"
+        resource.destination_path = resource.data[:permalink] + '/index.html'
       end
     end
   end

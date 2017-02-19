@@ -1,0 +1,117 @@
+---
+layout: post
+title:  "Active Record Mysql Master Slave"
+date: 2016-02-12
+categories: mysql master slave cluster
+summary: Connecting activerecord to a mysql master / slave cluster. Including an approach to no pool connections
+permalink: activerecord-master-slave-mysql
+---
+
+I recently had to connect to a mysql cluster configured with a single master and multiple slaves.  This is a common configuration for site that have a large volumn of traffic.
+
+# Connecting
+
+First off you'll want to support connecting to either the master or slave through the use of the [seamless database pool](https://rubygems.org/gems/seamless_database_pool) gem.  Once added to your Gemfile you can read the documentation to setup your [configuration](http://www.rubydoc.info/gems/seamless_database_pool/1.0.18#Configuration) a bit.
+
+By default, the master connection will be used for everything.  The documentation will explain how to connect to slaves, but as usual I want to talk about using this with 3rd party databases.
+
+# Multiple Databases
+
+If you are connecting to [multiple database](rails-multiple-databases) as I've discussed in the past, these base class methods can be very helpful.
+
+
+<% code("ruby") do %>
+require 'seamless_database_pool'
+
+class Base < ActiveRecord::Base
+
+  # abstract
+  self.abstract_class = true
+
+  #
+  # read only
+  #
+  # leveraging seemless data pool, this ensures all connections requested are for slave
+  # instances instead of master
+  #
+
+  def self.read_only
+    SeamlessDatabasePool.use_persistent_read_connection do              # read only
+      Base.cache do
+        return yield
+      end
+    end
+  end
+
+  #
+  # no pool
+  #
+  # code will leverage active record pool & execute statements against the database
+  # once complete the connection will be disassociated with the pool and closed
+  # if you consistently do this, no persistent connections will remain
+  #
+
+  def self.no_pool()
+
+    begin
+      Base.cache do
+        return yield
+      end
+    ensure
+      conn_pool = Base.connection_pool
+      conn = conn_pool.connection
+      Base.connection_pool.release_connection  # supported by activerecord 3 & 4
+      conn.disconnect!   # no persistent connections
+    end
+  end
+
+  #
+  # cache
+  #
+  # third party connections don't cache by default. this is wrapped up into read only and no pool
+  # to give you caching by default
+  #
+
+  def self.cache
+    Base.connection.cache { yield }
+  end
+end
+
+<% end %>
+
+
+## Read Only
+
+The read only helper makes it simple to connect to slave database
+
+<% code("ruby") do %>
+result = Base.read_only do
+  Model.where(something: true)
+end
+<% end %>
+
+
+## No Pool
+
+In my instance the Ops team had the slaves configured behind a load balancer and they did not want persistent pooled connections.  The helper method above makes this simple to do
+
+
+<% code("ruby") do %>
+result = Base.no_pool do
+  Model.where(something: true)
+end
+<% end %>
+
+
+## Caching Queries
+
+Active Record caches queries by default in rails, but in third party databases you have to do it explicitly.  The two methods above do it by default, but if you are just querying master with pooling, you do it like this
+
+<% code("ruby") do %>
+result = Base.cache do
+  Model.where(something: true)
+end
+<% end %>
+
+
+And you could just wrap that around all your queries or each one individually.

@@ -27,7 +27,7 @@ class Permalink < Middleman::Extension
       if resource.respond_to?(:data) and resource.data[:permalink]
 
         # set path as permalink
-        resource.destination_path = resource.data[:permalink] + "index.html"
+        resource.destination_path = resource.data[:permalink] + '/index.html'
       end
     end
   end
