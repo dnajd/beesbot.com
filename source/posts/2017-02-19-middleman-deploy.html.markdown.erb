@@ -40,7 +40,7 @@ task :deploy do
   # git
   Dir.chdir("build") do
     system "git init ."
-    system "git remote add origin git@github.com:YOURACCOUNT/beesbot.com.git"
+    system "git remote add origin git@github.com:YOUR_ACCOUNT/YOUR_REPO.git"
     system "git checkout --orphan gh-pages"
   end
 
@@ -57,6 +57,7 @@ end
 
 <% end %>
 
+NOTE: this is for a project page; if this is a user page you need to put your code in a source branch and have this publish into master.
 
 ## Try it out
 
