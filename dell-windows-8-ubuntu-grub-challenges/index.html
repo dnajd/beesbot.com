@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Dell, Windows 8, Ubuntu & Grub Challenges</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="dell-windows-8-ubuntu-grub-challenges dell-windows-8-ubuntu-grub-challenges_ dell-windows-8-ubuntu-grub-challenges__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Dell, Windows 8, Ubuntu & Grub Challenges</h1>
+        <p class="date">2013-09-23</p>
+        <h2 id="boot-windows">1. Boot Windows.</h2>
+
+<p>Launch a Command Shell prompt with Administrator privileges. (You do this by right-clicking the shell icon and selecting the option to "Run as Administrator.") Type the following to register GRUB as the desired default boot program.</p>
+
+<pre class="highlight shell"><code>bcdedit /set <span class="o">{</span>bootmgr<span class="o">}</span> path <span class="se">\E</span>FI<span class="se">\u</span>buntu<span class="se">\g</span>rubx64.efi
+</code></pre>
+
+<h2 id="disable-secure-boot">2. Disable secure boot</h2>
+
+<p>Then <a href="http://www.maketecheasier.com/disable-secure-boot-in-windows-8">disable secure boot</a>. I know it looks crazy, but it's doable and gets you to dual boot windows 8 / ubuntu heaven.</p>
+
+<h2 id="reboot-and-boot-option-menu">3. Reboot and Boot Option Menu</h2>
+
+<p>You don't see grub by default when you reboot. So you have to reboot, hit f9 (or whatever) to edit the boot option menu, select ubuntu and then you'll see grub / be able to select ubuntu.</p>
+
+<p>I'm still working on fixing it so you don't have to hit f9. to be continued…</p>
+
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

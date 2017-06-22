@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Cache Jquery Ajax</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="cache-jquery-ajax cache-jquery-ajax_ cache-jquery-ajax__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Cache Jquery Ajax</h1>
+        <p class="date">2014-10-20</p>
+        <p>Here is a very simple approach to caching Jquery ajax calls.</p>
+
+<ul>
+  <li>Riffing on the use of plain ol' <a href="/object-oriented-javascript/">object oriented javascript</a></li>
+  <li>using <a href="http://api.jquery.com/promise/">jquery promise</a> to avoid callback hell</li>
+  <li>and <a href="http://api.jquery.com/jquery.proxy/">jquery proxy</a> to maintain context.</li>
+</ul>
+
+<h2 id="the-model">The Model</h2>
+<p>Here is a simple prototype that will represent out Model and be responsible for making ajax calls.</p>
+
+<pre class="highlight javascript"><code>
+<span class="kd">function</span> <span class="nx">MyModel</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="s2">"http://www.some-rest-service.com"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// cache</span>
+<span class="nx">MyModel</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">cache</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="c1">// ajax method</span>
+<span class="nx">MyModel</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">all</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// key to uniquely identify ajax call</span>
+  <span class="kd">var</span> <span class="nx">cacheKey</span> <span class="o">=</span> <span class="s1">'all()'</span><span class="p">;</span>
+
+  <span class="c1">// check cache?</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">cache</span><span class="p">[</span><span class="nx">cacheKey</span><span class="p">])</span>
+  <span class="p">{</span>
+  	<span class="c1">// add to cache</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">cache</span><span class="p">[</span><span class="nx">cacheKey</span><span class="p">]</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+      <span class="na">url</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span>
+      <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span>
+    <span class="p">}).</span><span class="nx">promise</span><span class="p">();</span> 
+  <span class="p">}</span>
+
+  <span class="c1">// return promise</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">cache</span><span class="p">[</span><span class="nx">cacheKey</span><span class="p">];</span>
+<span class="p">};</span>
+</code></pre>
+<p>Notice how we store the <a href="http://api.jquery.com/promise/">jquery promise</a>, which callers will use to fetch data.</p>
+
+<p>Unlike a regular jquery events (binds and triggers) which must be caught right at the moment, a jquery promise can be used at any point after it's completion.  This is perfect for caching where subsequent calls will definitely be too late for a triggered event.</p>
+
+<h2 id="the-view">The View</h2>
+
+<p>Now a prototype that would be responsible for using the model to fetch data and render it somewhere.</p>
+
+<pre class="highlight javascript"><code><span class="kd">function</span> <span class="nx">MyView</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="nx">MyView</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">renderSomething</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  
+  <span class="c1">// construct model</span>
+  <span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyModel</span><span class="p">();</span>
+
+  <span class="c1">// call method</span>
+  <span class="nx">model</span><span class="p">.</span><span class="nx">all</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">proxy</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+
+  	  <span class="c1">// add data to MyView</span>
+  	  <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+
+  	  <span class="c1">// render here</span>
+
+    <span class="p">},</span> <span class="k">this</span><span class="p">)</span>
+  <span class="p">);</span>
+
+ <span class="p">};</span>
+
+</code></pre>
+<p>We simply created the model and used the .done method of the promise to deal with the data right there inline; we could have used a callback as well.  Also because we used the <a href="http://api.jquery.com/jquery.proxy/">jquery proxy</a>, the keyword 'this' still refers to the MyView.</p>
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

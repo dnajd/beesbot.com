@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>DNS Primer</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="dns-primer dns-primer_ dns-primer__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>DNS Primer</h1>
+        <p class="date">2014-05-06</p>
+        <p>I got tired of knowing nothing about DNS settings so I asked Mike.</p>
+
+<h2 id="a-record">A Record</h2>
+<p>Maps a human readable host name (ex. www.google.com) to one or many ipaddress (ex. 1.1.1.1)</p>
+
+<h2 id="mx-record">MX Record</h2>
+<p>Mail Exchange record points to host that handles incoming mail; because tools like thunderbird search for mx record based on domain.</p>
+
+<h2 id="ns-record">NS Record</h2>
+<p>Name servers (min of 2) that are the ultimate authority on where the host name goes.  No other name server is allowed to say.</p>
+
+<h2 id="soa">SOA</h2>
+<p>State of authority record has the name servers for the domain; not 100% sure why this exists and who cares except for the fact that it is requirement.</p>
+
+<h2 id="txt">TXT</h2>
+<p>Used if you want to do forms verfication for things like email</p>
+
+<h2 id="cname">CNAME</h2>
+<p>Is a human readable name to another human readable name</p>
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

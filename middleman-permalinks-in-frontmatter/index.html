@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Middleman Permalinks in Frontmatter</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="middleman-permalinks-in-frontmatter middleman-permalinks-in-frontmatter_index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Middleman Permalinks in Frontmatter</h1>
+        <p class="date">2017-01-25</p>
+        <p>There are a lot of reasons to want descriptive, clean and specific urls for your middleman pages.  Sometimes the filename wont match and you'd like to just define the url in frontmatter.</p>
+
+<p>Here is a simple extension I wrote to allow this.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># lib/extensions/permalink.rb</span>
+<span class="k">class</span> <span class="nc">Permalink</span> <span class="o">&lt;</span> <span class="no">Middleman</span><span class="o">::</span><span class="no">Extension</span>
+  <span class="k">def</span> <span class="nf">manipulate_resource_list</span><span class="p">(</span><span class="n">resources</span><span class="p">)</span>
+    <span class="n">resources</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">resource</span><span class="o">|</span>
+      <span class="k">if</span> <span class="n">resource</span><span class="p">.</span><span class="nf">respond_to?</span><span class="p">(</span><span class="ss">:data</span><span class="p">)</span> <span class="n">and</span> <span class="n">resource</span><span class="p">.</span><span class="nf">data</span><span class="p">[</span><span class="ss">:permalink</span><span class="p">]</span>
+        <span class="n">resource</span><span class="p">.</span><span class="nf">destination_path</span> <span class="o">=</span> <span class="n">resource</span><span class="p">.</span><span class="nf">data</span><span class="p">[</span><span class="ss">:permalink</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'/index.html'</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="o">::</span><span class="no">Middleman</span><span class="o">::</span><span class="no">Extensions</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="ss">:permalink</span><span class="p">,</span> <span class="no">Permalink</span><span class="p">)</span>
+</code></pre>
+
+<p>This will apply a destination_path to any middleman page with the following frontmatter</p>
+
+<pre class="highlight ruby"><code><span class="o">---</span>
+<span class="ss">permalink: </span><span class="n">beautiful</span><span class="o">-</span><span class="n">url</span><span class="o">-</span><span class="n">goes</span><span class="o">-</span><span class="n">here</span>
+<span class="o">---</span>
+</code></pre>
+
+<p>To enable it you add the following to your <code>config.rb</code></p>
+
+<pre class="highlight ruby"><code><span class="c1"># extensions</span>
+<span class="nb">require</span> <span class="s1">'lib/extensions/permalink.rb'</span>
+<span class="n">activate</span> <span class="ss">:permalink</span>
+</code></pre>
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

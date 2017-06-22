@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Deploy middleman-loaded to Github Pages</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="middleman-github-user-pages middleman-github-user-pages_ middleman-github-user-pages__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Deploy middleman-loaded to Github Pages</h1>
+        <p class="date">2014-03-27</p>
+        <p>There are significant structural difference between Github Project &amp; User Pages.  Deployment and domain configuration can be complication, but I've streamlined the process with <a href="https://github.com/dnajd/middleman-loaded">middleman-loaded</a>.  First a summary of the differences between Github Project &amp; User Pages.</p>
+
+<h3 id="project-pages">Project Pages</h3>
+
+<ul>
+  <li>The url is something like: http://username.github.io/project-name  (Troublesome)</li>
+  <li>You can have as many of these as your want</li>
+  <li>Generated site must be pushed to a 'gh-pages' branch (Awesome!)</li>
+  <li>Deploying is really easy</li>
+</ul>
+
+<h3 id="user-pages">User Pages</h3>
+
+<ul>
+  <li>the url is simply: http://username.github.io.</li>
+  <li>You can only have one of these per github account</li>
+  <li>Generated site must be pushed to 'master' branch (LAME!).</li>
+  <li>Deploying requires this blog post</li>
+</ul>
+
+<h1 id="deploy-project-pages">Deploy Project Pages</h1>
+
+<p>Project Pages are simple so I'll cover that first.</p>
+
+<h3 id="clone--build">Clone &amp; Build</h3>
+
+<pre class="highlight shell"><code>git clone git@github.com:dnajd/middleman-loaded.git my-project.com
+<span class="nb">cd </span>my-project.com
+bundle install
+</code></pre>
+
+<h2 id="git-work">Git Work</h2>
+
+<p>Remove the git folder</p>
+<pre class="highlight shell"><code>rm -rf .git
+</code></pre>
+<p>Init a new git repo and add middleman-loaded as your upstream</p>
+
+<pre class="highlight shell"><code>git init .
+git add .
+git commit -m<span class="s2">"forked middleman for github user pages"</span>
+git remote add upstream git@github.com:dnajd/middleman-loaded.git
+</code></pre>
+<p>Now browse to <a href="http://www.github.com">Github</a>, manually create your repository and name it whatever you want.</p>
+
+<p>Then add a remote &amp; push 'origin master'</p>
+
+<pre class="highlight shell"><code>git remote add origin git@github.com:username/whatever-your-named-it.git
+git push -u origin master
+</code></pre>
+
+<h3 id="configure-middleman">Configure Middleman</h3>
+
+<p>In the config.rb uncomment the deployment settings</p>
+
+<pre class="highlight ruby"><code><span class="c1"># github project pages deploy</span>
+<span class="n">activate</span> <span class="ss">:deploy</span> <span class="k">do</span> <span class="o">|</span><span class="n">deploy</span><span class="o">|</span>
+  <span class="n">deploy</span><span class="p">.</span><span class="nf">method</span> <span class="o">=</span> <span class="ss">:git</span>
+  <span class="n">deploy</span><span class="p">.</span><span class="nf">build_before</span> <span class="o">=</span> <span class="kp">true</span> <span class="c1"># default: false</span>
+<span class="k">end</span>
+</code></pre>
+<p>And remember to commit your changes</p>
+
+<pre class="highlight shell"><code>git add .
+git commit -m<span class="s2">"configured for deployment to github project pages"</span>
+git push
+</code></pre>
+
+<h3 id="deploy">Deploy</h3>
+
+<pre class="highlight shell"><code>bundle <span class="nb">exec </span>middleman deploy
+</code></pre>
+
+<h3 id="configure-custom-domain">Configure Custom Domain</h3>
+
+<p>Project pages are hosted under a url under your user (ex. http://username.github.io/my-project.com).  This means path references and images will likely be broken. Pointing a custom domain at this fixes everything, but requires to DNS settings.</p>
+
+<ul>
+  <li>create a CNAME Record from: www.my-project.com to username.github.io</li>
+  <li>create an A Record for: my-project.com to ipaddress (dig username.github.io)</li>
+</ul>
+
+<h1 id="deploy-user-pages">Deploy User Pages</h1>
+
+<p>User pages have their benefits, but deploying with middleman is a bit more complicated.  Here are the steps.</p>
+
+<h2 id="clone--build-1">Clone &amp; Build</h2>
+
+<pre class="highlight shell"><code>git clone git@github.com:dnajd/middleman-loaded.git username.github.io
+bundle install
+</code></pre>
+
+<h2 id="git-work-1">Git Work</h2>
+
+<p>Remember User Pages require the generated site to be in branch 'master'.  To get our code into a branch called 'source', we'll first remove the .git folder</p>
+
+<pre class="highlight shell"><code><span class="nb">cd </span>username.github.io
+rm -rf .git
+</code></pre>
+<p>Init a new git repo with branch 'source'</p>
+
+<pre class="highlight shell"><code>git init .
+git checkout -b <span class="nb">source
+</span>git add .
+git commit -m<span class="s2">"forked middleman for github user pages"</span>
+</code></pre>
+<p>Now browse to <a href="http://www.github.com">Github</a> and manually create your repository. It must be named <em>username.github.io.git</em>, where the username is your github username.</p>
+
+<p>Add a remote &amp; push 'origin source'</p>
+
+<pre class="highlight shell"><code>git remote add origin git@github.com:username/username.github.io.git
+git push -u origin <span class="nb">source</span>
+</code></pre>
+<p>Create 'origin master', push and the remove it locally (trust me).</p>
+
+<pre class="highlight shell"><code>git branch master
+git push origin master
+git branch -d
+</code></pre>
+<p>### Configure Middleman</p>
+
+<p>Uncomment the following in your <em>config.rb</em> and set the remote</p>
+
+<pre class="highlight ruby"><code><span class="c1"># github deploy</span>
+<span class="n">activate</span> <span class="ss">:deploy</span> <span class="k">do</span> <span class="o">|</span><span class="n">deploy</span><span class="o">|</span>
+  <span class="n">deploy</span><span class="p">.</span><span class="nf">method</span> <span class="o">=</span> <span class="ss">:git</span>
+  <span class="n">deploy</span><span class="p">.</span><span class="nf">build_before</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">deploy</span><span class="p">.</span><span class="nf">branch</span>   <span class="o">=</span> <span class="s2">"master"</span>
+  <span class="n">deploy</span><span class="p">.</span><span class="nf">remote</span>   <span class="o">=</span> <span class="s2">"git@github.com:username/username.github.io.git"</span>
+<span class="k">end</span>
+</code></pre>
+
+<h2 id="deploy-1">Deploy</h2>
+
+<pre class="highlight shell"><code>bundle <span class="nb">exec </span>middleman deploy
+</code></pre>
+
+<h2 id="browse">Browse</h2>
+
+<p>The best feature of User Pages are that they have a nice url.  Browser to your new site with your username (ex. http://username.github.io)</p>
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

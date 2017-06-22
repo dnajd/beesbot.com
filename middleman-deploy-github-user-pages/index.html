@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Middleman Deploy to Github User Pages</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="middleman-deploy-github-user-pages middleman-deploy-github-user-pages_index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Middleman Deploy to Github User Pages</h1>
+        <p class="date">2017-02-19</p>
+        <p>Middleman has come a long ways and so have my habits.  My blog is now running a stock version of the latest <a href="https://middlemanapp.com/">Middleman App</a>.</p>
+
+<p>I wanted to share this very simple rake task for deploying to <a href="https://help.github.com/articles/user-organization-and-project-pages/">Github User Pages</a>.</p>
+
+<h2 id="add-rake-to-gemfile">Add Rake to Gemfile</h2>
+
+<pre class="highlight ruby"><code><span class="n">gem</span> <span class="s2">"rake"</span>
+</code></pre>
+<p>and remember to</p>
+
+<pre class="highlight ruby"><code><span class="n">bundle</span> <span class="n">install</span> <span class="o">--</span><span class="n">path</span><span class="o">=</span><span class="n">vendor</span>
+</code></pre>
+
+<h2 id="deploy-rake-task">Deploy Rake Task</h2>
+
+<pre class="highlight ruby"><code>
+<span class="n">desc</span> <span class="s2">"Deploy"</span>
+<span class="n">task</span> <span class="ss">:deploy</span> <span class="k">do</span>
+
+  <span class="nb">puts</span> <span class="s1">'do build'</span>
+
+  <span class="c1"># build folder</span>
+  <span class="nb">system</span> <span class="s2">"rm -rf build"</span>
+  <span class="nb">system</span> <span class="s2">"mkdir build"</span>
+
+  <span class="c1"># git</span>
+  <span class="no">Dir</span><span class="p">.</span><span class="nf">chdir</span><span class="p">(</span><span class="s2">"build"</span><span class="p">)</span> <span class="k">do</span>
+    <span class="nb">system</span> <span class="s2">"git init ."</span>
+    <span class="nb">system</span> <span class="s2">"git remote add origin git@github.com:YOUR_ACCOUNT/YOUR_REPO.git"</span>
+    <span class="nb">system</span> <span class="s2">"git checkout --orphan gh-pages"</span>
+  <span class="k">end</span>
+
+  <span class="c1"># do build</span>
+  <span class="nb">system</span> <span class="s2">"bundle exec middleman build"</span>
+
+  <span class="c1"># push build</span>
+  <span class="no">Dir</span><span class="p">.</span><span class="nf">chdir</span><span class="p">(</span><span class="s2">"build"</span><span class="p">)</span> <span class="k">do</span>
+    <span class="nb">system</span> <span class="s2">"git add -A"</span>
+    <span class="nb">system</span> <span class="s2">"git commit -m build"</span>
+    <span class="nb">system</span> <span class="s2">"git push -uf origin gh-pages"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+</code></pre>
+<p>NOTE: this is for a project page; if this is a user page you need to put your code in a source branch and have this publish into master.</p>
+
+<h2 id="try-it-out">Try it out</h2>
+
+<pre class="highlight ruby"><code><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="n">deploy</span>
+</code></pre>
+<p>Note the greatness</p>
+
+<ul>
+  <li>it builds static assets into gh-pages branch</li>
+  <li>does a force push so your repo doesn't continually get bigger</li>
+</ul>
+
+<p>Happy blogging!</p>
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

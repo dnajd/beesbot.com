@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>RBEnv, Ubuntu and Bundler</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="rbenv-ubuntu-bundler rbenv-ubuntu-bundler_ rbenv-ubuntu-bundler__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>RBEnv, Ubuntu and Bundler</h1>
+        <p class="date">2013-02-10</p>
+        <p>A how to for setting up ubuntu for ruby on rails development</p>
+
+<p>You want to checkout rbenv and the plugin ruby-build:</p>
+
+<pre class="highlight shell"><code><span class="nb">cd</span> ~/
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+</code></pre>
+<p>Then add it to your path so it actually runs ruby versions installed by rbenv</p>
+
+<pre class="highlight shell"><code><span class="nb">echo</span> <span class="s1">'export PATH="$PATH:$HOME/.rbenv/bin"'</span> &gt;&gt; ~/.bashrc
+<span class="nb">echo</span> <span class="s1">'eval "$(rbenv init -)"'</span> &gt;&gt; ~/.bashrc
+<span class="nb">exec</span> <span class="nv">$SHELL</span>
+</code></pre>
+<p>And the reason for the blog post… avoid a host of issues includes the "LoadError cannot load such file – zlib" error, do this step before installing ruby. I spiced it up with postgresql and imagemagick; if you plan on using heroku and dealing with images, you'll want those too.</p>
+
+<pre class="highlight shell"><code>sudo apt-get install build-essential libreadline-dev libssl-dev zlib1g-dev libsqlite3-dev nodejs libxslt-dev libxml2-dev libpq-dev postgresql imagemagick libmagickwand-dev
+</code></pre>
+<p>Then use rbenv to install a version of ruby and set it as global</p>
+
+<pre class="highlight shell"><code>rbenv install 1.9.3-p484
+rbenv global 1.9.3-p484
+</code></pre>
+<p>Now this should show you the ruby version</p>
+
+<pre class="highlight shell"><code>ruby -v
+</code></pre>
+<p>The step other howto's forget; you want to develop in rails right? Then you'll want to install rails and bundler in the global gems</p>
+
+<pre class="highlight shell"><code>gem install rails --version <span class="s2">"=3.2.13"</span>
+rbenv rehash
+gem install bundler
+rbenv rehash
+</code></pre>
+<p>## Alias Goodness</p>
+
+<p>I've been really enjoying these commands to shortcut using bundler exec before everything add these to your ~/.bashrc</p>
+
+<pre class="highlight shell"><code><span class="nb">alias </span><span class="nv">b</span><span class="o">=</span><span class="s2">"bundle"</span>
+<span class="nb">alias </span><span class="nv">bi</span><span class="o">=</span><span class="s2">"b install --path vendor"</span>
+<span class="nb">alias </span><span class="nv">bil</span><span class="o">=</span><span class="s2">"bi --local"</span>
+<span class="nb">alias </span><span class="nv">bu</span><span class="o">=</span><span class="s2">"b update"</span>
+<span class="nb">alias </span><span class="nv">be</span><span class="o">=</span><span class="s2">"b exec"</span>
+<span class="nb">alias </span><span class="nv">binit</span><span class="o">=</span><span class="s2">"bi &amp;&amp; b package &amp;&amp; echo 'vendor/ruby' &gt;&gt; .gitignore"</span>
+<span class="nb">alias </span><span class="nv">ber</span><span class="o">=</span><span class="s2">"be rspec"</span>
+<span class="nb">alias </span><span class="nv">berp</span><span class="o">=</span><span class="s2">"be rake db:test:prepare &amp;&amp; ber"</span>
+</code></pre>
+
+<h2 id="and-youre-all-set">And you're all set</h2>
+
+<p>Read more on rbenv and bundler</p>
+
+<ul>
+  <li><a href="https://github.com/sstephenson/rbenv">rbenv</a></li>
+  <li><a href="https://github.com/sstephenson/ruby-build">ruby-build</a></li>
+  <li><a href="https://github.com/sstephenson/ruby-build/wiki">concerning zlib error</a></li>
+  <li><a href="http://ryan.mcgeary.org/2011/02/09/vendor-everything-still-applies/">rbenv and bundler; a good write up</a></li>
+</ul>
+
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Generate a SSL Certificate and Using it</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="generate-ssl-certificates generate-ssl-certificates_ generate-ssl-certificates__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Generate a SSL Certificate and Using it</h1>
+        <p class="date">2013-11-27</p>
+        <p>A task not done all that often and always difficult to have go smoothly. Here is the flow for generating an SSL Certificate and using it:</p>
+
+<h2 id="step-1-private-key-and-certificate-signing-request-csr">Step 1. Private Key and Certificate Signing Request (CSR)</h2>
+
+<p>NOTE: Rare but, some certificate authorities will generate a CSR and key for you; you download an entire bundle (.key, .pem)</p>
+
+<p>More common is to generate them using standard openssl commands</p>
+
+<h2 id="step-2-certificate-authority">Step 2. Certificate Authority</h2>
+
+<p>So you now have two files:
+a Private Key which is yours to keep and a
+Certificate Signing Request (CSR) that now has to be submitted to a Certificate Authority like Verisign.</p>
+
+<p>The Certificate Authority will then create a new certificate for you to use. That Certificate will be in the form of a PEM or CRT file. Based on your Certificate Signing Request (CSR) and tied to your Private Key.</p>
+
+<h2 id="step-3-setup-the-web-server">Step 3. Setup the Web Server</h2>
+
+<p>Once you have your crt or pem file and your Private Key, you will use those to configure our web server.</p>
+
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

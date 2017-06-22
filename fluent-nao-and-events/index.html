@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>FluentNao and Events</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="fluent-nao-and-events fluent-nao-and-events_ fluent-nao-and-events__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>FluentNao and Events</h1>
+        <p class="date">2014-05-17</p>
+        <p>I had a great time at the Bay Area Nao Dev's meetup and thought it might be fun to write up a post showing how to handle events like voice recognition with FluentNao.  This post assumes you have <a href="/interactive-fluent-nao/">setup fluent-nao</a> first.</p>
+
+<h2 id="create-a-script">Create a Script</h2>
+
+<p>Since you already have FluentNao code on your machine, copy/rename the bootstrap.py file to create a very simple script</p>
+
+<pre class="highlight shell"><code>cp bootstrap.py my-script.py
+</code></pre>
+
+<h2 id="fluent-nao">Fluent Nao</h2>
+
+<p>Clear everything out of that file except the following code.</p>
+
+<ul>
+  <li>Be sure to update the naoIP so it points to your Nao Robot's ipaddress.</li>
+  <li>Get the ipaddress by pushing Nao's chest button once.</li>
+</ul>
+
+<pre class="highlight python"><code>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">naoutil.naoenv</span> <span class="k">as</span> <span class="n">naoenv</span>
+<span class="kn">import</span> <span class="nn">naoutil.memory</span> <span class="k">as</span> <span class="n">memory</span>
+<span class="kn">import</span> <span class="nn">fluentnao.nao</span> <span class="k">as</span> <span class="n">nao</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">naoutil</span> <span class="kn">import</span> <span class="n">broker</span>
+
+<span class="c"># naoutil broker &amp; env</span>
+<span class="n">naoIp</span> <span class="o">=</span> <span class="s">"192.168.2.12"</span>
+<span class="n">broker</span><span class="o">.</span><span class="n">Broker</span><span class="p">(</span><span class="s">'bootstrapBroker'</span><span class="p">,</span> <span class="n">naoIp</span><span class="o">=</span><span class="n">naoIp</span><span class="p">,</span> <span class="n">naoPort</span><span class="o">=</span><span class="mi">9559</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">naoenv</span><span class="o">.</span><span class="n">make_environment</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span> <span class="c">#using broker don't need -&gt;, ipaddr="nao.local", port=9559)</span>
+
+<span class="c"># FluentNao</span>
+<span class="n">nao</span> <span class="o">=</span> <span class="n">nao</span><span class="o">.</span><span class="n">Nao</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+</code></pre>
+
+<h2 id="voice-recognition-code">Voice Recognition code</h2>
+
+<p>Add the following code to your script, which will…</p>
+
+<ul>
+  <li>Set a vocabulary to use</li>
+  <li>Define a callback for voice recognition events</li>
+  <li>Subscribe to the voice recognition</li>
+</ul>
+
+<pre class="highlight python"><code>
+<span class="c"># set VR Vocabulary</span>
+<span class="n">vocab</span> <span class="o">=</span> <span class="p">[</span><span class="s">'sit'</span><span class="p">,</span> <span class="s">'stand'</span><span class="p">,</span> <span class="s">'hands open'</span><span class="p">]</span>
+<span class="n">nao</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">speechRecognition</span><span class="o">.</span><span class="n">setVocabulary</span><span class="p">(</span><span class="n">vocab</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+
+<span class="c"># define VR callback</span>
+<span class="k">def</span> <span class="nf">speech_callback</span><span class="p">(</span><span class="n">dataName</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+	<span class="k">print</span> <span class="n">value</span>
+
+	<span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s">'sit'</span>
+		<span class="n">nao</span><span class="o">.</span><span class="n">sit</span><span class="p">()</span>
+
+	<span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s">'stand'</span>
+		<span class="n">nao</span><span class="o">.</span><span class="n">stand</span><span class="p">()</span>
+
+	<span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s">'hands open'</span>
+		<span class="n">nao</span><span class="o">.</span><span class="n">hands</span><span class="o">.</span><span class="nb">open</span><span class="p">()</span>
+
+
+<span class="c"># subscribe to VR</span>
+<span class="n">memory</span><span class="o">.</span><span class="n">subscribeToEvent</span><span class="p">(</span><span class="s">'WordRecognized'</span><span class="p">,</span> <span class="n">speech_callback</span><span class="p">)</span>
+
+</code></pre>
+
+<h2 id="run-your-script">Run Your Script</h2>
+
+<p>Run your script and tell nao to "sit"</p>
+
+<pre class="highlight shell"><code>python my-script.py
+</code></pre>
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

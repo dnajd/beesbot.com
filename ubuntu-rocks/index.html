@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Ubuntu Rocks</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="ubuntu-rocks ubuntu-rocks_ ubuntu-rocks__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Ubuntu Rocks</h1>
+        <p class="date">2013-07-10</p>
+        <p>UPDATED: Nov 15, 2014 - Ubuntu Gnome 14.04</p>
+
+<p>Ubuntu 14 is fantastic, stable and I've truly been enjoying it. For my friends and family, here is a cheatsheet for getting your system up and running.</p>
+
+<h2 id="get-ubuntu-gnome">Get Ubuntu Gnome</h2>
+
+<p>The default Unity interface sucks..  So be sure to download <a href="http://cdimage.ubuntu.com/ubuntu-gnome/releases/14.04/release/">Ubuntu Gnome 14.04</a>, burn it to a CD/thumb drive and install it side-by-side with windows.</p>
+
+<h2 id="the-basics">The Basics</h2>
+
+<p>Ubuntu Restricted Extra's makes all rich media work, vlc will play anything and gimp is your open source photoshop and some other goodies you'll need.</p>
+
+<pre class="highlight shell"><code>sudo apt-get install ubuntu-restricted-extras vlc gimp alacarte
+</code></pre>
+<p>No need to worry about ssd trim anymore.  We've got these out of the box. :)</p>
+
+<h3 id="ditch-firefox-for-chrome">Ditch Firefox for Chrome</h3>
+
+<p><a href="https://www.google.com/intl/en/chrome/browser/">Google Chrome</a> can be downloaded from google or <a href="http://www.cyberciti.biz/faq/how-to-install-google-chrome-in-ubuntu-linux-12-xx-13-xx/">installed from the command line</a> like so.</p>
+
+<pre class="highlight shell"><code><span class="nb">cd</span> ~/Downloads
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+</code></pre>
+<p>We can't live without our <a href="https://chrome.google.com/webstore/detail/hangouts/nckgahadagoaajjgafhacjanaoiihapd?hl=en">hangouts plugin</a>, an absolute must have!</p>
+
+<p>And we'll need java, since it runs billions of devices</p>
+
+<pre class="highlight shell"><code>sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+</code></pre>
+<p>If you get a message complaining, be sure to run the fix command that the message instructs you to run… then re-run the 'sudo apt-get install oracle-java7-installer'</p>
+
+<h2 id="customize">Customize</h2>
+
+<p>You can only install gnome extensions in firefox.  I highly recomend browsing to these in firefox and installing them:</p>
+
+<ul>
+  <li><a href="https://extensions.gnome.org/extension/616/insensitive-message-tray/">insensitive-message-tray</a></li>
+  <li><a href="https://extensions.gnome.org/extension/584/taskbar/">Taskbar</a></li>
+  <li><a href="https://extensions.gnome.org/extension/162/todo-list/">todo-list</a></li>
+  <li><a href="https://extensions.gnome.org/extension/543/backslide/">wallpaper slideshow</a></li>
+</ul>
+
+<p>If you're like me you get tired of the animation when you bring up the applications menu.  Disable it with this:</p>
+
+<pre class="highlight shell"><code>gsettings <span class="nb">set </span>org.gnome.desktop.interface <span class="nb">enable</span>-animations <span class="nb">false</span>
+</code></pre>
+<p>## Programmer stuff</p>
+
+<p>Install and setup git</p>
+
+<pre class="highlight shell"><code>sudo apt-get install git
+git config --global user.email <span class="s2">"you@example.com"</span>
+git config --global user.name <span class="s2">"Your Name"</span>
+git config --global push.default simple
+</code></pre>
+<p><a href="http://www.sublimetext.com/3">Sublime Text 3</a> is a great all-purpose editor for programmers, also <a href="http://www.webupd8.org/2013/07/sublime-text-3-ubuntu-ppa-now-available.html">installable via the command line</a> with this:</p>
+
+<pre class="highlight shell"><code>sudo add-apt-repository ppa:webupd8team/sublime-text-3
+sudo apt-get update
+sudo apt-get install sublime-text-installer
+</code></pre>
+<p>And make sure you get your <a href="https://sublime.wbond.net/installation">package manager</a></p>
+
+<p>Setup your <a href="https://help.github.com/articles/generating-ssh-keys">ssh-key</a> for source control sites like <a href="https://github.com/">github</a> and <a href="https://bitbucket.org">bitbucket</a></p>
+
+<pre class="highlight shell"><code>ssh-keygen -t rsa -C <span class="s2">"your_email@example.com"</span>
+cat ~/.ssh/id_rsa.pub
+</code></pre>
+<p>then copy-n-paste the output into your account settings on github or bitbucket</p>
+
+<h2 id="ruby-rails--tmux">Ruby, Rails &amp; Tmux</h2>
+
+<p>Don't miss out on my other blog posts that walk you through installing <a href="http://www.beesbot.com/rbenv-ubuntu-bundler/">Ruby &amp; Rails</a> and <a href="http://www.beesbot.com/ubuntu-tmux/">Tmux</a>.</p>
+
+<h2 id="and-thats-all">And That's All</h2>
+
+<p>You've got ubuntu + things it should have come with anyway.</p>
+
+<p>Enjoy!</p>
+
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

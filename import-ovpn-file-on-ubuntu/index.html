@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Import ovpn File on Ubuntu</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="import-ovpn-file-on-ubuntu import-ovpn-file-on-ubuntu_ import-ovpn-file-on-ubuntu__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Import ovpn File on Ubuntu</h1>
+        <p class="date">2013-12-12</p>
+        <p>The ubuntu 14.04 network manager doesn't include openvpn and even after installing that it doesn't include an option to import your ovpn file. Here are the straight forward steps to getting set up.</p>
+
+<h2 id="install-these-packages">Install these packages</h2>
+
+<pre class="highlight shell"><code>sudo apt-get install openvpn network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
+</code></pre>
+
+<h2 id="run-this-command-in-a-terminal-to-load-the-old-interface">Run this command in a terminal to load the old interface</h2>
+
+<pre class="highlight shell"><code>nm-connection-editor
+</code></pre>
+<p>Then select vpn -&gt; select import -&gt; pick .ovpn file</p>
+
+<h2 id="oh-no-vpn-is-blocking-regular-internet">Oh No: Vpn is blocking regular internet</h2>
+
+<p>By default this will block non-vpn networks (e.g. the world wide web); There's an option under "IPv4 Settings" - click the "Routes" button and then check the box next to "Use this connection only for resources on its network" and that will get you back online with the rest of the world.</p>
+
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

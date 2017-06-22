@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Nao Colored Object Detection</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="nao-colored-object-detection nao-colored-object-detection_ nao-colored-object-detection__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Nao Colored Object Detection</h1>
+        <p class="date">2013-01-04</p>
+        <p>The <a href="http://www.ai.iit.tsukuba.ac.jp/~vincent/cod.html">Colored Object Detection module</a> was developed by Vincent Berenz and can bee added to NAO. The module is described as, "allowing detection of blue, red, green and yellow objects. Adding more colors is also possible."</p>
+
+<h2 id="install-on-nao">Install on Nao</h2>
+
+<p>Word of warning… this has only been tested on NAO Next Gen. If you have a Nao Next Gen, then download the module and follow these instructions.</p>
+
+<p>Use an ftp program like filezilla to connect to nao.local:</p>
+
+<ul>
+  <li>Create a folder in the root called 'mymodules'</li>
+  <li>Upload the file 'libcolored_object_detection.so' into that folder</li>
+  <li>the module comes with an example 'autoload.ini' that you can upload to /naoqi/preferences
+** if you have never edited Nao's autoload.ini, you can overwrite the autoload.ini on the robot with the file included in the module; otherwise of course merge in the configuration manually.</li>
+</ul>
+
+<h2 id="confirm-it-worked">Confirm it Worked</h2>
+
+<p>To confirm the module was installed properly</p>
+
+<ul>
+  <li>Browse to your Nao (http://nao.local).</li>
+  <li>Go to the "advanced" menu and then to "naoqi".</li>
+  <li>Select the "restart" button to restart naoqi on the robot.</li>
+  <li>After restart the module should show up in the list as "ColoredObjectDetection"</li>
+</ul>
+
+<h2 id="using-the-module-in-choregraphe">Using the Module in Choregraphe</h2>
+<p>If you create a script box with this code.</p>
+
+<pre class="highlight python"><code><span class="c"># get the module</span>
+<span class="n">codProxy</span> <span class="o">=</span> <span class="n">ALProxy</span><span class="p">(</span><span class="s">"ColoredObjectDetection"</span><span class="p">)</span>
+
+<span class="c"># subscribe ALMemory Event </span>
+<span class="n">codProxy</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="s">"ColoredObjectDetection"</span><span class="p">)</span>
+</code></pre>
+<p>You can then right-click on the margin in choregraphe and "Add Input from ALMemory", which will be stimulated when nao recognizes an object. The list returned by the module consist of:</p>
+
+<pre class="highlight python"><code><span class="c"># color</span>
+<span class="n">color</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c"># more than -1 if detected</span>
+<span class="n">NbPixels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> 
+
+<span class="c"># position</span>
+<span class="n">Yaw</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">Pitch</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+
+</code></pre>
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

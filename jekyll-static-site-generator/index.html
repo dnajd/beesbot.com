@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Jekyll the Amazing Static Site Generator</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="jekyll-static-site-generator jekyll-static-site-generator_ jekyll-static-site-generator__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Jekyll the Amazing Static Site Generator</h1>
+        <p class="date">2013-09-25</p>
+        <p>You're used to thinking cms or wordpress for building websites that require templating or ease of editing; but in my experience 90% of the time it ends up feeling like your "killing an ant with a sledgehammer".  It's not every day you discover a vastly more simple solution to a very common problem, but static site generators + markdown are it.  I'm convinced.</p>
+
+<h2 id="build-websites">Build Websites</h2>
+
+<p><a href="http://jekyllrb.com/">Jekyll</a> is a static site generator that helps developers build websites and solves problems including:</p>
+
+<ul>
+  <li>templates &amp; partials - easy to maintain and <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY</a></li>
+  <li><a href="http://www.mattcutts.com/blog/seo-advice-url-canonicalization/">canonical urls</a> - seo friendly</li>
+  <li>asset optimiziation - blazing fast</li>
+  <li>markdown - really easy to edit</li>
+  <li>free hosting - when combined with github pages</li>
+</ul>
+
+<h3 id="and-whats-more">And What's More</h3>
+<p>It does this without a hundred thousand pounds of code, without more expensive hosting, without needing tons of security patches and without a database.  In my mind it's a whole new way of building website and it's refreshing.</p>
+
+<h2 id="one-catch">One Catch</h2>
+<p>You have to install ruby and the gem. But it's really not that big of a deal…</p>
+
+<h3 id="install-ruby">1. Install Ruby</h3>
+
+<p>You can use <a href="/ubuntu/rbenv/ruby/bundler/2013/02/10/rbenv-ubuntu-bundler.html">my preferred approach</a> or find instructions on google quite easily</p>
+
+<h3 id="install-the-jekyll-gem">2. Install the jekyll gem</h3>
+
+<pre class="highlight shell"><code>gem install jekyll
+</code></pre>
+
+<h3 id="add-jekyll-to-your-path">3. Add Jekyll to your path</h3>
+<p>On my machine I found Jekyll in the following folder and added it to my .bashrc as follows</p>
+
+<pre class="highlight shell"><code><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PATH</span><span class="s2">:</span><span class="nv">$HOME</span><span class="s2">//.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/jekyll-1.1.2/bin"</span>
+</code></pre>
+<p>Then you can create a jekyll site with the following:
+jekyll new my-site</p>
+
+<p>Try it out… it's fantastic.</p>
+
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

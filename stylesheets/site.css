@@ -1,0 +1,718 @@
+/*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
+/**
+ * 1. Change the default font family in all browsers (opinionated).
+ * 2. Prevent adjustments of font size after orientation changes in IE and iOS.
+ */
+/* line 8, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+html {
+  font-family: sans-serif;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/**
+ * Remove the margin in all browsers (opinionated).
+ */
+/* line 18, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+body {
+  margin: 0; }
+
+/* HTML5 display definitions
+   ========================================================================== */
+/**
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ * 2. Add the correct display in IE.
+ */
+/* line 31, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+  /* 1 */
+  display: block; }
+
+/**
+ * Add the correct display in IE 9-.
+ */
+/* line 50, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; }
+
+/**
+ * Add the correct display in iOS 4-7.
+ */
+/* line 61, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+/* line 70, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+progress {
+  vertical-align: baseline; }
+
+/**
+ * Add the correct display in IE 10-.
+ * 1. Add the correct display in IE.
+ */
+/* line 79, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+template,
+[hidden] {
+  display: none; }
+
+/* Links
+   ========================================================================== */
+/**
+ * 1. Remove the gray background on active links in IE 10.
+ * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+ */
+/* line 92, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+a {
+  background-color: transparent;
+  /* 1 */
+  -webkit-text-decoration-skip: objects;
+  /* 2 */ }
+
+/**
+ * Remove the outline on focused links when they are also active or hovered
+ * in all browsers (opinionated).
+ */
+/* line 102, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+a:active,
+a:hover {
+  outline-width: 0; }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * 1. Remove the bottom border in Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+/* line 115, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */ }
+
+/**
+ * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ */
+/* line 125, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+b,
+strong {
+  font-weight: inherit; }
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+/* line 134, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+b,
+strong {
+  font-weight: bolder; }
+
+/**
+ * Add the correct font style in Android 4.3-.
+ */
+/* line 143, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+dfn {
+  font-style: italic; }
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+/* line 152, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/**
+ * Add the correct background and color in IE 9-.
+ */
+/* line 161, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+mark {
+  background-color: #ff0;
+  color: #000; }
+
+/**
+ * Add the correct font size in all browsers.
+ */
+/* line 170, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+/* line 179, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+/* line 187, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+sub {
+  bottom: -0.25em; }
+
+/* line 191, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+sup {
+  top: -0.5em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10-.
+ */
+/* line 202, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+img {
+  border-style: none; }
+
+/**
+ * Hide the overflow in IE.
+ */
+/* line 210, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+/* line 222, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */ }
+
+/**
+ * Add the correct margin in IE 8.
+ */
+/* line 234, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+figure {
+  margin: 1em 40px; }
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+/* line 243, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */ }
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change font properties to `inherit` in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
+ */
+/* line 257, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  /* 1 */
+  margin: 0;
+  /* 2 */ }
+
+/**
+ * Restore the font weight unset by the previous rule.
+ */
+/* line 269, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+optgroup {
+  font-weight: bold; }
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+/* line 278, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+button,
+input {
+  /* 1 */
+  overflow: visible; }
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+/* line 288, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+button,
+select {
+  /* 1 */
+  text-transform: none; }
+
+/**
+ * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+ *    controls in Android 4.
+ * 2. Correct the inability to style clickable types in iOS and Safari.
+ */
+/* line 299, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */ }
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+/* line 310, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0; }
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+/* line 322, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText; }
+
+/**
+ * Change the border, margin, and padding in all browsers (opinionated).
+ */
+/* line 333, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+/* line 346, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */ }
+
+/**
+ * Remove the default vertical scrollbar in IE.
+ */
+/* line 359, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+textarea {
+  overflow: auto; }
+
+/**
+ * 1. Add the correct box sizing in IE 10-.
+ * 2. Remove the padding in IE 10-.
+ */
+/* line 368, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+/* line 378, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+/* line 388, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */ }
+
+/**
+ * Remove the inner padding and cancel buttons in Chrome and Safari on OS X.
+ */
+/* line 397, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * Correct the text style of placeholders in Chrome, Edge, and Safari.
+ */
+/* line 406, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+::-webkit-input-placeholder {
+  color: inherit;
+  opacity: 0.54; }
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+/* line 416, /home/dnajd/development/beesbot/beesbot-com/source/stylesheets/_normalize.scss */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */ }
+
+/* typography */
+/* line 6, site.css.scss */
+h1, h2, h3, h4 {
+  font-family: Georgia, Times, "Times New Roman", serif; }
+
+/* line 10, site.css.scss */
+body, p, article {
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 2em; }
+
+/* links */
+/* line 17, site.css.scss */
+a:link {
+  color: #BB5111;
+  text-decoration: none; }
+
+/* line 18, site.css.scss */
+a:active {
+  color: #BB5111;
+  text-decoration: none; }
+
+/* line 19, site.css.scss */
+a:visited {
+  color: #BB5111;
+  text-decoration: none; }
+
+/* line 20, site.css.scss */
+a:hover {
+  color: #BB5111;
+  text-decoration: underline; }
+
+/* base styles */
+/* line 23, site.css.scss */
+.center {
+  margin-left: auto;
+  margin-right: auto; }
+
+/* line 28, site.css.scss */
+.container {
+  max-width: 1000px;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto; }
+
+/* line 37, site.css.scss */
+header h1 {
+  text-align: center;
+  font-size: 5em; }
+
+/* line 43, site.css.scss */
+blockquote {
+  font-size: 2em; }
+
+/* line 47, site.css.scss */
+.big-bee {
+  display: block;
+  margin-bottom: 4em; }
+
+/* blog */
+/* line 55, site.css.scss */
+article.post h1 {
+  font-size: 3em;
+  line-height: 1em;
+  margin: 0; }
+/* line 60, site.css.scss */
+article.post .date {
+  color: #BB5111;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin: 0; }
+
+/* line 68, site.css.scss */
+.blog-list article {
+  margin-bottom: 4em; }
+/* line 69, site.css.scss */
+.blog-list h2 {
+  font-size: 3em;
+  margin-bottom: .2em;
+  line-height: 1em; }
+/* line 74, site.css.scss */
+.blog-list p {
+  margin-top: 0;
+  font-size: 2em;
+  line-height: 1em; }
+/* line 79, site.css.scss */
+.blog-list .date {
+  font-size: 1.5em; }
+
+/* code highlighting */
+/* line 85, site.css.scss */
+.highlight table td {
+  padding: 5px; }
+
+/* line 86, site.css.scss */
+.highlight table pre {
+  margin: 0; }
+
+/* line 87, site.css.scss */
+.highlight {
+  color: #faf6e4;
+  background-color: #122b3b; }
+
+/* line 91, site.css.scss */
+.highlight .gl {
+  color: #dee5e7;
+  background-color: #4e5d62; }
+
+/* line 95, site.css.scss */
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #6c8b9f;
+  font-style: italic; }
+
+/* line 99, site.css.scss */
+.highlight .cp {
+  color: #b2fd6d;
+  font-weight: bold;
+  font-style: italic; }
+
+/* line 104, site.css.scss */
+.highlight .err {
+  color: #fefeec;
+  background-color: #cc0000; }
+
+/* line 108, site.css.scss */
+.highlight .gr {
+  color: #fefeec;
+  background-color: #cc0000; }
+
+/* line 112, site.css.scss */
+.highlight .k, .highlight .kd, .highlight .kv {
+  color: #f6dd62;
+  font-weight: bold; }
+
+/* line 116, site.css.scss */
+.highlight .o, .highlight .ow {
+  color: #4df4ff; }
+
+/* line 119, site.css.scss */
+.highlight .p, .highlight .pi {
+  color: #4df4ff; }
+
+/* line 122, site.css.scss */
+.highlight .gd {
+  color: #cc0000; }
+
+/* line 125, site.css.scss */
+.highlight .gi {
+  color: #b2fd6d; }
+
+/* line 128, site.css.scss */
+.highlight .ge {
+  font-style: italic; }
+
+/* line 131, site.css.scss */
+.highlight .gs {
+  font-weight: bold; }
+
+/* line 134, site.css.scss */
+.highlight .gt {
+  color: #dee5e7;
+  background-color: #4e5d62; }
+
+/* line 138, site.css.scss */
+.highlight .kc {
+  color: #f696db;
+  font-weight: bold; }
+
+/* line 142, site.css.scss */
+.highlight .kn {
+  color: #ffb000;
+  font-weight: bold; }
+
+/* line 146, site.css.scss */
+.highlight .kp {
+  color: #ffb000;
+  font-weight: bold; }
+
+/* line 150, site.css.scss */
+.highlight .kr {
+  color: #ffb000;
+  font-weight: bold; }
+
+/* line 154, site.css.scss */
+.highlight .gh {
+  color: #ffb000;
+  font-weight: bold; }
+
+/* line 158, site.css.scss */
+.highlight .gu {
+  color: #ffb000;
+  font-weight: bold; }
+
+/* line 162, site.css.scss */
+.highlight .kt {
+  color: #b2fd6d;
+  font-weight: bold; }
+
+/* line 166, site.css.scss */
+.highlight .no {
+  color: #b2fd6d;
+  font-weight: bold; }
+
+/* line 170, site.css.scss */
+.highlight .nc {
+  color: #b2fd6d;
+  font-weight: bold; }
+
+/* line 174, site.css.scss */
+.highlight .nd {
+  color: #b2fd6d;
+  font-weight: bold; }
+
+/* line 178, site.css.scss */
+.highlight .nn {
+  color: #b2fd6d;
+  font-weight: bold; }
+
+/* line 182, site.css.scss */
+.highlight .bp {
+  color: #b2fd6d;
+  font-weight: bold; }
+
+/* line 186, site.css.scss */
+.highlight .ne {
+  color: #b2fd6d;
+  font-weight: bold; }
+
+/* line 190, site.css.scss */
+.highlight .nl {
+  color: #ffb000;
+  font-weight: bold; }
+
+/* line 194, site.css.scss */
+.highlight .nt {
+  color: #ffb000;
+  font-weight: bold; }
+
+/* line 198, site.css.scss */
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #f696db;
+  font-weight: bold; }
+
+/* line 202, site.css.scss */
+.highlight .ld {
+  color: #f696db;
+  font-weight: bold; }
+
+/* line 206, site.css.scss */
+.highlight .ss {
+  color: #f696db;
+  font-weight: bold; }
+
+/* line 210, site.css.scss */
+.highlight .s, .highlight .sb, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .s1 {
+  color: #fff0a6;
+  font-weight: bold; }
+
+/* line 214, site.css.scss */
+.highlight .se {
+  color: #4df4ff;
+  font-weight: bold; }
+
+/* line 218, site.css.scss */
+.highlight .sc {
+  color: #4df4ff;
+  font-weight: bold; }
+
+/* line 222, site.css.scss */
+.highlight .si {
+  color: #4df4ff;
+  font-weight: bold; }
+
+/* line 226, site.css.scss */
+.highlight .nb {
+  font-weight: bold; }
+
+/* line 229, site.css.scss */
+.highlight .ni {
+  color: #999999;
+  font-weight: bold; }
+
+/* line 233, site.css.scss */
+.highlight .w {
+  color: #BBBBBB; }
+
+/* line 236, site.css.scss */
+.highlight .nf {
+  color: #a8e1fe; }
+
+/* line 239, site.css.scss */
+.highlight .py {
+  color: #a8e1fe; }
+
+/* line 242, site.css.scss */
+.highlight .na {
+  color: #a8e1fe; }
+
+/* line 245, site.css.scss */
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi {
+  color: #a8e1fe;
+  font-weight: bold; }
+
+/* line 249, site.css.scss */
+.highlight {
+  padding: 1em; }
+
+/* line 252, site.css.scss */
+pre {
+  overflow: auto;
+  overflow-y: hidden; }

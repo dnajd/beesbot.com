@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Active Record Mysql Master Slave</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="activerecord-master-slave-mysql activerecord-master-slave-mysql_index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Active Record Mysql Master Slave</h1>
+        <p class="date">2016-02-12</p>
+        <p>I recently had to connect to a mysql cluster configured with a single master and multiple slaves.  This is a common configuration for site that have a large volumn of traffic.</p>
+
+<h1 id="connecting">Connecting</h1>
+
+<p>First off you'll want to support connecting to either the master or slave through the use of the <a href="https://rubygems.org/gems/seamless_database_pool">seamless database pool</a> gem.  Once added to your Gemfile you can read the documentation to setup your <a href="http://www.rubydoc.info/gems/seamless_database_pool/1.0.18#Configuration">configuration</a> a bit.</p>
+
+<p>By default, the master connection will be used for everything.  The documentation will explain how to connect to slaves, but as usual I want to talk about using this with 3rd party databases.</p>
+
+<h1 id="multiple-databases">Multiple Databases</h1>
+
+<p>If you are connecting to <a href="rails-multiple-databases">multiple database</a> as I've discussed in the past, these base class methods can be very helpful.</p>
+
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'seamless_database_pool'</span>
+
+<span class="k">class</span> <span class="nc">Base</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+
+  <span class="c1"># abstract</span>
+  <span class="nb">self</span><span class="p">.</span><span class="nf">abstract_class</span> <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="c1">#</span>
+  <span class="c1"># read only</span>
+  <span class="c1">#</span>
+  <span class="c1"># leveraging seemless data pool, this ensures all connections requested are for slave</span>
+  <span class="c1"># instances instead of master</span>
+  <span class="c1">#</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">read_only</span>
+    <span class="no">SeamlessDatabasePool</span><span class="p">.</span><span class="nf">use_persistent_read_connection</span> <span class="k">do</span>              <span class="c1"># read only</span>
+      <span class="no">Base</span><span class="p">.</span><span class="nf">cache</span> <span class="k">do</span>
+        <span class="k">return</span> <span class="k">yield</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="c1">#</span>
+  <span class="c1"># no pool</span>
+  <span class="c1">#</span>
+  <span class="c1"># code will leverage active record pool &amp; execute statements against the database</span>
+  <span class="c1"># once complete the connection will be disassociated with the pool and closed</span>
+  <span class="c1"># if you consistently do this, no persistent connections will remain</span>
+  <span class="c1">#</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">no_pool</span><span class="p">()</span>
+
+    <span class="k">begin</span>
+      <span class="no">Base</span><span class="p">.</span><span class="nf">cache</span> <span class="k">do</span>
+        <span class="k">return</span> <span class="k">yield</span>
+      <span class="k">end</span>
+    <span class="k">ensure</span>
+      <span class="n">conn_pool</span> <span class="o">=</span> <span class="no">Base</span><span class="p">.</span><span class="nf">connection_pool</span>
+      <span class="n">conn</span> <span class="o">=</span> <span class="n">conn_pool</span><span class="p">.</span><span class="nf">connection</span>
+      <span class="no">Base</span><span class="p">.</span><span class="nf">connection_pool</span><span class="p">.</span><span class="nf">release_connection</span>  <span class="c1"># supported by activerecord 3 &amp; 4</span>
+      <span class="n">conn</span><span class="p">.</span><span class="nf">disconnect!</span>   <span class="c1"># no persistent connections</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="c1">#</span>
+  <span class="c1"># cache</span>
+  <span class="c1">#</span>
+  <span class="c1"># third party connections don't cache by default. this is wrapped up into read only and no pool</span>
+  <span class="c1"># to give you caching by default</span>
+  <span class="c1">#</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">cache</span>
+    <span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">cache</span> <span class="p">{</span> <span class="k">yield</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+</code></pre>
+
+<h2 id="read-only">Read Only</h2>
+
+<p>The read only helper makes it simple to connect to slave database</p>
+
+<pre class="highlight ruby"><code><span class="n">result</span> <span class="o">=</span> <span class="no">Base</span><span class="p">.</span><span class="nf">read_only</span> <span class="k">do</span>
+  <span class="no">Model</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">something: </span><span class="kp">true</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+
+<h2 id="no-pool">No Pool</h2>
+
+<p>In my instance the Ops team had the slaves configured behind a load balancer and they did not want persistent pooled connections.  The helper method above makes this simple to do</p>
+
+<pre class="highlight ruby"><code><span class="n">result</span> <span class="o">=</span> <span class="no">Base</span><span class="p">.</span><span class="nf">no_pool</span> <span class="k">do</span>
+  <span class="no">Model</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">something: </span><span class="kp">true</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+
+<h2 id="caching-queries">Caching Queries</h2>
+
+<p>Active Record caches queries by default in rails, but in third party databases you have to do it explicitly.  The two methods above do it by default, but if you are just querying master with pooling, you do it like this</p>
+
+<pre class="highlight ruby"><code><span class="n">result</span> <span class="o">=</span> <span class="no">Base</span><span class="p">.</span><span class="nf">cache</span> <span class="k">do</span>
+  <span class="no">Model</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">something: </span><span class="kp">true</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>And you could just wrap that around all your queries or each one individually.</p>
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

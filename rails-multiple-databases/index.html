@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Rails Multiple Databases</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="rails-multiple-databases rails-multiple-databases_ rails-multiple-databases__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Rails Multiple Databases</h1>
+        <p class="date">2014-10-20</p>
+        <p>There are a few tricks to integrating a rails app with a multiple database, especially if you involve a gem.  Here is a summary of the situation I was in.</p>
+
+<ul>
+  <li>Building a Rails Application that had it's own database</li>
+  <li>But also required access to a (MSSQL) financial system's database; to get customer data</li>
+  <li>I used ActiveRecord and additionally packaged the code in a gem for reuse in other applications</li>
+</ul>
+
+<h1 id="the-gem">The Gem</h1>
+
+<p>I built a standard gem and included an abstract base class for establishing a connection to the financial system.  All active record models will extend this base class and therefore share the connection details.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># /lib/financial/system/financial_system_active_record_base.rb</span>
+<span class="k">module</span> <span class="nn">Financial::System</span>
+  <span class="k">class</span> <span class="nc">FinancialSystemActiveRecordBase</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+    <span class="nb">self</span><span class="p">.</span><span class="nf">abstract_class</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>In the Gem Module I created a method to configure the database connection.  Note the workaround I had to use because of this <a href="http://stackoverflow.com/questions/7390623/activerecord-3-1-0-multiple-databases">lousy bug</a></p>
+
+<pre class="highlight ruby"><code><span class="c1"># /lib/financial/system.rb</span>
+<span class="k">module</span> <span class="nn">Financial</span>
+  <span class="k">module</span> <span class="nn">System</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">configure</span><span class="p">(</span><span class="n">yml_config</span><span class="p">)</span>
+
+      <span class="c1"># first gotcha</span>
+      <span class="k">if</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connected?</span>
+        <span class="no">FinancialSystemActiveRecordBase</span><span class="p">.</span><span class="nf">establish_connection</span><span class="p">(</span><span class="n">yml_config</span><span class="p">)</span>
+      <span class="k">else</span>
+        <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">establish_connection</span><span class="p">(</span><span class="n">yml_config</span><span class="p">)</span>
+      <span class="k">end</span>
+
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p># The Rails App</p>
+
+<p>The Rails App has the usual stock stuff including a database.yml for it's own database.</p>
+
+<h2 id="initialize-the-gem">Initialize the Gem</h2>
+
+<p>I created an initializer to configure the Financial Systems gem.  The previous workaround (in the gem) causes problems with automated tests in the Rails app. I explain below, but here is how I got through it.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># /config/initializer/financial_system.rb</span>
+<span class="k">module</span> <span class="nn">RailsAppName</span>
+  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Application</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">after_initialize</span> <span class="k">do</span>
+      <span class="n">yml_config</span> <span class="o">=</span> <span class="no">YAML</span><span class="p">.</span><span class="nf">load_file</span><span class="p">(</span><span class="no">Rails</span><span class="p">.</span><span class="nf">root</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'config/financial_system_config.yml'</span><span class="p">))[</span><span class="no">Rails</span><span class="p">.</span><span class="nf">env</span><span class="p">]</span>
+      <span class="no">Financial</span><span class="o">::</span><span class="no">System</span><span class="p">.</span><span class="nf">configure</span><span class="p">(</span><span class="n">yml_config</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>Replace RailsAppName with whatever your module is called in config/application.rb.  I had to run this code 'after_initialize' so automated tests would NOT point the Rails App's models at the Financial Systems database.  But rather only configure the Gem's models.  Before this fix my tests would throw an error saying "cannot find the table <em>__</em>" and no it was not due to any lack of running 'rake db:test:prepare'. :)</p>
+
+<h1 id="factory-girl">Factory Girl</h1>
+
+<p>Eventually I used this gem in more than one rails app and needed the Financial Systems factory girl settings in both.  So I created a class in the Gem to configure the factories</p>
+
+<pre class="highlight ruby"><code><span class="c1"># in the gem</span>
+<span class="k">module</span> <span class="nn">Financial::System</span>
+  <span class="k">class</span> <span class="nc">Factories</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">define</span><span class="p">(</span><span class="n">factoryGirl</span><span class="p">)</span>
+      <span class="n">factoryGirl</span><span class="p">.</span><span class="nf">define</span> <span class="k">do</span>
+        <span class="n">factory</span> <span class="ss">:contact</span><span class="p">,</span> <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="no">Financial</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Contact</span> <span class="k">do</span>
+          <span class="n">sequence</span> <span class="ss">:contactid</span>
+          <span class="n">contactname</span> <span class="s1">'Some Name'</span>
+          <span class="n">phoneno1</span> <span class="s1">'1112223333'</span>
+          <span class="n">phoneno2</span> <span class="s1">''</span>
+          <span class="n">emailaddress</span> <span class="s1">'name@email.com'</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>Things to note</p>
+
+<ul>
+  <li>I passed in the module FactoryGirl</li>
+  <li>I had to associate the factory with the Gems Active Record Model</li>
+</ul>
+
+<p>I used the factories in the rails app; Place the following code at the very bottom regardless of if you are using spork / guard, and you'll be good to go.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># /test/test_helper.rb</span>
+<span class="no">Financial</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Factories</span><span class="p">.</span><span class="nf">define</span><span class="p">(</span><span class="no">FactoryGirl</span><span class="p">)</span>
+</code></pre>
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>

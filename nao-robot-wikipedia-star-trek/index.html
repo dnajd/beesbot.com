@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Nao Robot Tells Encounter at Farpoint</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <script src="/javascripts/all.js"></script>
+
+    <style>
+    </style>
+  </head>
+
+  <body class="nao-robot-wikipedia-star-trek nao-robot-wikipedia-star-trek_ nao-robot-wikipedia-star-trek__index">
+    <header>
+      <div class="container">
+      <a href="/">
+        <div class="container">
+          <h1 class="site-title">Beesbot</h1>
+          <hr style="margin-bottom: 3em;">
+        </div>
+      </a>
+    </header>
+
+    <main role="main">
+
+      <article class="container post">
+        <h1>Nao Robot Tells Encounter at Farpoint</h1>
+        <p class="date">2015-01-06</p>
+        <p>I spent a bit of time exploring the Nao Robot's new <a href="http://doc.aldebaran.com/2-1/getting_started/helloworld_choregraphe_dialog.html">dialog</a> capabilities.  Once I knew my way around I converted a wikipedia article on the Star Trek episode <a href="http://en.wikipedia.org/wiki/Encounter_at_Farpoint">Encounter at Farpoint</a> into a sort of choose your own adventure.</p>
+
+<p>It only took a few minutes and my son enjoyed hearing the story from Nao and responding to inquiries to affect the story.</p>
+
+<pre class="highlight shell"><code>topic: ~startrek <span class="o">()</span> language: enu
+
+concept: <span class="o">(</span>attack<span class="o">)</span> <span class="o">[</span>phasers torpedoes attack fight <span class="nb">kill </span>hit punch fire kick zap]
+concept: <span class="o">(</span>explore<span class="o">)</span> <span class="o">[</span>talk ask question inquire explore search find study why]
+concept: <span class="o">(</span>retreat<span class="o">)</span> <span class="o">[</span>run escape warp beam leave evacuate]
+
+u: <span class="o">(</span><span class="s2">"begin farpoint"</span><span class="o">)</span> %chap1 It is the year 23 64 and you are the captain of Starfleet<span class="s1">'s USS Enterprise NCC-1 7 0 1 D and you are assigned to travel to Deneb 4. Shall we set course?
+    u1: ("yes") Course is set, engaging at warp 5. ^goto(chap2)
+    u1: ("no") Starfeet warns you that if you do not perform your mission you will lose your ship. ^goto(chap2)
+
+u: ("chapter 2") %chap2 Your mission is to open relations with the simple Bandi people who have tapped a immense energy source and used it to construct Farpoint Station. An omnipotent being appears and identifies himself as the Q. He demands you head home.
+    u1: (~attack) your first officer draws his phaser and the Q freezes him. ^goto(chap3)
+    u1: (~explore) you ask Q what he wants? ^goto(chap3)
+    u1: (~retreat) you try to outrun the Q at warp 9.5 but it does not work ^goto(chap3)
+
+u: ("chapter 3") %chap3 The Q warns you that your mission is destined to fail and then leaves. The Enterprise arrives at Deneb 4 and the crew is suspicious of how certain items they desire appear out of nowhere.
+ 	u1: (~attack) attacking a nonviolent race is against the prime directive. ^goto(chap4)
+    u1: (~explore) ^goto(chap4)
+    u1: (~retreat) You are about to beam of the planet when ^goto(chap4)
+
+u: ("chapter 4") %chap4 Deanna Troi senses a being with powerful yet despairing emotions nearby but Zorn is unable to offer an explanation.
+    u1: (~attack) attacking a nonviolent race is against the prime directive. ^goto(chap5)
+    u1: (~explore) As the Enterprise crew continues its explorations, when ^goto(chap5)
+    u1: (~retreat) You you beam off the planet ^goto(chap4)
+
+u: ("chapter 5") %chap5 a large unknown alien craft enters orbit and begins to fire upon an older Bandi settlement. you order the crew to fire phasers at the craft, but the Q appears to remind you of humanity'</span>s violent tendencies.
+    u1: <span class="o">(</span>~explore<span class="o">)</span> You ^goto<span class="o">(</span>chap6<span class="o">)</span>
+    u1: <span class="o">(</span>~attack<span class="o">)</span> You consider attacking anyway, but decide instead to ^goto<span class="o">(</span>chap6<span class="o">)</span>
+    u1: <span class="o">(</span>~retreat<span class="o">)</span> You consider firing up the warp drives and leaving this sad scene, but your star fleet training reminds you that you must <span class="nb">complete </span>your mission. So you ^goto<span class="o">(</span>chap6<span class="o">)</span>
+
+u: <span class="o">(</span><span class="s2">"chapter 6"</span><span class="o">)</span> %chap6 order an away team to check out the alien craft. The away team discovers the craft has passages similar to those under Farpoint. Their actions cause the alien craft to transform into a jellyfish-like space creature. It occurs to you that Zorn exploited this creatures ability to synthesize matter and used it to create Farpoint Station.
+    u1: <span class="o">(</span>~attack<span class="o">)</span> ^goto<span class="o">(</span>chap7<span class="o">)</span>
+    u1: <span class="o">(</span>~explore<span class="o">)</span> You consider exploring the situtation deeper but <span class="k">then</span> ^goto<span class="o">(</span>chap7<span class="o">)</span>
+    u1: <span class="o">(</span>~retreat<span class="o">)</span> You consider making a run <span class="k">for </span>it but instead ^goto<span class="o">(</span>chap7<span class="o">)</span>
+
+u: <span class="o">(</span><span class="s2">"chapter 7"</span><span class="o">)</span> %chap7 You order the Enterprise to fire a vivifying energy beam onto Farpoint Station after it is evacuated. The beam allows the land-bound creature to transform back into its jellyfish-like form, and it flies into orbit to join its fellow being. As the crew watches the reunion of the alien creatures, Q reluctantly tells you that they have succeeded <span class="k">in </span>their <span class="nb">test</span>, but hints that he will be back
+</code></pre>
+
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/donnajd" data-format="inline" data-related="false"></script>
+      </article>
+      <div class="container">
+        <a href="/">back</a>
+      </div>
+    </main>
+  </body>
+</html>
